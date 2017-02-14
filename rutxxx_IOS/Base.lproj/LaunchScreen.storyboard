@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="eVV-zL-Lh3">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="LTs-2Y-tVf">
+            <objects>
+                <viewController id="eVV-zL-Lh3" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CZY-NF-eZi"/>
+                        <viewControllerLayoutGuide type="bottom" id="sap-7t-MXB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="a7F-Mh-Qcw">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nj-6H-L3d">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-LC-4jT">
+                                <rect key="frame" x="279.5" y="482.5" width="209" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="eVe-Cy-WyA"/>
+                                    <constraint firstAttribute="width" constant="209" id="qbk-Uq-4Yd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.01129572478" green="0.49879354970000001" blue="0.99877062179999998" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerX" secondItem="a7F-Mh-Qcw" secondAttribute="centerX" id="2Mb-EW-qJY"/>
+                            <constraint firstAttribute="trailing" secondItem="5nj-6H-L3d" secondAttribute="trailing" id="I4x-Qn-KeY"/>
+                            <constraint firstItem="5nj-6H-L3d" firstAttribute="top" secondItem="a7F-Mh-Qcw" secondAttribute="topMargin" id="InX-tn-A89"/>
+                            <constraint firstItem="sap-7t-MXB" firstAttribute="top" secondItem="5nj-6H-L3d" secondAttribute="bottom" id="bEx-A2-p9k"/>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerY" secondItem="a7F-Mh-Qcw" secondAttribute="centerY" id="iaX-fW-5H7"/>
+                            <constraint firstItem="5nj-6H-L3d" firstAttribute="leading" secondItem="a7F-Mh-Qcw" secondAttribute="leading" id="sqt-xO-KGt"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nfg-ce-eeJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97.101449275362327" y="69.293478260869577"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="196" height="148"/>
+    </resources>
+</document>
