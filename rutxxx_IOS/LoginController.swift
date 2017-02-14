@@ -10,17 +10,19 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class LoginController: UIViewController, UITextFieldDelegate {
+
+protocol LoginControllerDelegate: class {
+    func finishLoggingIn()
+}
+
+class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDelegate {
     
    
     
    func displayAlert(title:String, message: String){
-        
         let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alertcontroller, animated: true, completion: nil)
-        
     }
    
     
@@ -39,33 +41,26 @@ class LoginController: UIViewController, UITextFieldDelegate {
 
     
     @IBAction func loginButton(_ sender: Any) {
-        let button = UIButton(type: .system)
-    
         if userName.text == "" || password.text == "" {
-            
             displayAlert(title: "Error", message: "Username and password are required")
-            
         } else {
-            
             performLogin(userName: userName.text!, password: password.text!)
-            
             UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
             UserDefaults.standard.setValue(password.text, forKey: "saved_password")
-            
-            
-      
-            
         }
-        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-       
+        handleLogin()
+        
     }
     
+    
+    weak var delegate: LoginControllerDelegate?
     func handleLogin() {
-        print("123")
+       // finishLoggingIn()
+        delegate?.finishLoggingIn()
     }
     
     override func viewDidLoad() {
-        
+        LoginController.Log
         isboxclicked = false
 
         
@@ -137,6 +132,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     func finishLoggingIn() {
         print("Finish logging in")
+        dismiss(animated: true, completion: nil)
     }
     
 
