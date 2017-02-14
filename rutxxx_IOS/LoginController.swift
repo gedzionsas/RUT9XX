@@ -60,7 +60,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDel
     }
     
     override func viewDidLoad() {
-        LoginController.Log
+
         isboxclicked = false
 
         
