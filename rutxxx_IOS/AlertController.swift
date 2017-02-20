@@ -13,10 +13,32 @@ class AlertController: NSObject {
     
     class func showErrorWith(title:String? = nil, message:String? = nil, controller: UIViewController , complition:(() -> ())?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            
+            
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+                        controller.present(viewController, animated:true)
+                        
+                        
+        }))
+
         
-        controller.present(alert, animated: true, completion: nil)
-    } 
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        alertWindow.makeKeyAndVisible()
+        alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
+//                                      handler: { (action) in
+//            
+//            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+//            controller.present(viewController, animated:true)
+//            
+//            
+//        }))
+//        controller.present(alert, animated: true, completion: nil)
+    }
+    
 }
-
-

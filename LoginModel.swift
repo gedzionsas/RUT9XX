@@ -15,7 +15,7 @@ public class LoginModel: UIViewController {
     
     var loginToken = ""
     
-    internal func JsonResult (param1: String, param2: String, param3: UIViewController){
+    internal func JsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping ()->()){
     
     Json().login(userName: param1, password: param2) { (json, error) in
         print(json)
@@ -61,6 +61,8 @@ public class LoginModel: UIViewController {
             
             UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
                    print(self.loginToken)
+            complete()
+            
             
         }else {
             if (self.loginToken.contains("Access denied")) {
@@ -69,6 +71,11 @@ public class LoginModel: UIViewController {
             } else if (self.loginToken.contains("Failed")) {
                 self.loginToken = "Connection timeout"
             } else if (self.loginToken.contains("[6]")) {
+                DispatchQueue.main.async {
+                    AlertController.showErrorWith(title: "Error", message: "Wrong username or password", controller: param3) {
+                        
+                    }
+                }
                 self.loginToken = "Login Error"
                 print(self.loginToken)
             }
@@ -79,7 +86,7 @@ public class LoginModel: UIViewController {
         self.loginToken = ""
     }
         
-    self.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
+   // self.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
  
     }
  

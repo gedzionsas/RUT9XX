@@ -11,11 +11,13 @@ import Alamofire
 import SwiftyJSON
 
 
-protocol LoginControllerDelegate: class {
-    func finishLoggingIn()
-}
 
-class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDelegate {
+//protocol DetailViewControllerDelegate: class {
+//    func didFinishTask(sender: DetailViewController)
+//}
+
+
+class LoginController: UIViewController, UITextFieldDelegate {
     
    
     
@@ -44,19 +46,15 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDel
         if userName.text == "" || password.text == "" {
             displayAlert(title: "Error", message: "Username and password are required")
         } else {
-            performLogin(userName: userName.text!, password: password.text!)
             UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
             UserDefaults.standard.setValue(password.text, forKey: "saved_password")
+            
+            performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ () -> () in
+                
+            }
+
         }
-        handleLogin()
-        
-    }
-    
-    
-    weak var delegate: LoginControllerDelegate?
-    func handleLogin() {
-       // finishLoggingIn()
-        delegate?.finishLoggingIn()
+       finishLoggingIn()
     }
     
     override func viewDidLoad() {
@@ -87,6 +85,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDel
         return true
     }
     
+    
     @IBAction func Checkbox(_ sender: Any) {
     let ddd = LoginModel()
         ddd.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
@@ -106,7 +105,7 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDel
     }
     
     
-    public func performLogin(userName: String, password: String){
+    public func performLogin(userName: String, password: String, complete:@escaping ()->()){
         
         var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
         activityIndicator.center = self.view.center
@@ -115,23 +114,33 @@ class LoginController: UIViewController, UITextFieldDelegate, LoginControllerDel
         view.addSubview(activityIndicator)
         
         let duom = LoginModel()
-        duom.JsonResult(param1: userName, param2: password, param3: self)
+        duom.JsonResult(param1: userName, param2: password, param3: self){ () -> () in
+         
+        }
         
-
         
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        
-        
-        
-        
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
+        complete()
+        
+        
     }
     
     func finishLoggingIn() {
         print("Finish logging in")
+
+        
+        let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+        
+        let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
+        appDelegate.window?.rootViewController = initialViewController
+        appDelegate.window?.makeKeyAndVisible()
+        
+        UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
+        UserDefaults.standard.synchronize()
         dismiss(animated: true, completion: nil)
     }
     

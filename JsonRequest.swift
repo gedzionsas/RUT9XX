@@ -53,7 +53,10 @@ var loginToken = ""
                 let json = JSON(value)
                 
                 if let message = json["error"]["message"].string, message == "Access denied" {
-               // LoginVC.performLogin(UserDefaults.standard.value(forKey: "saved_username"),UserDefaults.standard.value(forKey: "saved_password"))
+                    let loginController = LoginController()
+                    loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ () -> () in
+                    }
+
                     print("Access denied+")
                 }
                 if let jsonData = response.result.value {
@@ -62,14 +65,7 @@ var loginToken = ""
                 
                 
             case .failure(let error):
-                //alertMessage(message: "Error 4xx / 5xx: \(error)")
-                
-             // let message = LoginController()
-              //  message.displayAlert(title: "Error", message: "No internet connection")
-                
-  
-                //if let data = response.data {
-                 //   let json = String(data: data, encoding: String.Encoding.utf8)
+
                     completion(nil, error)
                     
           
@@ -77,15 +73,7 @@ var loginToken = ""
     }
     
     
-  // let params = JsonRequests.loginRequest(userName: "root", password: "admin01")
-    
-//    Alamofire.request(urlAddress, method: requestMethod, parameters: params, encoding: JSONEncoding.default).responseJSON { response in
-//        
-//        switch response.result {
-//        case .success:
-//            var json = JSON(response.result.value!)
-//        
-        
+          
 //        switch response.result {
 //        case .success(let value):
 //            let json = JSON(value)
@@ -96,17 +84,7 @@ var loginToken = ""
 //            print("\(UserDefaults.standard.value(forKey: "saved_token")!)")
 //           // UserDefaultsManager.saved_token =
 //            print(self.loginToken)
-//            print("JSON: \(json)")
-//        case .failure(let error):
-//            print(error)
-//        }
-//            switch response.result {
-//            case .Success:
-//                let jsonData = JSON(data: response.data!)
-//                completion(jsonData)
-//            case .Failure(let error):
-//                MExceptionManager.handleNetworkErrors(error)
-//                completion(JSON(data: NSData()))
+//
 }
 }
 }

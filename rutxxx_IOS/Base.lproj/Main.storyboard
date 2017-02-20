@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ggF-ZS-Fi4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gzh-oc-bxz">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,28 +9,26 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="65D-i3-ajP">
+        <!--SplashVC-->
+        <scene sceneID="XyC-PM-D3U">
             <objects>
-                <viewController id="MTK-8U-wlG" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gIx-Kk-IsE"/>
-                        <viewControllerLayoutGuide type="bottom" id="H5W-7B-3MO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ocl-AS-t7Y">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F8X-pc-a4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="gzh-oc-bxz" customClass="SplashVC" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vrO-K4-lqH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ggF-ZS-Fi4" kind="relationship" relationship="rootViewController" id="64w-ZG-fas"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cKE-pt-btY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1586" y="-204"/>
+            <point key="canvasLocation" x="-1808" y="-186"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="50C-iX-jg0">
             <objects>
-                <viewController storyboardIdentifier="LoginVC" id="ggF-ZS-Fi4" customClass="LoginController" customModule="bandymasAlam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="ggF-ZS-Fi4" customClass="LoginController" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JDw-R7-Ml3"/>
                         <viewControllerLayoutGuide type="bottom" id="SQ7-P8-aXq"/>
@@ -129,6 +127,7 @@
                             <constraint firstItem="3UE-Zq-RVH" firstAttribute="centerY" secondItem="j2s-LH-EKU" secondAttribute="centerY" id="vJu-ct-QNf"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="i1q-18-ae3"/>
                     <connections>
                         <outlet property="password" destination="jxY-kZ-6RB" id="Kfn-Tf-nqT"/>
                         <outlet property="uncheckbox" destination="WQl-NW-1Ik" id="bDj-jy-4sC"/>
@@ -157,12 +156,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UYh-03-9fO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3661.875" y="-464.78873239436621"/>
+            <point key="canvasLocation" x="2968" y="-12"/>
         </scene>
         <!--Router Status-->
         <scene sceneID="Smb-fb-D1R">
             <objects>
-                <viewController id="zBZ-Sh-OFQ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainVCC" id="zBZ-Sh-OFQ" customClass="MainVC" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X5e-lX-7GG"/>
                         <viewControllerLayoutGuide type="bottom" id="xvQ-m9-crq"/>
@@ -233,7 +232,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="5BN-Vx-9nN">
             <objects>
-                <tabBarController id="uk0-R2-hz9" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainVC" id="uk0-R2-hz9" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="R8Z-kp-h3j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

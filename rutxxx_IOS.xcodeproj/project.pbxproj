@@ -10,6 +10,7 @@
 		3ACEA363941717B03BD81CB8 /* Pods_bandymasAlam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2008CD4934132B496A104 /* Pods_bandymasAlam.framework */; };
 		6916B38E1E37843800C9E7A2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38D1E37843800C9E7A2 /* UserDefaults.swift */; };
 		6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */; };
+		69227B191E543EB70082EA4F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B840DC1E51EB0F00B5CF95 /* MainVC.swift */; };
 		6933DDD01E4D909B001BBD51 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6933DDCF1E4D909B001BBD51 /* AlertController.swift */; };
 		6935F4211E4460A90015E1D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6935F4201E4460A90015E1D0 /* Assets.xcassets */; };
 		6935F4231E4474BF0015E1D0 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6935F4221E4474BF0015E1D0 /* LoginModel.swift */; };
@@ -20,7 +21,6 @@
 		696A6E661E1FBDAE00EA77DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 696A6E641E1FBDAE00EA77DB /* Main.storyboard */; };
 		696A6E691E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 696A6E671E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld */; };
 		696A6E6E1E1FBDAE00EA77DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 696A6E6C1E1FBDAE00EA77DB /* LaunchScreen.storyboard */; };
-		69B840DD1E51EB0F00B5CF95 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B840DC1E51EB0F00B5CF95 /* MainVC.swift */; };
 		69D978BB1E27B59C00FCBC4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D978BA1E27B59C00FCBC4C /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -275,7 +275,7 @@
 				6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */,
 				696A6E631E1FBDAE00EA77DB /* LoginController.swift in Sources */,
 				696A6E691E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld in Sources */,
-				69B840DD1E51EB0F00B5CF95 /* MainVC.swift in Sources */,
+				69227B191E543EB70082EA4F /* MainVC.swift in Sources */,
 				6935F4231E4474BF0015E1D0 /* LoginModel.swift in Sources */,
 				696A6E611E1FBDAE00EA77DB /* AppDelegate.swift in Sources */,
 				6964196E1E2CC666000349E5 /* SplashVC.swift in Sources */,
