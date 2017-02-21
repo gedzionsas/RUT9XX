@@ -61,7 +61,7 @@ public class LoginModel: UIViewController {
             
             UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
                    print(self.loginToken)
-            complete()
+            
             
             
         }else {
@@ -85,7 +85,7 @@ public class LoginModel: UIViewController {
         }
         self.loginToken = ""
     }
-        
+       complete()
    // self.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
  
     }

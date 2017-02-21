@@ -26,6 +26,7 @@ var loginToken = ""
             loginCompletion(json, error)
             
         })
+        
     }
         
     public func device(token: String, loginCompletion: @escaping (_ JSONResponse : Any?, _ error: Error?) -> ()) {

@@ -21,7 +21,7 @@ class AlertController: NSObject {
                         controller.present(viewController, animated:true)
                         
                         
-        }))
+                }))
 
         
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)

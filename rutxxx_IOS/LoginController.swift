@@ -54,7 +54,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
             }
 
         }
-       finishLoggingIn()
+       
     }
     
     override func viewDidLoad() {
@@ -105,7 +105,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     
-    public func performLogin(userName: String, password: String, complete:@escaping ()->()){
+    public func performLogin(userName: String, password: String, complete: ()->()){
         
         var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
         activityIndicator.center = self.view.center
@@ -115,7 +115,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         
         let duom = LoginModel()
         duom.JsonResult(param1: userName, param2: password, param3: self){ () -> () in
-         
+         self.finishLoggingIn()
         }
         
         
