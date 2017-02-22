@@ -15,7 +15,7 @@ public class LoginModel: UIViewController {
     
     var loginToken = ""
     
-    internal func JsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping ()->()){
+    internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
     Json().login(userName: param1, password: param2) { (json, error) in
         print(json)
@@ -24,9 +24,10 @@ public class LoginModel: UIViewController {
         if error != nil {
             //Show alert
             print(error!.localizedDescription)
+            
             DispatchQueue.main.async {
                 AlertController.showErrorWith(title: "Error", message: error!.localizedDescription, controller: param3) {
-                    
+                   complete(false)
                 } 
             }
            
@@ -61,23 +62,28 @@ public class LoginModel: UIViewController {
             
             UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
                    print(self.loginToken)
+            complete(true)
             
             
             
         }else {
             if (self.loginToken.contains("Access denied")) {
                 self.loginToken = "Access denied"
+                complete(false)
                 print(self.loginToken)
             } else if (self.loginToken.contains("Failed")) {
                 self.loginToken = "Connection timeout"
+                complete(false)
             } else if (self.loginToken.contains("[6]")) {
                 DispatchQueue.main.async {
                     AlertController.showErrorWith(title: "Error", message: "Wrong username or password", controller: param3) {
                         
                     }
+                    complete(false)
                 }
                 self.loginToken = "Login Error"
                 print(self.loginToken)
+                
             }
         
         
@@ -85,15 +91,14 @@ public class LoginModel: UIViewController {
         }
         self.loginToken = ""
     }
-       complete()
-   // self.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
+   
  
     }
  
     
     
     
- internal func JsonDevice (param1: String){
+ internal func jsonDevice (param1: String){
 
     Json().device(token: param1) { (json) in
         print(UserDefaults.standard.value(forKey: "saved_token"))
@@ -101,6 +106,18 @@ public class LoginModel: UIViewController {
     }
     }
     
-    
+ internal func jsonDeviceSerial (){
+        
+
+        
+        Json().deviceSerial(token: (UserDefaults.standard.value(forKey: "saved_token")! as! String), command: "mnf_info", parameter: "sn") { (json) in
+           
+                MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceserialkey) in
+                print(deviceserialkey)
+                }
+            
+            print(json)
+ 
+      }    }
     
 }

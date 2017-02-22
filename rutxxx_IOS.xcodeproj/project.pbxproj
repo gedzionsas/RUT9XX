@@ -11,6 +11,7 @@
 		6916B38E1E37843800C9E7A2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38D1E37843800C9E7A2 /* UserDefaults.swift */; };
 		6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */; };
 		69227B191E543EB70082EA4F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B840DC1E51EB0F00B5CF95 /* MainVC.swift */; };
+		69227B1B1E5C25D10082EA4F /* MethodsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69227B1A1E5C25D00082EA4F /* MethodsClass.swift */; };
 		6933DDD01E4D909B001BBD51 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6933DDCF1E4D909B001BBD51 /* AlertController.swift */; };
 		6935F4211E4460A90015E1D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6935F4201E4460A90015E1D0 /* Assets.xcassets */; };
 		6935F4231E4474BF0015E1D0 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6935F4221E4474BF0015E1D0 /* LoginModel.swift */; };
@@ -28,6 +29,7 @@
 		3ECB1ABD54A55FC6FE90F204 /* Pods-bandymasAlam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandymasAlam.release.xcconfig"; path = "Pods/Target Support Files/Pods-bandymasAlam/Pods-bandymasAlam.release.xcconfig"; sourceTree = "<group>"; };
 		6916B38D1E37843800C9E7A2 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jsonparams.swift; sourceTree = "<group>"; };
+		69227B1A1E5C25D00082EA4F /* MethodsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodsClass.swift; sourceTree = "<group>"; };
 		6933DDCF1E4D909B001BBD51 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		6935F4201E4460A90015E1D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6935F4221E4474BF0015E1D0 /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				6964196F1E2CFE6D000349E5 /* JsonRequest.swift */,
 				6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */,
 				6935F4221E4474BF0015E1D0 /* LoginModel.swift */,
+				69227B1A1E5C25D00082EA4F /* MethodsClass.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				69D978BB1E27B59C00FCBC4C /* Constants.swift in Sources */,
 				6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */,
 				696A6E631E1FBDAE00EA77DB /* LoginController.swift in Sources */,
+				69227B1B1E5C25D10082EA4F /* MethodsClass.swift in Sources */,
 				696A6E691E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld in Sources */,
 				69227B191E543EB70082EA4F /* MainVC.swift in Sources */,
 				6935F4231E4474BF0015E1D0 /* LoginModel.swift in Sources */,

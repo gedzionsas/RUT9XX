@@ -37,9 +37,18 @@ var loginToken = ""
         })
     }
     
+    public func deviceSerial(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?, _ error: Error?) -> ()) {
+        
+        let deviceSerialNumber = JsonRequests.deviceSerialNumber(token: token, command: command, parameter : parameter)
+        makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceSerialNumber, completion: { (json, error) in
+            loginCompletion(json, error)
+        })
+    }
+    
     let manager = Alamofire.SessionManager.default
     
     private func makeWebServiceCall (urlAddress: String, requestMethod: HTTPMethod, params:[String:Any], completion: @escaping (_ JSONResponse : Any?, _ error: Error?) -> ()) {
+        
         
         manager.session.configuration.timeoutIntervalForRequest = 5
         
@@ -55,9 +64,10 @@ var loginToken = ""
                 
                 if let message = json["error"]["message"].string, message == "Access denied" {
                     let loginController = LoginController()
-                    loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ () -> () in
+                    loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
+                        
+                        
                     }
-
                     print("Access denied+")
                 }
                 if let jsonData = response.result.value {
@@ -73,19 +83,6 @@ var loginToken = ""
         
     }
     
-    
-          
-//        switch response.result {
-//        case .success(let value):
-//            let json = JSON(value)
-//            for item in json["result"].arrayValue {
-//                self.loginToken = item["ubus_rpc_session"].stringValue
-//            }
-//            UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
-//            print("\(UserDefaults.standard.value(forKey: "saved_token")!)")
-//           // UserDefaultsManager.saved_token =
-//            print(self.loginToken)
-//
 }
 }
 }

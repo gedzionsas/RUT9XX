@@ -16,14 +16,12 @@ class AlertController: NSObject {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             
             
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
-                        controller.present(viewController, animated:true)
-                        
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = view
                         
                 }))
-
-        
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
         alertWindow.windowLevel = UIWindowLevelAlert + 1;
@@ -39,6 +37,6 @@ class AlertController: NSObject {
 //            
 //        }))
 //        controller.present(alert, animated: true, completion: nil)
+      
     }
-    
 }

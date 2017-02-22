@@ -49,8 +49,12 @@ class LoginController: UIViewController, UITextFieldDelegate {
             UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
             UserDefaults.standard.setValue(password.text, forKey: "saved_password")
             
-            performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ () -> () in
-                
+            performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
+                if success {
+                  self.finishLoggingIn()
+                } else {
+            }
+            
             }
 
         }
@@ -88,7 +92,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @IBAction func Checkbox(_ sender: Any) {
     let ddd = LoginModel()
-        ddd.JsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
+        ddd.jsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
+        ddd.jsonDeviceSerial()
         
         if isboxclicked == true {
             isboxclicked = false
@@ -105,7 +110,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     
-    public func performLogin(userName: String, password: String, complete: ()->()){
+    public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
         
         var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
         activityIndicator.center = self.view.center
@@ -113,20 +118,24 @@ class LoginController: UIViewController, UITextFieldDelegate {
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
         view.addSubview(activityIndicator)
         
-        let duom = LoginModel()
-        duom.JsonResult(param1: userName, param2: password, param3: self){ () -> () in
-         self.finishLoggingIn()
-        }
-        
-        
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
+        let loginJsonResult = LoginModel()
+        loginJsonResult.jsonResult(param1: userName, param2: password, param3: self){ success in
+            if success {
+                print("successful")
+                complete(true)
+            } else {
+                print("not successful")
+                complete(false)
+            }
+         
+            
+        }
         activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
-        complete()
-        
-        
+
     }
     
     func finishLoggingIn() {

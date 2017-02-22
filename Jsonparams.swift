@@ -34,6 +34,17 @@ class JsonRequests {
         
         return getInformationFromConfigparam
     }
+    
+    static func deviceSerialNumber(token: String, command: String, parameter : String) -> [String:Any] {
+        
+        let deviceSerialNumberparam: [String : Any] = ["jsonrpc": "2.0",
+                                                             "id": 1,
+                                                             "method": "call",
+                                                             "params": [ token, "file", "exec", [ "command": command, "params": [parameter]]
+        ]]
+        
+        return deviceSerialNumberparam
+    }
 }
 
 
