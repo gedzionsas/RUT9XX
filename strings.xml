@@ -1,0 +1,327 @@
+<resources>
+    <string name="app_name">Teltonika RUT Management App</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="router_status_title">Router Status</string>
+    <string name="setup_wizard_title">Setup Wizard</string>
+
+    <string name="application">APPLICATION</string>
+    <string name="router">ROUTER</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_notifications">Messages</string>
+
+    <string name="title_help">Help</string>
+    <string name="title_router_details">Router details</string>
+    <string name="title_about">About</string>
+    <string name="logout">Log Out</string>
+    <string name="services">Services</string>
+    <string name="monitoring">Monitoring</string>
+
+    <string name="logo">Logo of company</string>
+    <string name="version">Version: </string>
+    <string name="example">example</string>
+
+    <!-- Login window -->
+    <string name="username">Username</string>
+    <string name="user_password">Password</string>
+    <string name="login_text">LOGIN</string>
+
+
+    <!-- Navigation Drawer system strings-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- WebSite link-->
+    <string name="web_site">www.teltonika.lt</string>
+
+
+    <string name="wireless">WIRELESS</string>
+    <string name="wireless_mode_chanel">Mode / Channel</string>
+    <string name="wireless_name">Wireless name</string>
+    <string name="wireless_quality">Quality</string>
+    <string name="wireless_encryption">Encryption</string>
+    <string name="wireless_clients">Clients</string>
+
+
+    <string name="mobile">MOBILE</string>
+    <string name="mobile_signal">Signal</string>
+    <string name="mobile_connection">Type</string>
+    <string name="mobile_operator">Operator</string>
+    <string name="mobile_device_ip">Device IP</string>
+    <string name="mobile_device_mac">Device MAC</string>
+    <string name="data_usage">Data usage</string>
+    <string name="connection_uptime">Connection uptime</string>
+    <string name="mobile_roaming_status">Roaming status</string>
+
+    <string name="system">SYSTEM</string>
+    <string name="ignition">IGNITION</string>
+
+    <string name="mb">MB</string>
+    <string name="slash"> / </string>
+
+    <string name="wireless_ssid">SSID</string>
+    <string name="wireless_mode">Mode</string>
+    <string name="wireless_chanel">Channel</string>
+    <string name="wireless_access">Access</string>
+    <string name="wireless_country_code">Country Code</string>
+
+    <string name="mobile_apn">APN</string>
+    <string name="mobile_pin">PIN</string>
+    <string name="mobile_dialing_number">Dialing number</string>
+    <string name="mobile_authentication">Authentication</string>
+
+    <string name="mobile_authentication_selection">Select authentication</string>
+
+
+    <string name="mobile_service_mode">Service Mode</string>
+
+    <string name="router_status">Router Status</string>
+    <string name="speed_test">Speed Test</string>
+    <string name="router_settings">Router Settings</string>
+    <string name="input_output">Input / Output</string>
+
+    <!-- NavigationDrawer strings -->
+    <string name="configuration_wizard">Configuration Wizard</string>
+    <string name="reboot">Reboot</string>
+    <string name="reset_data_usage_counter">Reset data usage counter</string>
+    <string name="open_web">Web UI</string>
+    <string name="check_for_fw_updates">FW update</string>
+    <string name="change_router_password">Change router password</string>
+
+    <!--Alert buttons-->
+    <string name="ok">OK</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="confirm">CONFIRM</string>
+
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+
+    <!--Alert Messages-->
+    <string name="dialog_connection_lost">Connection lost from the router</string>
+    <string name="dialog_wizard_skip">Want to skip Setup Wizard? </string>
+    <string name="dialog_wizard_skip_warning">If yes, you will lose all your configurations.</string>
+    <string name="dialog_wizard_finish">After finishing, wireless connection temporary will be unavailable.</string>
+    <string name="dialog_reboot_router">Reboot router?</string>
+    <string name="dialog_reboot_router2">While the router rebooting connection temporary will be unavailable.</string>
+    <string name="alert">Alert</string>
+
+    <string name="wizard_next_button">NEXT</string>
+    <string name="wizard_skip_button">SKIP</string>
+    <string name="wizard_sim_pin_hint">••••</string>
+    <string name="wizard_sim_pin_title">SIM PIN Required</string>
+    <string name="wizard_sim_pin_error_title">Wrong SIM PIN Number</string>
+
+    <!-- Wizard Instructions-->
+    <string name="wizards_text">In order to user this device, Sim Pin must be entered.</string>
+    <string name="wizard_wireless_settings">In order to setup a wireless password. Press "ON" button and enter the password.</string>
+    <string name="wizard_router_password">In this step password required to login to the router will be changed.</string>
+
+    <string-array name="authentication_array">
+        <item>None</item>
+        <item>CHAP</item>
+        <item>PAP</item>
+    </string-array>
+
+    <string-array name="router_list_array">
+        <item>RUT8XX</item>
+        <item>RUT9XX</item>
+    </string-array>
+
+    <string-array name="wireless_mode_array">
+        <item>Auto</item>
+        <item>802.11b</item>
+        <item>802.11g</item>
+        <item>802.11g+n</item>
+    </string-array>
+
+    <string-array name="sim_card_array">
+        <item>SIM 1</item>
+        <item>SIM 2</item>
+    </string-array>
+
+    <string-array name="wireless_channel_array">
+        <item>Auto</item>
+        <item>1 (2.412 GHz)</item>
+        <item>2 (2.417 GHz)</item>
+        <item>3 (2.422 GHz)</item>
+        <item>4 (2.427 GHz)</item>
+        <item>5 (2.432 GHz)</item>
+        <item>6 (2.437 GHz)</item>
+        <item>7 (2.442 GHz)</item>
+        <item>8 (2.447 GHz)</item>
+        <item>9 (2.452 GHz)</item>
+        <item>10 (2.457 GHz)</item>
+        <item>11 (2.462 GHz)</item>
+    </string-array>
+
+
+    <string-array name="wireless_encryption_array">
+        <item>No encryption</item>
+        <item>WEP open system</item>
+        <item>WEP shared key</item>
+        <item>WPA-PSK</item>
+        <item>WPA2-PSK</item>
+        <item>WPA-PSK/WPA2-PSK mixed mode</item>
+    </string-array>
+
+    <string-array name="wireless_encryption_cipher_array">
+        <item>Auto</item>
+        <item>Force CCMP (AES)</item>
+        <item>WEP shared key</item>
+        <item>Force TKIP</item>
+        <item>Force TKIP and CCMP (AES)</item>
+    </string-array>
+
+    <string-array name="rut_9xx_service_status_list">
+        <item>VRRP LAN</item>
+        <item>OpenVPN servers</item>
+        <item>OpenVPN clients</item>
+        <item>SNMP agent</item>
+        <item>SNMP trap</item>
+        <item>NTP client</item>
+        <item>IPsec</item>
+        <item>Ping reboot</item>
+        <item>Input/Output rules</item>
+        <item>DDNS</item>
+        <item>Site blocking</item>
+        <item>Content blocker</item>
+        <item>SMS utils rules</item>
+        <item>Hotspot</item>
+        <item>Hotspot logging</item>
+        <item>GRE tunnel</item>
+        <item>QoS</item>
+        <item>GPS</item>
+    </string-array>
+
+    <string-array name="rut_8x_service_status_list">
+        <item>NTP client</item>
+        <item>Ping reboot</item>
+        <item>DDNS</item>
+        <item>Site blocking</item>
+        <item>SMS utils rules</item>
+        <item>Hotspot</item>
+    </string-array>
+
+    <!--Wizard animation steps text-->
+    <string name="sim_pin_step">SIM PIN</string>
+    <string name="mobile_settings">Mobile Settings</string>
+    <string name="wireless_settings">Wireless Settings</string>
+    <string name="password_settings">Router Password</string>
+    <string name="enter_dialing_number">Enter dialing number</string>
+    <string name="enter_apn">Enter APN</string>
+    <string name="roaming">Roaming</string>
+    <string name="operator">Operator</string>
+    <string name="operator_profile">Operator profile</string>
+    <string name="service_mode">Service mode</string>
+    <string name="country">Country</string>
+    <string name="enter_password">Enter password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="repeat_router_password">Repeat router password</string>
+    <string name="repeat_new_password">Repeat new password</string>
+    <string name="repeat_new_router_password">Repeat new router password</string>
+    <string name="authentication_username">Authentication username</string>
+    <string name="suggestion_name">Suggestion</string>
+    <string name="enter_wireless_name_hint">Enter wireless name</string>
+    <string name="require_password">Require password</string>
+    <string name="wireless_password">Wireless password</string>
+    <string name="enter_at_least_8_symbols">Enter at least 8 symbols</string>
+    <string name="repeat_wireless_password">Repeat wireless password</string>
+    <string name="password">Password</string>
+    <string name="new_router_password">New router password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="enter_new_router_password">Enter new router password</string>
+    <string name="button_next">NEXT</string>
+    <string name="button_finish">FINISH</string>
+
+    <string name="no_data">No data</string>
+    <string name="main_window_mobile_settings_field_weight">1.8</string>
+
+    <string name="wep_used_key_slot">Used key slot</string>
+    <string name="key_nr_one">Key #1</string>
+    <string name="key_nr_two">Key #2</string>
+    <string name="key_nr_three">Key #3</string>
+    <string name="key_nr_four">Key #4</string>
+    <string name="key">Key</string>
+    <string name="cipher">Cipher</string>
+    <string name="wpe_recommendation">WEP protocols are deprecated. Use WPA/WPA2 protocols are recommended.</string>
+    <string name="description_see_password">Press to see entered password</string>
+    <string name="description_hide_password">Press to hide entered password</string>
+    <string name="drawer_row_image_view_description">In this image view will be displayed pictures</string>
+    <string name="fw_version">FW version</string>
+    <string name="wlan_mac">WLAN MAC</string>
+    <string name="serial">Serial</string>
+    <string name="imei">IMEI</string>
+    <string name="lan_mac">LAN MAC</string>
+    <string name="navigation_drawer_image_description">Current Router picture</string>
+    <string name="there_will_be_help">There will be HELP</string>
+    <string name="save_password">Save Password</string>
+    <string name="last_update">Last update</string>
+    <string name="build_date">Build data</string>
+    <string name="kernel_version">Kernel version</string>
+    <string name="new_version">New version</string>
+    <string name="fw_update_button_text">UPDATE</string>
+
+    <string name="router_type">Select router type</string>
+
+    <string name="format_string">%1$s / %2$s</string>
+    <string name="format_two_strings">%1$s V</string>
+    <string name="system_details">System details</string>
+    <string name="router_password">Router Password</string>
+    <string name="undefined">Undefined</string>
+    <string name="pin">PIN</string>
+    <string name="visit_us">Visit us:</string>
+    <string name="all_rights_reserved">© Teltonika PVT LTD, 2016. All Rights Reserved</string>
+
+    <string name="about_fragment_first_paragraph"> Our vision is to provide added value for people and
+        companies by creating electronic devices and solutions, which are based on the latest achievements of science and technology. </string>
+    <string name="vision">Vision</string>
+    <string name="about_fragment_second_paragraph">We aim to help people to integrate the latest
+        technologies in real life, what would bring more cosiness, comfort, freedom, of mobility and
+        security to their everyday life.</string>
+
+    <string name="about_fragment_third_paragraph">We seek to make all our solutions an important part of people live.</string>
+    <string name="error_string">Error</string>
+    <string name="true_string">true</string>
+    <string name="false_string">false</string>
+    <string name="rut_string">RUT</string>
+    <string name="check_if_connected_to_router_string">Please check if connected to router</string>
+    <string name="connection_string">Connection</string>
+    <string name="access_string">Access</string>
+    <string name="onResume_string">onResume</string>
+    <string name="onStart_string">onStart</string>
+    <string name="rut8_string">RUT8</string>
+    <string name="zero_token_value">00000000000000000000000000000000</string>
+    <string name="rut9_string">RUT9</string>
+    <string name="root_string">root</string>
+    <string name="login_string">Login</string>
+    <string name="none_string">None</string>
+    <string name="uppercase_error">ERROR</string>
+    <string name="no_encryption_string">No Encryption</string>
+    <string name="n_a_string">n/a</string>
+    <string name="stdout_string">stdout</string>
+    <string name="start_string">START</string>
+    <string name="done_string">Done</string>
+    <string name="primary_card">Primary Card</string>
+    <string name="primary_sim_card">Primary SIM card</string>
+    <string name="selected_sim_string">Selected SIM</string>
+    <string name="sim1_uppercase_string">SIM1</string>
+    <string name="sim2_uppercase_string">SIM2</string>
+    <string name="sim_1_uppercase">SIM 1</string>
+    <string name="sim_2_uppercase">SIM 2</string>
+    <string name="active_string">Active</string>
+    <string name="low_level_string">Low level</string>
+    <string name="inactive_string">Inactive</string>
+    <string name="high_level_string">High level</string>
+    <string name="contacts_closed_string">Contacts closed</string>
+    <string name="contacts_open_string">Contacts open</string>
+
+    <style name="authentication_none">None</style>
+
+</resources>

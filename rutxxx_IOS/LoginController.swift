@@ -18,141 +18,141 @@ import SwiftyJSON
 
 
 class LoginController: UIViewController, UITextFieldDelegate {
-    
-   
-    
-   func displayAlert(title:String, message: String){
-        let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alertcontroller, animated: true, completion: nil)
-    }
-   
-    
-   
-    @IBOutlet var userName: UITextField!
-    @IBOutlet var password: UITextField!
-    @IBOutlet var uncheckbox: UIButton!
-    
- 
-    
-    var checkBox = UIImage(named: "checkbox1")
-    var uncheckBox = UIImage(named: "checkbox2")
-    var isboxclicked: Bool!
-    
-    
-
-    
-    @IBAction func loginButton(_ sender: Any) {
-        if userName.text == "" || password.text == "" {
-            displayAlert(title: "Error", message: "Username and password are required")
+  
+  
+  
+  func displayAlert(title:String, message: String){
+    let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    self.present(alertcontroller, animated: true, completion: nil)
+  }
+  
+  
+  
+  @IBOutlet var userName: UITextField!
+  @IBOutlet var password: UITextField!
+  @IBOutlet var uncheckbox: UIButton!
+  
+  
+  
+  var checkBox = UIImage(named: "checkbox1")
+  var uncheckBox = UIImage(named: "checkbox2")
+  var isboxclicked: Bool!
+  
+  
+  
+  
+  @IBAction func loginButton(_ sender: Any) {
+    if userName.text == "" || password.text == "" {
+      displayAlert(title: "Error", message: "Username and password are required")
+    } else {
+      UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
+      UserDefaults.standard.setValue(password.text, forKey: "saved_password")
+      
+      performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
+        if success {
+          self.finishLoggingIn()
         } else {
-            UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
-            UserDefaults.standard.setValue(password.text, forKey: "saved_password")
-            
-            performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
-                if success {
-                  self.finishLoggingIn()
-                } else {
-            }
-            
-            }
-
         }
-       
+        
+      }
+      
     }
     
-    override func viewDidLoad() {
-
-        isboxclicked = false
-
-        
-        
-        super.viewDidLoad()
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+  }
+  
+  override func viewDidLoad() {
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        self.view.endEditing(true)
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
-        return true
-    }
+    isboxclicked = false
     
     
-    @IBAction func Checkbox(_ sender: Any) {
+    
+    super.viewDidLoad()
+    
+    
+    // Do any additional setup after loading the view, typically from a nib.
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    self.view.endEditing(true)
+  }
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+    textField.resignFirstResponder()
+    
+    return true
+  }
+  
+  
+  @IBAction func Checkbox(_ sender: Any) {
     let ddd = LoginModel()
-        ddd.jsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
-        ddd.jsonDeviceSerial()
-        
-        if isboxclicked == true {
-            isboxclicked = false
-            
-        }else {
-            isboxclicked = true
-        }
-        if isboxclicked == true{
-        uncheckbox.setImage(checkBox, for: UIControlState.normal)
-         }else {
-            uncheckbox.setImage(uncheckBox, for: UIControlState.normal)
-        
-        }
+    ddd.jsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
+    ddd.jsonDeviceSerial()
+    
+    if isboxclicked == true {
+      isboxclicked = false
+      
+    }else {
+      isboxclicked = true
     }
-    
-    
-    public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
-        
-        var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
-        view.addSubview(activityIndicator)
-        
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        let loginJsonResult = LoginModel()
-        loginJsonResult.jsonResult(param1: userName, param2: password, param3: self){ success in
-            if success {
-                print("successful")
-                complete(true)
-            } else {
-                print("not successful")
-                complete(false)
-            }
-         
-            
-        }
-        activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-
+    if isboxclicked == true{
+      uncheckbox.setImage(checkBox, for: UIControlState.normal)
+    }else {
+      uncheckbox.setImage(uncheckBox, for: UIControlState.normal)
+      
     }
+  }
+  
+  
+  public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
     
-    func finishLoggingIn() {
-        print("Finish logging in")
-
-        
-        let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-        
-        let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
-        appDelegate.window?.rootViewController = initialViewController
-        appDelegate.window?.makeKeyAndVisible()
-        
-        UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
-        UserDefaults.standard.synchronize()
-        dismiss(animated: true, completion: nil)
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    activityIndicator.center = self.view.center
+    activityIndicator.hidesWhenStopped = true
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
+    view.addSubview(activityIndicator)
+    
+    activityIndicator.startAnimating()
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    
+    let loginJsonResult = LoginModel()
+    loginJsonResult.jsonResult(param1: userName, param2: password, param3: self){ success in
+      if success {
+        print("successful")
+        complete(true)
+      } else {
+        print("not successful")
+        complete(false)
+      }
+      
+      
     }
+    activityIndicator.stopAnimating()
+    UIApplication.shared.endIgnoringInteractionEvents()
     
-
+  }
+  
+  func finishLoggingIn() {
+    print("Finish logging in")
+    
+    
+    let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+    
+    let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
+    appDelegate.window?.rootViewController = initialViewController
+    appDelegate.window?.makeKeyAndVisible()
+    
+    UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
+    UserDefaults.standard.synchronize()
+    dismiss(animated: true, completion: nil)
+  }
+  
+  
 }
 

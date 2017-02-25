@@ -10,26 +10,50 @@ import UIKit
 import SwiftyJSON
 
 public class MethodsClass: UIViewController {
-
-    public func processJsonStdoutOutput (response_data: Any?, complete: (String)->()){
+  
+  public func processJsonStdoutOutput (response_data: Any?, complete: (String)->()){
     
-        var result = ""
-        print(response_data)
-        if let jsonDic = response_data as? JSON {
-              print(jsonDic)
-            if (jsonDic["result"].exists()){
-                print(jsonDic["result"]["stdout"].stringValue)
-                    for item in jsonDic["result"].arrayValue {
-                        result = item["stdout"].stringValue
-                        
-                    }
-                complete(result)
-            } else {
-                result = ""
-                complete(result)
-            }
-        }else {
-            print("klaida")
+    var result = ""
+    if let jsonDic = response_data as? JSON {
+      print(jsonDic)
+      if (jsonDic["result"].exists()){
+        for item in jsonDic["result"].arrayValue {
+          result = item["stdout"].stringValue
+          
         }
+        complete(result)
+      } else {
+        result = ""
+        complete(result)
+      }
+    }else {
+      print("klaida")
     }
+  }
+  
+  public func getJsonValue (response_data: Any?, complete: (String)->()){
+    
+    var gotDeviceInterface = ""
+    var valueString = "value"
+    if let jsonDic = response_data as? JSON {
+      print(jsonDic)
+      if (jsonDic["result"].exists()){
+        for item in jsonDic["result"].arrayValue {
+          gotDeviceInterface = item[valueString].stringValue
+          
+        }
+        complete(gotDeviceInterface)
+      } else {
+        gotDeviceInterface = ""
+        complete(gotDeviceInterface)
+      }
+    }else {
+      print("klaida")
+    }
+  }
+  public func processedDataArrayString(response_data: String, complete: ([String])->()){
+  let lines = response_data.components(separatedBy: .newlines)
+    complete(lines)
+  }
+  
 }
