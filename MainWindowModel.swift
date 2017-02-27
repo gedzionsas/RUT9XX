@@ -22,7 +22,7 @@ public class MainWindowModel: UIViewController {
       MethodsClass().getJsonValue(response_data: json){ (devicesInterface) in
         
         UserDefaults.standard.setValue(devicesInterface, forKey: "device_interface")
-        print(UserDefaults.standard.value(forKey: "device_interface"))
+        print("tai", UserDefaults.standard.value(forKey: "device_interface"))
       }}
     var deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
     print(deviceName)
@@ -35,7 +35,7 @@ public class MainWindowModel: UIViewController {
           Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-z") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardStateResult) in
               UserDefaults.standard.setValue(simCardStateResult, forKey: "simcard_state")
-              print(UserDefaults.standard.value(forKey: "simcard_state"))
+              print("taip", UserDefaults.standard.value(forKey: "simcard_state"))
             }}
         }
       }
@@ -86,11 +86,11 @@ public class MainWindowModel: UIViewController {
     //  print(UserDefaults.standard.value(forKey: "mobileconnection_uptime"))
     }
     
-    MethodsClass().processedDataArrayString(response_data: UserDefaults.standard.value(forKey: "processedgsm_data") as! String){ (result) in
-      var gsmDataResult = result
-      
-      print("ha", gsmDataResult)
-    }
+//    MethodsClass().processedDataArrayString(response_data: UserDefaults.standard.value(forKey: "processedgsm_data") as! String){ (result) in
+//      var gsmDataResult = result
+//      
+//      print("ha", gsmDataResult)
+//    }
 // Wireless data
     
   }

@@ -18,13 +18,17 @@ public class SplashVC: UINavigationController {
   override public func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    //       let appDomain = Bundle.main.bundleIdentifier!
-    //       UserDefaults.standard.removePersistentDomain(forName: appDomain)
+           let appDomain = Bundle.main.bundleIdentifier!
+           UserDefaults.standard.removePersistentDomain(forName: appDomain)
     
     if isLoggedIn() {
       let loginController = LoginController()
       loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
         if success {
+          let deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
+          if (deviceName.isEmpty || !deviceName.contains("RUT")) {
+            self.perform(#selector(self.showLoginVC), with: nil, afterDelay: 0.01)
+          }
           let storyboard = UIStoryboard(name: "Main", bundle: nil)
           let mainVCC = storyboard.instantiateViewController(withIdentifier: "MainVC") as UIViewController
           let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -33,10 +37,6 @@ public class SplashVC: UINavigationController {
         }
         
       }
-      
-      
-      
-      
       
     } else {
       perform(#selector(showLoginVC), with: nil, afterDelay: 0.01)

@@ -9,14 +9,38 @@
 import UIKit
 
 class MainVC: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      MainWindowModel().mainTasks(param1: "")
-        
-        // Do any additional setup after loading the view.
+  
+  @IBOutlet var menuView: UIView!
+  
+  
+  @IBOutlet var leadingConstraintForSlideMenu: NSLayoutConstraint!
+  var menuShowing = false
+  
+  
+  override func viewDidLoad() {
+    
+    
+    super.viewDidLoad()
+    MainWindowModel().mainTasks(param1: "")
+    
+    menuView.layer.shadowOpacity = 1
+    menuView.layer.shadowRadius = 6
+  }
+  
+  @IBAction func menuBarButton(_ sender: Any) {
+    
+    if (menuShowing) {
+      leadingConstraintForSlideMenu.constant = -240
+      UIView.animate(withDuration: 0.3, animations: {
+        self.view.layoutIfNeeded()})
+    } else {
+      leadingConstraintForSlideMenu.constant = 0
+      
+      UIView.animate(withDuration: 0.3, animations: {
+        self.view.layoutIfNeeded()
+      })
+     
     }
-
-
-
+    menuShowing = !menuShowing
+  }
 }

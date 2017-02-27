@@ -57,15 +57,16 @@ public class LoginModel: UIViewController {
       print(self.loginToken)
       
       if (!self.loginToken.isEmpty) {
+        var deviceName = ""
         
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
-          var deviceName = ""
+          
           // Device get name
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (newDeviceName) in
+              print(newDeviceName)
               if (newDeviceName.characters.count >= 6) {
                 let subString = newDeviceName.substring(to: newDeviceName.index(newDeviceName.startIndex, offsetBy: 6))
-                
                 deviceName = subString
               } else {
                 deviceName = newDeviceName

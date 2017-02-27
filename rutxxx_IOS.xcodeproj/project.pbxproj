@@ -421,11 +421,12 @@
 			baseConfigurationReference = EACB91FE602BFE1045E541F1 /* Pods-bandymasAlam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LGT2UGV788;
 				INFOPLIST_FILE = rutxxx_IOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teltonika.rutxxx_IOS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teltonika.rutxxx-IOS-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -436,11 +437,12 @@
 			baseConfigurationReference = 3ECB1ABD54A55FC6FE90F204 /* Pods-bandymasAlam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LGT2UGV788;
 				INFOPLIST_FILE = rutxxx_IOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teltonika.rutxxx_IOS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teltonika.rutxxx-IOS-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
