@@ -51,8 +51,11 @@ public class MethodsClass: UIViewController {
       print("klaida")
     }
   }
-  public func processedDataArrayString(response_data: String, complete: ([String])->()){
-  let lines = response_data.components(separatedBy: .newlines)
+  public func processedDataArrayString(response_data: String, complete: @escaping ([String])->()){
+    var lines: [String] {
+      return response_data.components(separatedBy: .newlines)
+    }
+    print(lines)
     complete(lines)
   }
   

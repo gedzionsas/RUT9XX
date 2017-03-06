@@ -14,6 +14,19 @@ class MainVC: UIViewController {
   
   
   @IBOutlet var leadingConstraintForSlideMenu: NSLayoutConstraint!
+  @IBAction func logOutButton(_ sender: Any) {
+    
+    UserDefaults.standard.setValue("00000000000000000000000000000000", forKey: "saved_token")
+    dismiss(animated: true, completion: nil)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+    self.present(viewController, animated: true)
+    
+    UserDefaults.standard.setValue(false, forKey: "isLoggedIn")
+    UserDefaults.standard.synchronize()
+
+    
+  }
   var menuShowing = false
   
   

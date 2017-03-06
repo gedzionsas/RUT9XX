@@ -25,7 +25,97 @@ class UserDefaultsManager {
     private static let MOBILEROAMING_DATASTATUS = "mobileroaming_datastatus"
     private static let CONNECTION_STATUS = "connection_status"
     private static let MOBILECONNECTION_UPTIME = "mobileconnection_uptime"
+    private static let WIFI_SSID = "wifi_ssid"
+    private static let WIRELESS_DEVICE = "wireless_device"
+    private static let DEVICE_RESULT = "device_result"
+    private static let WIRELESSDOWNLOADUPLOAD_RESULT = "wirelessdownloadupload_result"
+    private static let WIRELESSCLIENTS_COUNT = "wirelessclients_count"
+    private static let WIRELESS_MODE = "wireless_mode"
+    private static let MODULEVID_VALUE = "modulevid_value"
+    private static let MODULEPID_VALUE = "modulepid_value"
+    private static let WIRELESSQUALITY_RESULT = "wirelessquality_result"
 
+  static var setWirelessQualityResult: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIRELESSQUALITY_RESULT)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIRELESSQUALITY_RESULT)
+    }
+    
+  }
+  static var setModulePidValue: String {
+    get {
+      return UserDefaults.standard.string(forKey: MODULEPID_VALUE)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: MODULEPID_VALUE)
+    }
+    
+  }
+  static var setModuleVidValue: String {
+    get {
+      return UserDefaults.standard.string(forKey: MODULEVID_VALUE)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: MODULEVID_VALUE)
+    }
+    
+  }
+  static var setWirelessMode: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIRELESS_MODE)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIRELESS_MODE)
+    }
+    
+  }
+  static var setWirelessClientsCount: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIRELESSDOWNLOADUPLOAD_RESULT)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIRELESSDOWNLOADUPLOAD_RESULT)
+    }
+    
+  }
+  static var setWirelessDownloadUploadResult: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIRELESSDOWNLOADUPLOAD_RESULT)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIRELESSDOWNLOADUPLOAD_RESULT)
+    }
+    
+  }
+  static var setDeviceResult: String {
+    get {
+      return UserDefaults.standard.string(forKey: DEVICE_RESULT)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: DEVICE_RESULT)
+    }
+    
+  }
+  static var setWirelessDevice: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIRELESS_DEVICE)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIRELESS_DEVICE)
+    }
+    
+  }
+  static var setWifiSSID: String {
+    get {
+      return UserDefaults.standard.string(forKey: WIFI_SSID)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: WIFI_SSID)
+    }
+    
+  }
   static var setMobileConnectionUptime: String {
     get {
       return UserDefaults.standard.string(forKey: MOBILECONNECTION_UPTIME)!
@@ -33,6 +123,7 @@ class UserDefaultsManager {
     set {
       UserDefaults.standard.set(newValue, forKey: MOBILECONNECTION_UPTIME)
     }
+    
   }
   static var setConnectionStatus: String {
     get {

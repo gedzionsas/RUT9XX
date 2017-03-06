@@ -45,6 +45,26 @@ class JsonRequests {
     
     return deviceParam
   }
+  static func aboutDeviceParam1(token: String, command: String, parameter : String) -> [String:Any] {
+    
+    let deviceParam1: [String : Any] = ["jsonrpc": "2.0",
+                                       "id": 1,
+                                       "method": "call",
+                                       "params": [ token, "file", "exec", [ "command": "gsmctl", "params": ["-r" + command + ", ", "-e" + parameter ]]
+]]
+    
+    return deviceParam1
+  }
+  static func aboutDeviceParam2(token: String, deviceInterface: String, parameter : String) -> [String:Any] {
+    
+    let deviceParam2: [String : Any] = ["jsonrpc": "2.0",
+                                        "id": 1,
+                                        "method": "call",
+                                        "params": [ token, "file", "exec", [ "command": "gsmctl", "params": ["-q", "-o", "-t", "-p" + deviceInterface ]]
+      ]]
+    
+    return deviceParam2
+  }
   static func fileExec2Command(token: String, command: String) -> [String:Any] {
     
     let fileExec2: [String : Any] = ["jsonrpc": "2.0",
@@ -54,16 +74,6 @@ class JsonRequests {
       ]]
     return fileExec2
   }
-  static func gsmDeviceDataRequest(token: String, command: String, parameter : String) -> [String:Any] {
-    
-    let deviceParam: [String : Any] = ["jsonrpc": "2.0",
-                                       "id": 1,
-                                       "method": "call",
-                                       "params": [ token, "file", "exec", [ "command": command, "params": [parameter]]
-      ]]
-    
-    return deviceParam
-  }
   static func mobileConnectionUptime(token: String, param1: String, param2 : String) -> [String:Any] {
     
     let connectionUptime: [String : Any] = ["jsonrpc": "2.0",
@@ -72,6 +82,15 @@ class JsonRequests {
                                        "params": [ token, "network.interface.wan", "status", [:]]
   ]
     return connectionUptime
+  }
+  static func requestForWirelessDetails(token: String, param1: String, param2: String) -> [String:Any] {
+    
+    let wirelessParms: [String : Any] = ["jsonrpc": "2.0",
+                                     "id": 1,
+                                     "method": "call",
+                                     "params": [ token, "iwinfo", param1, [ "device": param2]
+      ]]
+    return wirelessParms
   }
   
 }

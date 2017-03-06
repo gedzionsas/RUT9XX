@@ -45,8 +45,23 @@ class Json {
     })
   }
   
-  public func mobileConnectionUptime(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+  public func aboutDevice1(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
+    let deviceParam = JsonRequests.aboutDeviceParam1(token: token, command: command, parameter : parameter)
+    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
+  
+  public func aboutDevice2(token: String, deviceInterface: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    
+    let deviceParam = JsonRequests.aboutDeviceParam2(token: token, deviceInterface: deviceInterface, parameter: parameter)
+    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
+  
+  public func mobileConnectionUptime(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     let uptimeParam = JsonRequests.mobileConnectionUptime(token: token, param1: param1, param2 : param2)
     makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: uptimeParam, completion: { (json, error) in
       loginCompletion(json)
@@ -57,6 +72,13 @@ class Json {
     
     let deviceParam = JsonRequests.fileExec2Command(token: token, command: command)
     makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
+  public func deviceWirelessDetails(token: String, param1: String, param2: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    
+    let deviceWirelessParam = JsonRequests.requestForWirelessDetails(token: token, param1: param1, param2: param2)
+    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceWirelessParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }

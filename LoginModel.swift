@@ -19,7 +19,7 @@ public class LoginModel: UIViewController {
     
     Json().login(userName: param1, password: param2) { (json, error) in
       print(json)
-      print(error)
+//      print(error)
       
       if error != nil {
         //Show alert
@@ -51,7 +51,7 @@ public class LoginModel: UIViewController {
         if (jsonDic["error"].exists()){
           
           self.loginToken = jsonDic["error"]["message"].stringValue
-          
+          complete(false)
         }
       }
       print(self.loginToken)
@@ -61,10 +61,10 @@ public class LoginModel: UIViewController {
         
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
           
-          // Device get name
+          UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
+          // Device get name call
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (newDeviceName) in
-              print(newDeviceName)
               if (newDeviceName.characters.count >= 6) {
                 let subString = newDeviceName.substring(to: newDeviceName.index(newDeviceName.startIndex, offsetBy: 6))
                 deviceName = subString
@@ -72,15 +72,12 @@ public class LoginModel: UIViewController {
                 deviceName = newDeviceName
               }
               UserDefaults.standard.setValue(deviceName, forKey: "device_name")
+              print("asdasd", UserDefaults.standard.value(forKey: "device_name"))
+              UserDefaults.standard.synchronize()
             }
+            complete(true)
           }
-          
-          UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
-          print(self.loginToken)
-          complete(true)
-          
-          
-          
+
         }else {
           if (self.loginToken.contains("Access denied")) {
             self.loginToken = "Access denied"
