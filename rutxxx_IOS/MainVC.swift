@@ -11,7 +11,7 @@ import UIKit
 class MainVC: UIViewController {
   
   @IBOutlet var menuView: UIView!
-  
+  let section = ["MOBILE", "WIRELESS"]
   
   @IBOutlet var leadingConstraintForSlideMenu: NSLayoutConstraint!
   @IBAction func logOutButton(_ sender: Any) {
@@ -29,7 +29,9 @@ class MainVC: UIViewController {
   }
   var menuShowing = false
   
+
   
+  @IBOutlet var tableView: UITableView!
   override func viewDidLoad() {
     
     
@@ -38,7 +40,27 @@ class MainVC: UIViewController {
     
     menuView.layer.shadowOpacity = 1
     menuView.layer.shadowRadius = 6
+    
+//    tableView.delegate = self
+//    tableView.dataSource = self
   }
+  
+//  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//    return self.section [section]
+//  }
+//  func numberOfSections(in tableView: UITableView) -> Int {
+//    return self.section.count
+//  }
+//  
+//  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//   return 6
+//  }
+//  
+//  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//    let cell = tableView.dequeueReusableCell(withIdentifier: "multiplyCell", for: indexPath)
+//
+//    return cell
+//  }
   
   @IBAction func menuBarButton(_ sender: Any) {
     

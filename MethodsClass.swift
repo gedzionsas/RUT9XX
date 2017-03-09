@@ -11,15 +11,25 @@ import SwiftyJSON
 
 public class MethodsClass: UIViewController {
   
+  public func jsonResultObject (response_data: Any?) -> [Any?] {
+    var result: [Any]
+if let jsonDic = response_data as? [String: Any] {
+  result = jsonDic["result"] as! [Any]
+  print("veik", result)
+    } else {
+  result = [""]
+      }
+    return result
+    }
+  
+  
   public func processJsonStdoutOutput (response_data: Any?, complete: (String)->()){
     
     var result = ""
     if let jsonDic = response_data as? JSON {
-      print(jsonDic)
       if (jsonDic["result"].exists()){
         for item in jsonDic["result"].arrayValue {
           result = item["stdout"].stringValue
-          
         }
         complete(result)
       } else {
@@ -34,9 +44,8 @@ public class MethodsClass: UIViewController {
   public func getJsonValue (response_data: Any?, complete: (String)->()){
     
     var gotDeviceInterface = ""
-    var valueString = "value"
+    let valueString = "value"
     if let jsonDic = response_data as? JSON {
-      print(jsonDic)
       if (jsonDic["result"].exists()){
         for item in jsonDic["result"].arrayValue {
           gotDeviceInterface = item[valueString].stringValue

@@ -34,7 +34,45 @@ class UserDefaultsManager {
     private static let MODULEVID_VALUE = "modulevid_value"
     private static let MODULEPID_VALUE = "modulepid_value"
     private static let WIRELESSQUALITY_RESULT = "wirelessquality_result"
+    private static let RX_DATA = "rx_data"
+    private static let TX_DATA = "tx_data"
+    private static let RXMONTH_DATA = "rxmonth_data"
+    private static let TXMONTH_DATA = "txmonth_data"
+    private static let ARR_DATA = "arr_data"
 
+  static var setArrData: String {
+    get {
+      return UserDefaults.standard.string(forKey: ARR_DATA)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: ARR_DATA)
+    }
+  }
+  static var setRxMonthData: String {
+    get {
+      return UserDefaults.standard.string(forKey: RXMONTH_DATA)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: RXMONTH_DATA)
+    }
+  }
+  static var setTxMonthData: String {
+    get {
+      return UserDefaults.standard.string(forKey: TXMONTH_DATA)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: TXMONTH_DATA)
+    }
+  }
+  static var setTxData: String {
+    get {
+      return UserDefaults.standard.string(forKey: TX_DATA)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: TX_DATA)
+    }
+    
+  }
   static var setWirelessQualityResult: String {
     get {
       return UserDefaults.standard.string(forKey: WIRELESSQUALITY_RESULT)!
@@ -105,7 +143,6 @@ class UserDefaultsManager {
     set {
       UserDefaults.standard.set(newValue, forKey: WIRELESS_DEVICE)
     }
-    
   }
   static var setWifiSSID: String {
     get {
@@ -114,7 +151,6 @@ class UserDefaultsManager {
     set {
       UserDefaults.standard.set(newValue, forKey: WIFI_SSID)
     }
-    
   }
   static var setMobileConnectionUptime: String {
     get {
@@ -123,7 +159,6 @@ class UserDefaultsManager {
     set {
       UserDefaults.standard.set(newValue, forKey: MOBILECONNECTION_UPTIME)
     }
-    
   }
   static var setConnectionStatus: String {
     get {

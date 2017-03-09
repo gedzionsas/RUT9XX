@@ -93,7 +93,7 @@ class Json {
     
     manager.request(urlAddress, method: requestMethod, parameters: params, encoding: JSONEncoding.default).responseJSON{ response in
       
-      print(response.timeline)
+//      print(response.timeline)
       
       switch response.result {
       case .success(let value):
