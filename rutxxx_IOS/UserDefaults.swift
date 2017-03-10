@@ -39,7 +39,17 @@ class UserDefaultsManager {
     private static let RXMONTH_DATA = "rxmonth_data"
     private static let TXMONTH_DATA = "txmonth_data"
     private static let ARR_DATA = "arr_data"
-
+    private static let DISPLAY_DATA = "display_data"
+  
+  
+  static var setDisplayData: String {
+    get {
+      return UserDefaults.standard.string(forKey: DISPLAY_DATA)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: DISPLAY_DATA)
+    }
+  }
   static var setArrData: String {
     get {
       return UserDefaults.standard.string(forKey: ARR_DATA)!

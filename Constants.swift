@@ -9,4 +9,5 @@
 import UIKit
 
     
-let URL = "http://192.168.1.1/ubus"
+let URLREQUEST = "http://192.168.1.1/ubus"
+let IP = URL(string: "http://192.168.1.1")

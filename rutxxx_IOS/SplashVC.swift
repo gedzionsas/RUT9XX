@@ -19,8 +19,7 @@ public class SplashVC: UINavigationController {
     super.viewDidLoad()
     view.backgroundColor = .white
 //           let appDomain = Bundle.main.bundleIdentifier!
-//           UserDefaults.standard.removePersistentDomain(forName: appDomain)
-    
+// UserDefaults.standard.removePersistentDomain(forName: appDomain)
     if isLoggedIn() {
       let loginController = LoginController()
       loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in

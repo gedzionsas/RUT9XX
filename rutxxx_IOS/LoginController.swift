@@ -48,6 +48,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     } else {
       UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
       UserDefaults.standard.setValue(password.text, forKey: "saved_password")
+      UserDefaults.standard.synchronize()
       
       performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
         if success {

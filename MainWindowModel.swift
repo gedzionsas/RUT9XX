@@ -116,7 +116,8 @@ public class MainWindowModel: UIViewController {
     }
     Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: GSM_3G_CONNECTION_STATE) { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (connectionStatus) in
-        UserDefaults.standard.setValue(connectionStatus, forKey: "connection_status")
+       let connectionStatusTrimmed = connectionStatus.trimmingCharacters(in: .whitespacesAndNewlines)
+        UserDefaults.standard.setValue(connectionStatusTrimmed, forKey: "connection_status")
       }
     }
     Json().mobileConnectionUptime(token: token as! String, param1: "network.interface.wan", param2: "status") { (mobileConnectionUptime) in
@@ -165,7 +166,14 @@ public class MainWindowModel: UIViewController {
           UserDefaults.standard.setValue(wirelessQualityResult, forKey: "wirelessquality_result")
         }
       }
-      
+              if let deviceResultUnwrapped = (UserDefaults.standard.value(forKey: "device_result")), let mobileConnectionUptimeUnwrapped = (UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary), let processedGsmDataUnwrapped = (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), let wirelessDownloadUploadResultUnwrapped = (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), let mobileDataUnwrapped = (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), let mobileDataArray = (UserDefaults.standard.array(forKey: "arr_data") as? [String]), let DeviceInterfaceUnwrapped = (UserDefaults.standard.value(forKey: "device_interface") as? String), let mobileRoamingUnwrapped = (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), let wirelessClientsCountUnwrapped = (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), let wirelessQualityResultUnwrapped = (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), let wirelessModeUnwrapped = (UserDefaults.standard.value(forKey: "wireless_mode") as? String), let connectionStatusUnwrapped = (UserDefaults.standard.value(forKey: "connection_status") as? String), let simcardStateUnwrapped = (UserDefaults.standard.value(forKey: "simcard_state") as? String) {
+          
+         let data = MainWindowModel().parseDeviceDataObject(deviceResult:deviceResultUnwrapped, mobileConnectionUptime:mobileConnectionUptimeUnwrapped, processedGsmData: processedGsmDataUnwrapped, wirelessDownloadUploadResult: wirelessDownloadUploadResultUnwrapped, mobileData: mobileDataUnwrapped, mobileDataArray: mobileDataArray, DeviceInterface: DeviceInterfaceUnwrapped, mobileRoaming: mobileRoamingUnwrapped, wirelessClientsCount: wirelessClientsCountUnwrapped,wirelessQualityResult: wirelessQualityResultUnwrapped, wirelessMode: wirelessModeUnwrapped, connectionStatus: connectionStatusUnwrapped, simcardState: simcardStateUnwrapped)
+             UserDefaults.standard.setValue(data, forKey: "display_data")
+        } else {
+          print("Error unwrapping values")
+        }
+        print("asastau", UserDefaults.standard.array(forKey: "display_data"))
     }
     
     // Module data
@@ -177,14 +185,12 @@ public class MainWindowModel: UIViewController {
     Json().deviceinform(token: token as! String, config: "system", section: "module", option: "pid") { (modulePid) in
       MethodsClass().getJsonValue(response_data: modulePid){ (modulePidValue) in
         UserDefaults.standard.setValue(modulePidValue, forKey: "modulepid_value")
-        
-  
-        if let deviceResultUnwrapped = (UserDefaults.standard.value(forKey: "device_result")), let mobileConnectionUptimeUnwrapped = (UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary), let processedGsmDataUnwrapped = (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), let wirelessDownloadUploadResultUnwrapped = (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), let mobileDataUnwrapped = (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), let mobileDataArray = (UserDefaults.standard.array(forKey: "arr_data") as? [String]), let DeviceInterfaceUnwrapped = (UserDefaults.standard.value(forKey: "device_interface") as? String), let mobileRoamingUnwrapped = (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), let wirelessClientsCountUnwrapped = (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), let wirelessQualityResultUnwrapped = (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), let wirelessModeUnwrapped = (UserDefaults.standard.value(forKey: "wireless_mode") as? String), let connectionStatusUnwrapped = (UserDefaults.standard.value(forKey: "connection_status") as? String), let simcardStateUnwrapped = (UserDefaults.standard.value(forKey: "simcard_state") as? String) {
-          
-          MainWindowModel().parseDeviceDataObject(deviceResult:deviceResultUnwrapped, mobileConnectionUptime:mobileConnectionUptimeUnwrapped, processedGsmData: processedGsmDataUnwrapped, wirelessDownloadUploadResult: wirelessDownloadUploadResultUnwrapped, mobileData: mobileDataUnwrapped, mobileDataArray: mobileDataArray, DeviceInterface: DeviceInterfaceUnwrapped, mobileRoaming: mobileRoamingUnwrapped, wirelessClientsCount: wirelessClientsCountUnwrapped,wirelessQualityResult: wirelessQualityResultUnwrapped, wirelessMode: wirelessModeUnwrapped, connectionStatus: connectionStatusUnwrapped, simcardState: simcardStateUnwrapped)
-        }
+
       }
+
     }
+    
+    
   }
   
   public func getCountOfWirelessClients (response_data: Any?, complete: (Int)->()){
@@ -234,7 +240,7 @@ public class MainWindowModel: UIViewController {
   
   
   
-  func parseDeviceDataObject (deviceResult: Any?, mobileConnectionUptime: Any?, processedGsmData: Array<String>, wirelessDownloadUploadResult: Array<Any>, mobileData: Array<String>, mobileDataArray: Array<String>, DeviceInterface: String, mobileRoaming: String, wirelessClientsCount: Int, wirelessQualityResult: String, wirelessMode: String, connectionStatus: String, simcardState: String) {
+  func parseDeviceDataObject (deviceResult: Any?, mobileConnectionUptime: Any?, processedGsmData: Array<String>, wirelessDownloadUploadResult: Array<Any>, mobileData: Array<String>, mobileDataArray: Array<String>, DeviceInterface: String, mobileRoaming: String, wirelessClientsCount: Int, wirelessQualityResult: String, wirelessMode: String, connectionStatus: String, simcardState: String)-> [Any] {
     
     var object1: [String: String] = ["signal": processedGsmData[0], "operator": processedGsmData[1], "connection": MainWindowModel().gsmConnectionChecker(processedGsmData: processedGsmData[2] as! String)]
     
@@ -259,6 +265,7 @@ public class MainWindowModel: UIViewController {
       
       if ((mobileData[0] as! String).isNumeric) == true {
         objectGsm[MOBILE_DOWNLOAD] = mobileData[0] as! String
+        
       } else {
         objectGsm[MOBILE_DOWNLOAD] = "0"
       }
@@ -271,6 +278,7 @@ public class MainWindowModel: UIViewController {
         objectGsm[MOBILE_COLLECTED_MONTH_RX] = mobileDataArray[2] as! String
       } else {
         objectGsm[MOBILE_COLLECTED_RX] = mobileDataArray[0] as! String
+
       }
       if ((mobileDataArray[3] as! String).isNumeric) == true {
         objectGsm[MOBILE_COLLECTED_MONTH_TX] = mobileDataArray[3] as! String
@@ -286,10 +294,12 @@ public class MainWindowModel: UIViewController {
       
     }
     objectGsm["ConnectionStatus"] = connectionStatus
+    let labas = MainWindowModel().convertedDataCountToMb(object: objectGsm, downloadObjectName: MOBILE_COLLECTED_RX, uploadObjectName: MOBILE_COLLECTED_TX)
+    print("labai idomu man", MainWindowModel().calculatedMobileData(object: labas))
     objectDevices["MobileDevice"] = DeviceInterface
     objectDevices["WirelessClientsCount"] = wirelessClientsCount
     objectDevices["WirelessQuality"] = wirelessQualityResult
-    objectDevices["SimCardState"] = simcardState
+    objectDevices["SimCardState"] = (simcardState ).trimmingCharacters(in: .whitespacesAndNewlines)
     var arrayResultWifi = MethodsClass().jsonResultObject(response_data: deviceResult)
     array.insert(MainWindowModel().processedWirelessInformation(deviceResult: arrayResultWifi, wirelessMode: wirelessMode), at: 0)
     array.insert(object1, at: 0)
@@ -299,6 +309,7 @@ public class MainWindowModel: UIViewController {
     array.insert(MainWindowModel().processedMobileInformation(mobileUptime: arrayResultMobile, mobileRoaming: mobileRoaming), at: 0)
     array.insert(objectDevices, at: 0)
     print(array)
+    return array
   }
   
   func processedMobileInformation (mobileUptime: [Any?], mobileRoaming: String) -> Dictionary<String,Any> {
@@ -319,7 +330,7 @@ public class MainWindowModel: UIViewController {
     }
     objectDevices["uptime"] = uptime
     objectDevices["device"] = device
-    objectDevices["roaming"] = mobileRoaming
+    objectDevices["roaming"] = (mobileRoaming).trimmingCharacters(in: .whitespacesAndNewlines)
     
     return objectDevices
   }
@@ -389,8 +400,78 @@ public class MainWindowModel: UIViewController {
     }
     return connectionType
   }
+
+
+public func convertedDataCountToMb (object: [String: String], downloadObjectName: String, uploadObjectName: String) -> [String: Double] {
+  var convertedToMb: [String: Double] = [:]
+  let mega = 1048576.0
+  
+  do {
+    if (downloadObjectName != nil && uploadObjectName != nil){
+      var download = 0.0
+      var upload = 0.0
+      let download_data = object[downloadObjectName]
+      let upload_data = object[uploadObjectName]
+      if let mobileDownloadData = NumberFormatter().number(from: download_data!)?.doubleValue {
+         download = mobileDownloadData
+      }
+      if let mobileUploadData = NumberFormatter().number(from: upload_data!)?.doubleValue {
+        upload = mobileUploadData
+      }
+let download_mb = download / mega
+      let upload_mb = upload / mega
+      convertedToMb[downloadObjectName] = download_mb
+      convertedToMb[uploadObjectName] = upload_mb
+    } else {
+      convertedToMb[downloadObjectName] = 0
+      convertedToMb[uploadObjectName] = 0
+    }
+  } catch {
+    DispatchQueue.main.async {
+      AlertController.showErrorWith(title: "Parse DeviceData Object", message: "Has Failed", controller: self) {
+      }
+    }
+  }
+  return convertedToMb
 }
 
+public func calculatedMobileData (object: [String: Double]) -> String {
+  let giga = 1024.0
+  var download = 0.0
+  var upload = 0.0
+  var mobileDataAmount = 0.0
+  var finalAmount = ""
+
+  
+  do{
+    var downloadData = 0.0
+    var uploadData = 0.0
+    if (object[MOBILE_COLLECTED_RX] != nil && object[MOBILE_COLLECTED_TX] != nil){
+      downloadData = object[MOBILE_COLLECTED_RX]!
+      uploadData = object[MOBILE_COLLECTED_TX]!
+    } else {
+      downloadData = object[MOBILE_COLLECTED_MONTH_RX]!
+      uploadData = object[MOBILE_COLLECTED_MONTH_TX]!
+    }
+    mobileDataAmount = downloadData + uploadData
+    if ((mobileDataAmount / giga) > 1) {
+      let dataAmountInGygabytes = mobileDataAmount / giga
+      var value: String = String(format:"%.0f", dataAmountInGygabytes)
+      finalAmount = value + " GB"
+    } else if ((mobileDataAmount / giga) < 1) {
+      let finalValue = Double(round(1000*mobileDataAmount)/10)
+
+      finalAmount = "\(finalValue) MB"
+    }
+  } catch {
+    DispatchQueue.main.async {
+      AlertController.showErrorWith(title: "Parse DeviceData Object", message: "Has Failed", controller: self) {
+      }
+    }
+  }
+  return finalAmount
+  }
+}
 
 extension String {
   var isNumeric: Bool {

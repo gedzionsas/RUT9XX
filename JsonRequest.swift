@@ -22,7 +22,7 @@ class Json {
     
     let loginrequest = JsonRequests.loginRequest(userName: userName, password: password)
     
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: loginrequest, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: loginrequest, completion: { (json, error) in
       loginCompletion(json, error)
       
     })
@@ -32,7 +32,7 @@ class Json {
   public func deviceinform(token: String, config: String, section: String, option: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceinformation = JsonRequests.getInformationFromConfig(token: token, config: config, section: section, option: option)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceinformation, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceinformation, completion: { (json, error) in
       loginCompletion(json)
     })
   }
@@ -40,7 +40,7 @@ class Json {
   public func aboutDevice(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam(token: token, command: command, parameter : parameter)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
@@ -48,7 +48,7 @@ class Json {
   public func aboutDevice1(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam1(token: token, command: command, parameter : parameter)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
@@ -56,14 +56,14 @@ class Json {
   public func aboutDevice2(token: String, deviceInterface: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam2(token: token, deviceInterface: deviceInterface, parameter: parameter)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
   
   public func mobileConnectionUptime(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     let uptimeParam = JsonRequests.mobileConnectionUptime(token: token, param1: param1, param2 : param2)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: uptimeParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: uptimeParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
@@ -71,14 +71,14 @@ class Json {
   public func fileExec2Comm(token: String, command: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.fileExec2Command(token: token, command: command)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
   public func deviceWirelessDetails(token: String, param1: String, param2: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceWirelessParam = JsonRequests.requestForWirelessDetails(token: token, param1: param1, param2: param2)
-    makeWebServiceCall(urlAddress: URL, requestMethod: .post, params: deviceWirelessParam, completion: { (json, error) in
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: .post, params: deviceWirelessParam, completion: { (json, error) in
       loginCompletion(json)
     })
   }
