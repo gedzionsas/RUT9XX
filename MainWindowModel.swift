@@ -104,7 +104,7 @@ public class MainWindowModel: UIViewController {
       MethodsClass().processJsonStdoutOutput(response_data: json){ (txMonthData) in
         UserDefaults.standard.setValue(txMonthData, forKey: "txmonth_data")
       }
-      
+      print("kas", (UserDefaults.standard.value(forKey: "rxmonth_data") as! String))
       var arr: [String] = [(UserDefaults.standard.value(forKey: "rx_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "tx_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "rxmonth_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "txmonth_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines)]
               UserDefaults.standard.setValue(arr, forKey: "arr_data")
     }
@@ -277,8 +277,7 @@ public class MainWindowModel: UIViewController {
       if ((mobileDataArray[2] as! String).isNumeric) == true {
         objectGsm[MOBILE_COLLECTED_MONTH_RX] = mobileDataArray[2] as! String
       } else {
-        objectGsm[MOBILE_COLLECTED_RX] = mobileDataArray[0] as! String
-
+       objectGsm[MOBILE_COLLECTED_RX] = mobileDataArray[0] as! String
       }
       if ((mobileDataArray[3] as! String).isNumeric) == true {
         objectGsm[MOBILE_COLLECTED_MONTH_TX] = mobileDataArray[3] as! String

@@ -27,16 +27,5 @@ class AlertController: NSObject {
         alertWindow.windowLevel = UIWindowLevelAlert + 1;
         alertWindow.makeKeyAndVisible()
         alertWindow.rootViewController?.present(alert, animated: true, completion: nil)
-//                                      handler: { (action) in
-//            
-//            
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
-//            controller.present(viewController, animated:true)
-//            
-//            
-//        }))
-//        controller.present(alert, animated: true, completion: nil)
-      
     }
 }

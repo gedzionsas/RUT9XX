@@ -12,6 +12,30 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet var menuView: UIView!
   let section = ["MOBILE", "WIRELESS"]
+
+  
+  @IBAction func rebootButton(_ sender: Any) {
+    let refreshAlert = UIAlertController(title: "Reboot", message: "Reboot router?", preferredStyle: UIAlertControllerStyle.alert)
+    
+    refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+      self.dismiss(animated: true, completion: nil)
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+      self.present(viewController, animated: true)
+      let token = UserDefaults.standard.value(forKey: "saved_token")
+      Json().aboutDevice(token: token as! String, command: "reboot", parameter: "config") { (json) in
+        print("Reboot have been done")
+      }
+    }))
+    
+    refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+      print("Reboot Canceled")
+    }))
+    
+    present(refreshAlert, animated: true, completion: nil)
+    
+  }
   
   
   @IBOutlet var leadingConstraintForSlideMenu: NSLayoutConstraint!
@@ -29,8 +53,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
   }
   var menuShowing = false
-  
-
   @IBOutlet var tableView: UITableView!
   
   override func viewDidLoad() {

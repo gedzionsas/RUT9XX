@@ -259,6 +259,9 @@
                                         <state key="normal" title="Reboot">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="rebootButton:" destination="zBZ-Sh-OFQ" eventType="touchUpInside" id="HX3-vy-eAs"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bln-6N-FCP">
                                         <rect key="frame" x="8" y="312" width="214" height="30"/>
