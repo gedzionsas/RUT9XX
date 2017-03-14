@@ -19,7 +19,11 @@ import SwiftyJSON
 
 class LoginController: UIViewController, UITextFieldDelegate {
   
+  private let ADMIN = "admin"
+  private let ROOT = "root"
+
   
+
   
   func displayAlert(title:String, message: String){
     let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -46,7 +50,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     if userName.text == "" || password.text == "" {
       displayAlert(title: "Error", message: "Username and password are required")
     } else {
-      UserDefaults.standard.setValue(userName.text, forKey: "saved_username")
+      let name : String = userName.text!
+      let replacedUsername = name.replacingOccurrences(of: ADMIN, with: ROOT)
+      print("saunu", replacedUsername)
+      
+      UserDefaults.standard.setValue(replacedUsername, forKey: "saved_username")
       UserDefaults.standard.setValue(password.text, forKey: "saved_password")
       UserDefaults.standard.synchronize()
       

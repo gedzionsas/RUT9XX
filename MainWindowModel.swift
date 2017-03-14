@@ -24,6 +24,7 @@ public class MainWindowModel: UIViewController {
   private let MOBILE_COLLECTED_MONTH_TX = "CollectedMonthTx"
 
   internal func mainTasks (param1: String){
+    
     let token = UserDefaults.standard.value(forKey: "saved_token")
     let GSM_3G_CONNECTION_STATE = "-j"
     
@@ -52,9 +53,6 @@ public class MainWindowModel: UIViewController {
               UserDefaults.standard.set(finalGsmDataResult, forKey: "processedgsm_data")
             }
           }
-        }
-        
-        
         let deviceInterface = (UserDefaults.standard.value(forKey: "device_interface") as! String).trimmingCharacters(in: .whitespacesAndNewlines)
         Json().aboutDevice1(token: token as! String, command: deviceInterface, parameter: deviceInterface ) { (json) in
           MethodsClass().processJsonStdoutOutput(response_data: json){ (gsmDataRequestResult) in
@@ -63,22 +61,17 @@ public class MainWindowModel: UIViewController {
               
             }
           }
-          
-        }}}
-    
     // if device is RUT9XX, found simcard inserted or not
     if ((deviceName.range(of:"RUT9")) != nil) {
       Json().fileExec2Comm(token: token as! String, command: "sim_switch sim") { (json) in
         MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardValue) in
           UserDefaults.standard.setValue(simCardValue, forKey: "simcard_value")
-          
+        }
           Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-z") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardStateResult) in
               UserDefaults.standard.setValue(simCardStateResult, forKey: "simcard_state")
-            }}
-        }
-      }
-    }
+            }
+    
     
     let testCommand = "mdcollectdctl -rx"
     let test2Command = "mdcollectdctl -tx"
@@ -89,45 +82,38 @@ public class MainWindowModel: UIViewController {
       MethodsClass().processJsonStdoutOutput(response_data: json){ (rxData) in
         UserDefaults.standard.setValue(rxData, forKey: "rx_data")
       }
-    }
+    
     Json().fileExec2Comm(token: token as! String, command: test2Command) { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (txData) in
         UserDefaults.standard.setValue(txData, forKey: "tx_data")
       }
-    }
+    
     Json().fileExec2Comm(token: token as! String, command: test3Command) { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (rxMonthData) in
         UserDefaults.standard.setValue(rxMonthData, forKey: "rxmonth_data")
       }
-    }
+    
     Json().fileExec2Comm(token: token as! String, command: test4Command) { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (txMonthData) in
         UserDefaults.standard.setValue(txMonthData, forKey: "txmonth_data")
       }
-      print("kas", (UserDefaults.standard.value(forKey: "rxmonth_data") as! String))
+//print(rxData, txData, rxMonthData, txMonthData)
       var arr: [String] = [(UserDefaults.standard.value(forKey: "rx_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "tx_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "rxmonth_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines), (UserDefaults.standard.value(forKey: "txmonth_data") as! String).trimmingCharacters(in: .whitespacesAndNewlines)]
               UserDefaults.standard.setValue(arr, forKey: "arr_data")
-    }
-    
     Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-g") { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (mobileRoamingStatus) in
         UserDefaults.standard.setValue(mobileRoamingStatus, forKey: "mobileroaming_datastatus")
       }
-    }
+    
     Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: GSM_3G_CONNECTION_STATE) { (json) in
       MethodsClass().processJsonStdoutOutput(response_data: json){ (connectionStatus) in
        let connectionStatusTrimmed = connectionStatus.trimmingCharacters(in: .whitespacesAndNewlines)
         UserDefaults.standard.setValue(connectionStatusTrimmed, forKey: "connection_status")
       }
-    }
     Json().mobileConnectionUptime(token: token as! String, param1: "network.interface.wan", param2: "status") { (mobileConnectionUptime) in
       if let jsonDic = mobileConnectionUptime as? JSON, let object = jsonDic.dictionaryObject {
         UserDefaults.standard.setValue(object, forKey: "mobileconnection_uptime")
-        
       }
-    }
-    
-    
     // Wireless data
     
     var getConnectedWirelessIfNameParam = "get_ifname.lua "
@@ -136,36 +122,36 @@ public class MainWindowModel: UIViewController {
       MethodsClass().processJsonStdoutOutput(response_data: json){ (wirelessDevice) in
         UserDefaults.standard.setValue(wirelessDevice, forKey: "wireless_device")
       }
-      
       let wirelesssDeviceTrimmed = (UserDefaults.standard.value(forKey: "wireless_device") as! String).trimmingCharacters(in: .whitespacesAndNewlines)
       Json().aboutDevice1(token: token as! String, command: wirelesssDeviceTrimmed, parameter: wirelesssDeviceTrimmed ) { (wirelessDownloadUploadRequestResult) in
         MethodsClass().processJsonStdoutOutput(response_data: wirelessDownloadUploadRequestResult){ (wirelessDataResult) in
-          MethodsClass().processedDataArrayString(response_data: wirelessDataResult){ (wifiDataResult) in            UserDefaults.standard.setValue(wifiDataResult, forKey: "wirelessdownloadupload_result")
+          MethodsClass().processedDataArrayString(response_data: wirelessDataResult){ (wifiDataResult) in
+            UserDefaults.standard.setValue(wifiDataResult, forKey: "wirelessdownloadupload_result")
           }
         }
-      }
-      
       Json().deviceWirelessDetails(token: token as! String, param1: "info", param2: wirelesssDeviceTrimmed) { (deviceResult) in
         if let jsonDic = deviceResult as? JSON, let result = jsonDic.dictionaryObject {
           UserDefaults.standard.setValue(result, forKey: "device_result")
         }
-      }
-      
       Json().deviceWirelessDetails(token: token as! String, param1: "assoclist", param2: wirelesssDeviceTrimmed) { (wirelessClients) in
         MainWindowModel().getCountOfWirelessClients(response_data: wirelessClients) { (wirelessClientsCount) in
           UserDefaults.standard.setValue(wirelessClientsCount, forKey: "wirelessclients_count")
         }
-      }
+      
       Json().deviceinform(token: token as! String, config: "wireless", section: "@wifi-iface[0]", option: "mode") { (json) in
         MethodsClass().getJsonValue(response_data: json){ (wirelessMode) in
           UserDefaults.standard.setValue(wirelessMode, forKey: "wireless_mode")
         }
-      }
+      
       Json().deviceWirelessDetails(token: token as! String, param1: "info", param2: wirelesssDeviceTrimmed) { (wirelessQuality) in
         MainWindowModel().getDeviceQuality(response_data: wirelessQuality){ (wirelessQualityResult) in
           UserDefaults.standard.setValue(wirelessQualityResult, forKey: "wirelessquality_result")
         }
-      }
+      
+      
+//      print("rasiu",UserDefaults.standard.value(forKey: "device_result"), UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary, (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), (UserDefaults.standard.array(forKey: "arr_data") as? [String]), (UserDefaults.standard.value(forKey: "device_interface") as? String), (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), (UserDefaults.standard.value(forKey: "wireless_mode") as? String), (UserDefaults.standard.value(forKey: "connection_status") as? String), (UserDefaults.standard.value(forKey: "simcard_state") as? String))
+      
+      
               if let deviceResultUnwrapped = (UserDefaults.standard.value(forKey: "device_result")), let mobileConnectionUptimeUnwrapped = (UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary), let processedGsmDataUnwrapped = (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), let wirelessDownloadUploadResultUnwrapped = (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), let mobileDataUnwrapped = (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), let mobileDataArray = (UserDefaults.standard.array(forKey: "arr_data") as? [String]), let DeviceInterfaceUnwrapped = (UserDefaults.standard.value(forKey: "device_interface") as? String), let mobileRoamingUnwrapped = (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), let wirelessClientsCountUnwrapped = (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), let wirelessQualityResultUnwrapped = (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), let wirelessModeUnwrapped = (UserDefaults.standard.value(forKey: "wireless_mode") as? String), let connectionStatusUnwrapped = (UserDefaults.standard.value(forKey: "connection_status") as? String), let simcardStateUnwrapped = (UserDefaults.standard.value(forKey: "simcard_state") as? String) {
           
          let data = MainWindowModel().parseDeviceDataObject(deviceResult:deviceResultUnwrapped, mobileConnectionUptime:mobileConnectionUptimeUnwrapped, processedGsmData: processedGsmDataUnwrapped, wirelessDownloadUploadResult: wirelessDownloadUploadResultUnwrapped, mobileData: mobileDataUnwrapped, mobileDataArray: mobileDataArray, DeviceInterface: DeviceInterfaceUnwrapped, mobileRoaming: mobileRoamingUnwrapped, wirelessClientsCount: wirelessClientsCountUnwrapped,wirelessQualityResult: wirelessQualityResultUnwrapped, wirelessMode: wirelessModeUnwrapped, connectionStatus: connectionStatusUnwrapped, simcardState: simcardStateUnwrapped)
@@ -173,9 +159,9 @@ public class MainWindowModel: UIViewController {
         } else {
           print("Error unwrapping values")
         }
-        print("asastau", UserDefaults.standard.array(forKey: "display_data"))
-    }
+        print(UserDefaults.standard.array(forKey: "display_data"))
     
+        }}}
     // Module data
     Json().deviceinform(token: token as! String, config: "system", section: "module", option: "vid") { (moduleVid) in
       MethodsClass().getJsonValue(response_data: moduleVid){ (moduleVidValue) in
@@ -185,19 +171,17 @@ public class MainWindowModel: UIViewController {
     Json().deviceinform(token: token as! String, config: "system", section: "module", option: "pid") { (modulePid) in
       MethodsClass().getJsonValue(response_data: modulePid){ (modulePidValue) in
         UserDefaults.standard.setValue(modulePidValue, forKey: "modulepid_value")
-
       }
-
     }
     
-    
-  }
+        }}}}
+        }}}
+      }}}}}}}}}}}
   
   public func getCountOfWirelessClients (response_data: Any?, complete: (Int)->()){
     
     var count = 0
     if let jsonDic = response_data as? JSON {
-      print(jsonDic)
       if (jsonDic["result"].exists()){
         for item in jsonDic["result"].arrayValue {
           if item["results"].exists() {
@@ -218,7 +202,6 @@ public class MainWindowModel: UIViewController {
     var result = ""
     var resultValue = ""
     if let jsonDic = response_data as? JSON {
-      print(jsonDic)
       if (jsonDic["result"].exists()){
         for item in jsonDic["result"].arrayValue {
           if item["signal"].exists() {
@@ -234,12 +217,7 @@ public class MainWindowModel: UIViewController {
     }else {
       print("klaida")
     }
-    
-    
   }
-  
-  
-  
   func parseDeviceDataObject (deviceResult: Any?, mobileConnectionUptime: Any?, processedGsmData: Array<String>, wirelessDownloadUploadResult: Array<Any>, mobileData: Array<String>, mobileDataArray: Array<String>, DeviceInterface: String, mobileRoaming: String, wirelessClientsCount: Int, wirelessQualityResult: String, wirelessMode: String, connectionStatus: String, simcardState: String)-> [Any] {
     
     var object1: [String: String] = ["signal": processedGsmData[0], "operator": processedGsmData[1], "connection": MainWindowModel().gsmConnectionChecker(processedGsmData: processedGsmData[2] as! String)]
