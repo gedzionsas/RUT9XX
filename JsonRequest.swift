@@ -37,6 +37,14 @@ class Json {
     })
   }
   
+  public func infoAboutFirmware(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    
+    let deviceParam = JsonRequests.firmawareInformation(token: token, param1: param1, param2 : param2)
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
+  
   public func aboutDevice(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam(token: token, command: command, parameter : parameter)
@@ -115,7 +123,7 @@ class Json {
           let loginController = LoginController()
           loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
             
-            
+          
           }
           print("Access denied+")
         }

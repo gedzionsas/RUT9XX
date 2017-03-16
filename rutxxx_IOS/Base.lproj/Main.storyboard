@@ -236,6 +236,9 @@
                                         <state key="normal" title="FW update">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="t37-yl-P5R" kind="show" id="NmU-Uz-A42"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUn-cp-B0h">
                                         <rect key="frame" x="8" y="236" width="214" height="30"/>
@@ -337,16 +340,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="pwk-ZV-ug4">
-                                                    <rect key="frame" x="8" y="29" width="306" height="24"/>
+                                                    <rect key="frame" x="8" y="29" width="306" height="23"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wireless name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZp-z0-DOZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="118" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="118" height="23"/>
                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="19"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wireless name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1A-du-sGg">
-                                                            <rect key="frame" x="188" y="0.0" width="118" height="24"/>
+                                                            <rect key="frame" x="188" y="0.0" width="118" height="23"/>
                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="19"/>
                                                             <color key="textColor" red="0.57675682106598991" green="0.57675682106598991" blue="0.57675682106598991" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -393,6 +396,90 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-Su-R6d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2195.625" y="-864.08450704225356"/>
+        </scene>
+        <!--Fw Update Controller-->
+        <scene sceneID="MDS-hz-RjR">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="t37-yl-P5R" customClass="FwUpdateController" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Pds-sR-58o"/>
+                        <viewControllerLayoutGuide type="bottom" id="os7-gN-7Wq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O6u-Ov-Z8N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jFp-dW-aTa">
+                                <rect key="frame" x="0.0" y="64" width="320" height="280"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="fwCell" rowHeight="70" id="qKj-kP-4p4" customClass="fwUpdateCell" customModule="rutxxx_IOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qKj-kP-4p4" id="Q6u-pS-OsW">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="VRe-5A-hVy">
+                                                    <rect key="frame" x="8" y="24" width="264" height="28"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FW version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5Y-oI-Zc6">
+                                                            <rect key="frame" x="0.0" y="0.0" width="158.5" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                            <color key="textColor" red="0.21704759845878874" green="0.21704759845878874" blue="0.21704759845878874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RUT9XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7Q-ve-pZS">
+                                                            <rect key="frame" x="158.5" y="0.0" width="105.5" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" red="0.46018401019999999" green="0.46018401019999999" blue="0.46018401019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="VRe-5A-hVy" secondAttribute="bottom" constant="9" id="2Q9-B0-3dP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VRe-5A-hVy" secondAttribute="trailing" constant="40" id="E1W-nj-oSq"/>
+                                                <constraint firstItem="VRe-5A-hVy" firstAttribute="top" secondItem="Q6u-pS-OsW" secondAttribute="topMargin" constant="16" id="GC4-sX-Bne"/>
+                                                <constraint firstItem="VRe-5A-hVy" firstAttribute="leading" secondItem="Q6u-pS-OsW" secondAttribute="leadingMargin" id="mkn-ct-0Wa"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="nameOfCell" destination="G5Y-oI-Zc6" id="aJp-iO-zVc"/>
+                                            <outlet property="valueOfCell" destination="T7Q-ve-pZS" id="nhc-MX-5Fa"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpW-uJ-sXp">
+                                <rect key="frame" x="117" y="352" width="86" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="UPDATE"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jFp-dW-aTa" firstAttribute="top" secondItem="Pds-sR-58o" secondAttribute="bottom" id="F7E-CH-ofa"/>
+                            <constraint firstItem="MpW-uJ-sXp" firstAttribute="top" secondItem="jFp-dW-aTa" secondAttribute="bottom" constant="8" id="Jjh-Sw-5vJ"/>
+                            <constraint firstItem="jFp-dW-aTa" firstAttribute="leading" secondItem="O6u-Ov-Z8N" secondAttribute="leading" id="PhC-rd-Fcn"/>
+                            <constraint firstItem="jFp-dW-aTa" firstAttribute="top" secondItem="Pds-sR-58o" secondAttribute="bottom" id="Tbb-9Z-GTm"/>
+                            <constraint firstAttribute="trailing" secondItem="jFp-dW-aTa" secondAttribute="trailing" id="Zrk-iH-6Gr"/>
+                            <constraint firstItem="MpW-uJ-sXp" firstAttribute="centerX" secondItem="jFp-dW-aTa" secondAttribute="centerX" id="aaC-Ju-OXC"/>
+                            <constraint firstItem="os7-gN-7Wq" firstAttribute="top" secondItem="jFp-dW-aTa" secondAttribute="bottom" constant="175" id="dtk-Cx-9z8"/>
+                            <constraint firstItem="os7-gN-7Wq" firstAttribute="top" secondItem="jFp-dW-aTa" secondAttribute="bottom" constant="175" id="jlS-OV-JeI"/>
+                            <constraint firstItem="os7-gN-7Wq" firstAttribute="top" secondItem="MpW-uJ-sXp" secondAttribute="bottom" constant="137" id="tjW-d0-YdZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="jFp-dW-aTa" id="fbu-4G-9u5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ADk-JU-WyO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1486.875" y="-1750.3521126760563"/>
         </scene>
         <!--Web Ui Controller-->
         <scene sceneID="JE8-h6-YWC">

@@ -40,7 +40,23 @@ if let jsonDic = response_data as? [String: Any] {
       print("klaida")
     }
   }
-  
+  public func parseFirmwareInformation (response_data: Any?, complete: (String)->()){
+    
+    var result = ""
+    if let jsonDic = response_data as? JSON {
+      if (jsonDic["result"].exists()){
+        for item in jsonDic["result"].arrayValue {
+          result = item["data"].stringValue
+        }
+        complete(result)
+      } else {
+        result = ""
+        complete(result)
+      }
+    }else {
+      print("klaida")
+    }
+  }
   public func getJsonValue (response_data: Any?, complete: (String)->()){
     
     var gotDeviceInterface = ""

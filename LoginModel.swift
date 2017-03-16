@@ -62,6 +62,7 @@ public class LoginModel: UIViewController {
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
           
           UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
+
           // Device get name call
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (newDeviceName) in
@@ -77,7 +78,12 @@ public class LoginModel: UIViewController {
             }
             complete(true)
           }
-
+          Json().infoAboutFirmware(token: self.loginToken, param1: "read", param2: "/etc/version"){ (json) in
+            MethodsClass().parseFirmwareInformation(response_data: json){ (firmwareNumber) in
+              UserDefaults.standard.setValue(firmwareNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicefirmware_number")
+            print("nu va", UserDefaults.standard.value(forKey: "devicefirmware_number"))
+            }
+          }
         }else {
           if (self.loginToken.contains("Access denied")) {
             self.loginToken = "Access denied"

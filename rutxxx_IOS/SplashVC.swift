@@ -18,8 +18,8 @@ public class SplashVC: UINavigationController {
     super.viewDidLoad()
     view.backgroundColor = .white
 
-           let appDomain = Bundle.main.bundleIdentifier!
- UserDefaults.standard.removePersistentDomain(forName: appDomain)
+//           let appDomain = Bundle.main.bundleIdentifier!
+// UserDefaults.standard.removePersistentDomain(forName: appDomain)
     
     // check is wi-fi connected
     checkReachability() { success in

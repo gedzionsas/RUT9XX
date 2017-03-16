@@ -271,8 +271,8 @@ public class MainWindowModel: UIViewController {
       
     }
     objectGsm["ConnectionStatus"] = connectionStatus
-    let labas = MainWindowModel().convertedDataCountToMb(object: objectGsm, downloadObjectName: MOBILE_COLLECTED_RX, uploadObjectName: MOBILE_COLLECTED_TX)
-    print("labai idomu man", MainWindowModel().calculatedMobileData(object: labas))
+  //  let labas = MainWindowModel().convertedDataCountToMb(object: objectGsm, downloadObjectName: MOBILE_COLLECTED_RX, uploadObjectName: MOBILE_COLLECTED_TX)
+ //   print("labai idomu man", MainWindowModel().calculatedMobileData(object: labas))
     objectDevices["MobileDevice"] = DeviceInterface
     objectDevices["WirelessClientsCount"] = wirelessClientsCount
     objectDevices["WirelessQuality"] = wirelessQualityResult

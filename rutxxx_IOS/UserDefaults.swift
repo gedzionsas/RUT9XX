@@ -40,8 +40,44 @@ class UserDefaultsManager {
     private static let TXMONTH_DATA = "txmonth_data"
     private static let ARR_DATA = "arr_data"
     private static let DISPLAY_DATA = "display_data"
+    private static let DEVICEFIRMWARE_NUMBER = "devicefirmware_number"
+    private static let FW_INFORMATION = "fwinformation"
+    private static let FW_VALUE = "fwValue"
+    private static let FWUPDATE_ARRAY = "fwupdate_array"
+
   
-  
+  static var setFwUpdateArray: String {
+    get {
+      return UserDefaults.standard.string(forKey: FWUPDATE_ARRAY)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: FWUPDATE_ARRAY)
+    }
+  }
+  static var setFwValue: String {
+    get {
+      return UserDefaults.standard.string(forKey: FW_VALUE)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: FW_VALUE)
+    }
+  }
+  static var setDeviceFirmwareInformation: String {
+    get {
+      return UserDefaults.standard.string(forKey: FW_INFORMATION)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: FW_INFORMATION)
+    }
+  }
+  static var setDeviceFirmwareNumber: String {
+    get {
+      return UserDefaults.standard.string(forKey: DEVICEFIRMWARE_NUMBER)!
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: DEVICEFIRMWARE_NUMBER)
+    }
+  }
   static var setDisplayData: String {
     get {
       return UserDefaults.standard.string(forKey: DISPLAY_DATA)!

@@ -74,6 +74,15 @@ class JsonRequests {
       ]]
     return fileExec2
   }
+  static func firmawareInformation(token: String, param1: String, param2: String) -> [String:Any] {
+    
+    let firmwareInfo: [String : Any] = ["jsonrpc": "2.0",
+                                     "id": 1,
+                                     "method": "call",
+                                     "params": [ token, "file", param1, [ "path": param2]
+      ]]
+    return firmwareInfo
+  }
   static func mobileConnectionUptime(token: String, param1: String, param2 : String) -> [String:Any] {
     
     let connectionUptime: [String : Any] = ["jsonrpc": "2.0",

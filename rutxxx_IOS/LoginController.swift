@@ -52,7 +52,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     } else {
       let name : String = userName.text!
       let replacedUsername = name.replacingOccurrences(of: ADMIN, with: ROOT)
-      print("saunu", replacedUsername)
+   //   print("saunu", replacedUsername)
       
       UserDefaults.standard.setValue(replacedUsername, forKey: "saved_username")
       UserDefaults.standard.setValue(password.text, forKey: "saved_password")
