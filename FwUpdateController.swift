@@ -11,21 +11,42 @@ import UIKit
 class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   var fwUpdateData = [dataToShow]()
 
+  var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
+  @IBOutlet weak var updateButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+      updateButton.layer.cornerRadius = 10
+      updateButton.isHidden = true
       
+      activityIndicator.center = self.view.center
+      activityIndicator.hidesWhenStopped = true
+      activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+      view.addSubview(activityIndicator)
+      
+      activityIndicator.startAnimating()
+      UIApplication.shared.beginIgnoringInteractionEvents()
       tableView.delegate = self
       tableView.dataSource = self
       
 
        FwUpdateModel().fwUpdateTask(){ (result) in
+        var newFwVersion = result[2].lowercased()
+        print("asas", newFwVersion)
+        if (newFwVersion.range(of: "No".lowercased()) != nil) || (newFwVersion.range(of: "n/a".lowercased()) != nil){
+          print("taip", newFwVersion)
+          self.updateButton.isHidden = true
+          fwDownloadFwUpdate().fwDownloadUpdateTask(){ () in
+          }
+        } else {
+          self.updateButton.isHidden = false
+        }
         UserDefaults.standard.setValue(result, forKey: "fwupdate_array")
         self.updateUI(array: UserDefaults.standard.array(forKey: "fwupdate_array") as! [String])
-
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
       }
-      
     }
   
   override func didReceiveMemoryWarning() {
@@ -57,8 +78,6 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   }
   
   
-  
-  
   private func updateUI(array: [String]) {
       print(array[0])
   guard let row1 = dataToShow(name: "FW version", value: (UserDefaults.standard.value(forKey: "devicefirmware_number") as? String)!) else {
@@ -75,6 +94,7 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   }
   fwUpdateData += [row1, row2, row3, row4]
     tableView.reloadData()
-   
     }
+  
+
 }

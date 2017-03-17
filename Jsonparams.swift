@@ -45,6 +45,16 @@ class JsonRequests {
     
     return deviceParam
   }
+  static func downloadFirmware(token: String) -> [String:Any] {
+    
+    let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                       "id": 1,
+                                       "method": "call",
+                                       "params": [ token, "file", "exec", [ "command": "/usr/sbin/auto_update.sh", "params": ["get", "0"]]
+      ]]
+    
+    return deviceParam
+  }
   static func aboutDeviceParam1(token: String, command: String, parameter : String) -> [String:Any] {
     
     let deviceParam1: [String : Any] = ["jsonrpc": "2.0",

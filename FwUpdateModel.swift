@@ -45,10 +45,8 @@ class FwUpdateModel: UIViewController {
         arrayForDate.append(arrInfo[9])
         arrayForDate.append(FwUpdateModel().checkMonth(param: arrInfo[5]))
         arrayForDate.append(arrInfo[6])
-        arrayForDate.append(arrInfo[7])
-        
         stringOfDate = arrayForDate.joined(separator: "-")
-        
+        stringOfDate = stringOfDate + " \(arrInfo[7])"
         print(stringOfDate)
       } else {
       stringOfDate = "Not data"

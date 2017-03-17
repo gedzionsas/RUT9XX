@@ -124,7 +124,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     activityIndicator.center = self.view.center
     activityIndicator.hidesWhenStopped = true
-    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
     view.addSubview(activityIndicator)
     
     activityIndicator.startAnimating()

@@ -52,6 +52,13 @@ class Json {
       loginCompletion(json)
     })
   }
+  public func downloadNewFirmware(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    
+    let deviceParam = JsonRequests.downloadFirmware(token: token)
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
   
   public func aboutDevice1(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
