@@ -59,7 +59,13 @@ class Json {
       loginCompletion(json)
     })
   }
-  
+  public func updateNewFirmware(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    
+    let deviceParam = JsonRequests.updateNewFirmware(token: token)
+    makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+      loginCompletion(json)
+    })
+  }
   public func aboutDevice1(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam1(token: token, command: command, parameter : parameter)
@@ -140,13 +146,34 @@ class Json {
         
         
       case .failure(let error):
+        print(error)
+//       Json().showErrorWith(title: "Error", message: "errorlocalizedDescription") {
+
         
         completion(nil, error)
         
-        
+    //    }
         
       }
       
     }
   }
+  
+//  func showErrorWith(title:String? = nil, message:String? = nil, complition:(() -> ())?){
+//    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//      
+//      
+//      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//      let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+//      let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//      appDelegate.window?.rootViewController = view
+//      
+//    }))
+//    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//    alertWindow.rootViewController = UIViewController()
+//    alertWindow.windowLevel = UIWindowLevelAlert + 1;
+//    alertWindow.makeKeyAndVisible()
+//    alertWindow.rootViewController?.working?
+//  }
 }

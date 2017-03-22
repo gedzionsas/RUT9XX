@@ -10,44 +10,55 @@ import UIKit
 
 class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   var fwUpdateData = [dataToShow]()
-
+  
   var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-
+  
+  @IBAction func updateButtonTapped(_ sender: Any) {
+    activityIndicator.center = self.view.center
+    activityIndicator.hidesWhenStopped = true
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+    view.addSubview(activityIndicator)
+    
+    activityIndicator.startAnimating()
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    fwDownloadFwUpdate().fwDownloadUpdateTask(){ () in
+      
+      self.activityIndicator.stopAnimating()
+      UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
+  }
   @IBOutlet weak var updateButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      updateButton.layer.cornerRadius = 10
-      updateButton.isHidden = true
-      
-      activityIndicator.center = self.view.center
-      activityIndicator.hidesWhenStopped = true
-      activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      view.addSubview(activityIndicator)
-      
-      activityIndicator.startAnimating()
-      UIApplication.shared.beginIgnoringInteractionEvents()
-      tableView.delegate = self
-      tableView.dataSource = self
-      
-
-       FwUpdateModel().fwUpdateTask(){ (result) in
-        var newFwVersion = result[2].lowercased()
-        print("asas", newFwVersion)
-        if (newFwVersion.range(of: "No".lowercased()) != nil) || (newFwVersion.range(of: "n/a".lowercased()) != nil){
-          print("taip", newFwVersion)
-          self.updateButton.isHidden = true
-          fwDownloadFwUpdate().fwDownloadUpdateTask(){ () in
-          }
-        } else {
-          self.updateButton.isHidden = false
-        }
-        UserDefaults.standard.setValue(result, forKey: "fwupdate_array")
-        self.updateUI(array: UserDefaults.standard.array(forKey: "fwupdate_array") as! [String])
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    updateButton.layer.cornerRadius = 20
+    updateButton.isHidden = true
+    
+    activityIndicator.center = self.view.center
+    activityIndicator.hidesWhenStopped = true
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+    view.addSubview(activityIndicator)
+    
+    activityIndicator.startAnimating()
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    tableView.delegate = self
+    tableView.dataSource = self
+    
+    
+    FwUpdateModel().fwUpdateTask(){ (result) in
+      var newFwVersion = result[2].lowercased()
+      if (newFwVersion.range(of: "No".lowercased()) != nil) || (newFwVersion.range(of: "n/a".lowercased()) != nil){
+        self.updateButton.isHidden = true
+      } else {
+        self.updateButton.isHidden = false
       }
+      UserDefaults.standard.setValue(result, forKey: "fwupdate_array")
+      self.updateUI(array: UserDefaults.standard.array(forKey: "fwupdate_array") as! [String])
+      self.activityIndicator.stopAnimating()
+      UIApplication.shared.endIgnoringInteractionEvents()
     }
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -64,7 +75,7 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-   let cellIdentifier = "fwUpdateCell"
+    let cellIdentifier = "fwUpdateCell"
     guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? fwUpdateCell else {
       fatalError("The dequeued cell is not an instance of MealTableViewCell.")
     }
@@ -79,22 +90,21 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   
   
   private func updateUI(array: [String]) {
-      print(array[0])
-  guard let row1 = dataToShow(name: "FW version", value: (UserDefaults.standard.value(forKey: "devicefirmware_number") as? String)!) else {
-    fatalError("Unable to instantiate row1")
-  }
-  guard let row2 = dataToShow(name: "Build data", value: array[0]) else {
-    fatalError("Unable to instantiate row2")
-  }
-  guard let row3 = dataToShow(name: "Kernel version", value: array[1]) else {
-    fatalError("Unable to instantiate row3")
-  }
-  guard let row4 = dataToShow(name: "New version", value: array[2]) else {
-    fatalError("Unable to instantiate row4")
-  }
-  fwUpdateData += [row1, row2, row3, row4]
-    tableView.reloadData()
+    guard let row1 = dataToShow(name: "FW version", value: (UserDefaults.standard.value(forKey: "devicefirmware_number") as? String)!) else {
+      fatalError("Unable to instantiate row1")
     }
+    guard let row2 = dataToShow(name: "Build data", value: array[0]) else {
+      fatalError("Unable to instantiate row2")
+    }
+    guard let row3 = dataToShow(name: "Kernel version", value: array[1]) else {
+      fatalError("Unable to instantiate row3")
+    }
+    guard let row4 = dataToShow(name: "New version", value: array[2]) else {
+      fatalError("Unable to instantiate row4")
+    }
+    fwUpdateData += [row1, row2, row3, row4]
+    tableView.reloadData()
+  }
   
-
+  
 }

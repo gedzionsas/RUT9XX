@@ -12,18 +12,10 @@ import SwiftyJSON
 
 
 
-//protocol DetailViewControllerDelegate: class {
-//    func didFinishTask(sender: DetailViewController)
-//}
-
-
 class LoginController: UIViewController, UITextFieldDelegate {
   
   private let ADMIN = "admin"
   private let ROOT = "root"
-
-  
-
   
   func displayAlert(title:String, message: String){
     let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -31,20 +23,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     self.present(alertcontroller, animated: true, completion: nil)
   }
   
-  
-  
   @IBOutlet var userName: UITextField!
   @IBOutlet var password: UITextField!
-  @IBOutlet var uncheckbox: UIButton!
-  
-  
-  
-  var checkBox = UIImage(named: "checkbox1")
-  var uncheckBox = UIImage(named: "checkbox2")
-  var isboxclicked: Bool!
-  
-  
-  
   
   @IBAction func loginButton(_ sender: Any) {
     if userName.text == "" || password.text == "" {
@@ -52,7 +32,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     } else {
       let name : String = userName.text!
       let replacedUsername = name.replacingOccurrences(of: ADMIN, with: ROOT)
-   //   print("saunu", replacedUsername)
       
       UserDefaults.standard.setValue(replacedUsername, forKey: "saved_username")
       UserDefaults.standard.setValue(password.text, forKey: "saved_password")
@@ -71,14 +50,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
   }
   
   override func viewDidLoad() {
-    
-    isboxclicked = false
-    
-    
-    
     super.viewDidLoad()
-    
-    
     // Do any additional setup after loading the view, typically from a nib.
   }
   
@@ -96,26 +68,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     textField.resignFirstResponder()
     
     return true
-  }
-  
-  
-  @IBAction func Checkbox(_ sender: Any) {
-    let ddd = LoginModel()
-    ddd.jsonDevice(param1: (UserDefaults.standard.value(forKey: "saved_token")! as! String))
-    ddd.jsonDeviceSerial()
-    
-    if isboxclicked == true {
-      isboxclicked = false
-      
-    }else {
-      isboxclicked = true
-    }
-    if isboxclicked == true{
-      uncheckbox.setImage(checkBox, for: UIControlState.normal)
-    }else {
-      uncheckbox.setImage(uncheckBox, for: UIControlState.normal)
-      
-    }
   }
   
   

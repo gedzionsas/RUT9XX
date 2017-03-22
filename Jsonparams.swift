@@ -65,6 +65,17 @@ class JsonRequests {
     
     return deviceParam1
   }
+  static func updateNewFirmware(token: String) -> [String:Any] {
+    
+    let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                        "id": 1,
+                                        "method": "call",
+                                        "params": [ token, "file", "exec", [ "command": "sysupgrade", "params": ["-d", "3", "-n", "/tmp/firmware.img" ]]
+      ]]
+    
+    return deviceParam
+  }
+
   static func aboutDeviceParam2(token: String, deviceInterface: String, parameter : String) -> [String:Any] {
     
     let deviceParam2: [String : Any] = ["jsonrpc": "2.0",

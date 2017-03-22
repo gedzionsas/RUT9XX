@@ -13,16 +13,32 @@ public class MethodsClass: UIViewController {
   
   public func jsonResultObject (response_data: Any?) -> [Any?] {
     var result: [Any]
-if let jsonDic = response_data as? [String: Any] {
-  result = jsonDic["result"] as! [Any]
-  print("veik", result)
+    if let jsonDic = response_data as? [String: Any] {
+      result = jsonDic["result"] as! [Any]
+      print("veik", result)
     } else {
-  result = [""]
-      }
-    return result
+      result = [""]
     }
+    return result
+  }
   
-  
+  public func processJsonSizeOutput (response_data: Any?, complete: (String)->()){
+    
+    var result = ""
+    if let jsonDic = response_data as? JSON {
+      if (jsonDic["result"].exists()){
+        for item in jsonDic["result"].arrayValue {
+          result = item["size"].stringValue
+        }
+        complete(result)
+      } else {
+        result = ""
+        complete(result)
+      }
+    }else {
+      print("klaida")
+    }
+  }
   public func processJsonStdoutOutput (response_data: Any?, complete: (String)->()){
     
     var result = ""
