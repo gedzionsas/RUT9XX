@@ -14,6 +14,9 @@ import SwiftyJSON
 
 class LoginController: UIViewController, UITextFieldDelegate {
   
+  var activeTextField: UITextField!
+
+  
   private let ADMIN = "admin"
   private let ROOT = "root"
   
@@ -23,6 +26,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     self.present(alertcontroller, animated: true, completion: nil)
   }
   
+  @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet var userName: UITextField!
   @IBOutlet var password: UITextField!
   
@@ -52,6 +56,18 @@ class LoginController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
+  //  userName.delegate = self
+ //   password.delegate = self
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
+    self.view.addGestureRecognizer(tapGesture)
   }
   
   override func didReceiveMemoryWarning() {
@@ -59,17 +75,33 @@ class LoginController: UIViewController, UITextFieldDelegate {
     // Dispose of any resources that can be recreated.
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    registerKeyboardNotifications()
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    deRegisterKeyboardNotifications()
+  }
+  
+  func tap(gesture: UITapGestureRecognizer) {
+    userName.resignFirstResponder()
+    password.resignFirstResponder()
+  }
+  
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     self.view.endEditing(true)
   }
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    
-    textField.resignFirstResponder()
-    
-    return true
-  }
-  
+//  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//    
+//    textField.resignFirstResponder()
+//    
+//    return true
+//  }
+
   
   public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
     
@@ -114,6 +146,64 @@ class LoginController: UIViewController, UITextFieldDelegate {
     dismiss(animated: true, completion: nil)
   }
   
+  // scroll view
+
+  fileprivate func registerKeyboardNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+  }
+  fileprivate func deRegisterKeyboardNotifications() {
+    NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: self.view.window)
+    NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidHide, object: self.view.window)
+  }
+  func keyboardWillShow(notification: NSNotification) {
+    
+    let info: NSDictionary = notification.userInfo! as NSDictionary
+    let value: NSValue = info.value(forKey: UIKeyboardFrameBeginUserInfoKey) as! NSValue
+    let keyboardSize: CGSize = value.cgRectValue.size
+    let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
+    scrollView.contentInset = contentInsets
+    scrollView.scrollIndicatorInsets = contentInsets
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    var aRect: CGRect = self.view.frame
+    aRect.size.height -= keyboardSize.height
+    let activeTextFieldRect: CGRect? = activeTextField?.frame
+    let activeTextFieldOrigin: CGPoint? = activeTextFieldRect?.origin
+    if (!aRect.contains(activeTextFieldOrigin!)) {
+      scrollView.scrollRectToVisible(activeTextFieldRect!, animated:true)
+    }    }
+  
+  func keyboardWillHide(notification: NSNotification) {
+    let contentInsets: UIEdgeInsets = .zero
+    scrollView.contentInset = contentInsets
+    scrollView.scrollIndicatorInsets = contentInsets
+  }
+  
+  //MARK: - UITextField Delegate Methods
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if textField == userName {
+      password.becomeFirstResponder()
+    }
+    else if textField == password {
+      userName.becomeFirstResponder()
+    }
+    else {
+      self.view.endEditing(true)
+    }
+    return true
+  }
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    activeTextField = textField
+    scrollView.isScrollEnabled = true
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    activeTextField = nil
+    scrollView.isScrollEnabled = false
+  }
   
 }
 

@@ -38,7 +38,7 @@ class DesignableTextField: UITextField {
       imageView.image = image
       imageView.tintColor = tintColor
       
-      var width = leftPadding + 20
+      var width = leftPadding + 30
       
       if borderStyle == UITextBorderStyle.none || borderStyle == UITextBorderStyle.line {
         width = width + 5
