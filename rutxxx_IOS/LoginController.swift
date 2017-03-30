@@ -14,8 +14,6 @@ import SwiftyJSON
 
 class LoginController: UIViewController, UITextFieldDelegate {
   
-  var activeTextField: UITextField!
-
   
   private let ADMIN = "admin"
   private let ROOT = "root"
@@ -26,6 +24,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     self.present(alertcontroller, animated: true, completion: nil)
   }
   
+    @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet var userName: UITextField!
   @IBOutlet var password: UITextField!
@@ -56,14 +55,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    
-    
-    
-  //  userName.delegate = self
- //   password.delegate = self
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
 
     
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tap(gesture:)))
@@ -75,16 +67,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    registerKeyboardNotifications()
-  }
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    
-    deRegisterKeyboardNotifications()
-  }
+
   
   func tap(gesture: UITapGestureRecognizer) {
     userName.resignFirstResponder()
@@ -102,7 +85,31 @@ class LoginController: UIViewController, UITextFieldDelegate {
 //    return true
 //  }
 
-  
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= (UIScreen.main.bounds.size.height - 289) {
+                self.keyboardHeightLayoutConstraint?.constant = 289 - ((endFrame?.size.height)! - (UIScreen.main.bounds.size.height - 455)) ?? 289.0
+            } else {
+                self.keyboardHeightLayoutConstraint?.constant = 289.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
+    }
+    
+    
   public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
@@ -148,62 +155,5 @@ class LoginController: UIViewController, UITextFieldDelegate {
   
   // scroll view
 
-  fileprivate func registerKeyboardNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-  }
-  fileprivate func deRegisterKeyboardNotifications() {
-    NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: self.view.window)
-    NotificationCenter.default.removeObserver(self, name: .UIKeyboardDidHide, object: self.view.window)
-  }
-  func keyboardWillShow(notification: NSNotification) {
-    
-    let info: NSDictionary = notification.userInfo! as NSDictionary
-    let value: NSValue = info.value(forKey: UIKeyboardFrameBeginUserInfoKey) as! NSValue
-    let keyboardSize: CGSize = value.cgRectValue.size
-    let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
-    scrollView.contentInset = contentInsets
-    scrollView.scrollIndicatorInsets = contentInsets
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your app might not need or want this behavior.
-    var aRect: CGRect = self.view.frame
-    aRect.size.height -= keyboardSize.height
-    let activeTextFieldRect: CGRect? = activeTextField?.frame
-    let activeTextFieldOrigin: CGPoint? = activeTextFieldRect?.origin
-    if (!aRect.contains(activeTextFieldOrigin!)) {
-      scrollView.scrollRectToVisible(activeTextFieldRect!, animated:true)
-    }    }
-  
-  func keyboardWillHide(notification: NSNotification) {
-    let contentInsets: UIEdgeInsets = .zero
-    scrollView.contentInset = contentInsets
-    scrollView.scrollIndicatorInsets = contentInsets
-  }
-  
-  //MARK: - UITextField Delegate Methods
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if textField == userName {
-      password.becomeFirstResponder()
-    }
-    else if textField == password {
-      userName.becomeFirstResponder()
-    }
-    else {
-      self.view.endEditing(true)
-    }
-    return true
-  }
-  
-  func textFieldDidBeginEditing(_ textField: UITextField) {
-    activeTextField = textField
-    scrollView.isScrollEnabled = true
-  }
-  
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    activeTextField = nil
-    scrollView.isScrollEnabled = false
-  }
-  
 }
 

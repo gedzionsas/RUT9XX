@@ -17,10 +17,7 @@ public class LoginModel: UIViewController {
   
   internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
-    Json().login(userName: param1, password: param2) { (json, error) in
-      print(json)
-      //      print(error)
-      
+    Json().login(userName: param1, password: param2) { (json, error) in      
       if error != nil {
         //Show alert
         print(error!.localizedDescription)
@@ -78,12 +75,26 @@ public class LoginModel: UIViewController {
             }
             complete(true)
           }
+
           Json().infoAboutFirmware(token: self.loginToken, param1: "read", param2: "/etc/version"){ (json) in
             MethodsClass().parseFirmwareInformation(response_data: json){ (firmwareNumber) in
               UserDefaults.standard.setValue(firmwareNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicefirmware_number")
-              print("nu va", UserDefaults.standard.value(forKey: "devicefirmware_number"))
+                    }
+                }
+          Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "sn") { (json) in
+            MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceSerialNumber) in
+              UserDefaults.standard.setValue(deviceSerialNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "deviceserial_number")
             }
-          }
+            }
+          Json().aboutDevice(token: self.loginToken, command: "gsmctl", parameter: "-i") { (json) in
+            MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceImeiNumber) in
+                UserDefaults.standard.setValue(deviceImeiNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "deviceimei_number")
+            }}
+            Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "mac") { (json) in
+                MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceLanMacNumber) in
+                    UserDefaults.standard.setValue(deviceLanMacNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicelanmac_number")
+                    print("klai", UserDefaults.standard.value(forKey: "devicelanmac_number"))
+                }}
         }else {
           if (self.loginToken.contains("Access denied")) {
             self.loginToken = "Access denied"
@@ -112,22 +123,5 @@ public class LoginModel: UIViewController {
     
     
   }
-  
-  internal func jsonDevice (param1: String){
-    
-    Json().deviceinform(token: (UserDefaults.standard.value(forKey: "saved_token")! as! String), config: "network", section: "ppp", option: "ifname") { (json) in
-      
-      
-      print(UserDefaults.standard.value(forKey: "saved_token"))
-      print(json)
-    }
-  }
-  
-  internal func jsonDeviceSerial (){
-    Json().aboutDevice(token: (UserDefaults.standard.value(forKey: "saved_token")! as! String), command: "mnf_info", parameter: "sn") { (json) in
-      MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceserialkey) in
-        print(deviceserialkey)
-      }
-    }}
   
 }

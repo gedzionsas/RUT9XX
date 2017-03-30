@@ -28,7 +28,7 @@ public class MainWindowModel: UIViewController {
     let token = UserDefaults.standard.value(forKey: "saved_token")
     let GSM_3G_CONNECTION_STATE = "-j"
     
-    var deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
+    let deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
     
     let wifiName = network().getSSID()
     
@@ -240,31 +240,31 @@ public class MainWindowModel: UIViewController {
       }
       
       if ((wirelessDownloadUploadResult[1] as! String).isNumeric) == true {
-        objectWifi[WIRELESS_UPLOAD] = wirelessDownloadUploadResult[1] as! String
+        objectWifi[WIRELESS_UPLOAD] = wirelessDownloadUploadResult[1] as? String
       } else {
         objectWifi[WIRELESS_UPLOAD] = "0"
       }
       
-      if ((mobileData[0] as! String).isNumeric) == true {
-        objectGsm[MOBILE_DOWNLOAD] = mobileData[0] as! String
+      if ((mobileData[0] ).isNumeric) == true {
+        objectGsm[MOBILE_DOWNLOAD] = mobileData[0] 
         
       } else {
         objectGsm[MOBILE_DOWNLOAD] = "0"
       }
-      if ((mobileData[1] as! String).isNumeric) == true {
-        objectGsm[MOBILE_UPLOAD] = mobileData[1] as! String
+      if ((mobileData[1] ).isNumeric) == true {
+        objectGsm[MOBILE_UPLOAD] = mobileData[1] 
       } else {
         objectGsm[MOBILE_UPLOAD] = "0"
       }
-      if ((mobileDataArray[2] as! String).isNumeric) == true {
-        objectGsm[MOBILE_COLLECTED_MONTH_RX] = mobileDataArray[2] as! String
+      if ((mobileDataArray[2] ).isNumeric) == true {
+        objectGsm[MOBILE_COLLECTED_MONTH_RX] = mobileDataArray[2] 
       } else {
-        objectGsm[MOBILE_COLLECTED_RX] = mobileDataArray[0] as! String
+        objectGsm[MOBILE_COLLECTED_RX] = mobileDataArray[0] 
       }
-      if ((mobileDataArray[3] as! String).isNumeric) == true {
-        objectGsm[MOBILE_COLLECTED_MONTH_TX] = mobileDataArray[3] as! String
+      if ((mobileDataArray[3] ).isNumeric) == true {
+        objectGsm[MOBILE_COLLECTED_MONTH_TX] = mobileDataArray[3] 
       } else {
-        objectGsm[MOBILE_COLLECTED_TX] = mobileDataArray[1] as! String
+        objectGsm[MOBILE_COLLECTED_TX] = mobileDataArray[1] 
       }
       
     } catch {
@@ -346,23 +346,30 @@ public class MainWindowModel: UIViewController {
   
   func checkWirelessEncryption(encryption: Any?) -> String {
     var result = ""
+    var encryptionLevelUnwrappedResult = ""
     if var information = encryption as? Dictionary<String, Any?> {
       let enabled = information["enabled"] as? Bool
       if enabled == false {
         result = "No encryption"
       }else if enabled == true {
         if (information["wpa"] != nil) {
-          let encryptionLevel = information["wpa"] as! String
-          let index = encryptionLevel.index(encryptionLevel.startIndex, offsetBy: 1)
-          let endIndex = encryptionLevel.index(encryptionLevel.startIndex, offsetBy: 1)
-          let encryptionLevelWrapped = encryptionLevel[index...endIndex]
-          result = "WPA\(encryptionLevelWrapped)"
+            var array = (information["wpa"]! as! NSArray).mutableCopy() as! NSMutableArray
+          let encryptionLevel = array[0] as? NSNumber
+            if let encryptionLevelUnwrapped = encryptionLevel{
+                 encryptionLevelUnwrappedResult = "\(encryptionLevelUnwrapped)"
+            } else {
+                encryptionLevelUnwrappedResult = "Error identifying encryption"
+            }
+          result = "WPA\(encryptionLevelUnwrappedResult)"
         } else if (information["wep"] != nil) {
-          let encryptionLevel = information["wep"] as! String
-          let index = encryptionLevel.index(encryptionLevel.startIndex, offsetBy: 1)
-          let endIndex = encryptionLevel.index(encryptionLevel.startIndex, offsetBy: 1)
-          let encryptionLevelWrapped = encryptionLevel[index...endIndex]
-          result = "WEP\(encryptionLevelWrapped)"
+          var array = (information["wep"]! as! NSArray).mutableCopy() as! NSMutableArray
+            let encryptionLevel = array[0] as? NSNumber
+            if let encryptionLevelUnwrapped = encryptionLevel{
+                encryptionLevelUnwrappedResult = "\(encryptionLevelUnwrapped)"
+            } else {
+                encryptionLevelUnwrappedResult = "Error identifying encryption"
+            }
+            result = "WEP\(encryptionLevelUnwrappedResult)"
         }
       }
     }

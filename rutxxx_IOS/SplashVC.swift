@@ -28,7 +28,7 @@ public class SplashVC: UINavigationController {
         print(isLoggedIn())
     if isLoggedIn() {
       // Auto login when not first time
-      
+
       let loginController = LoginController()
       loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
         if success {

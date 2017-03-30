@@ -39,6 +39,18 @@ public class MethodsClass: UIViewController {
       print("klaida")
     }
   }
+    
+  public func formatMacNumber (response_dat: String)->(String){
+        
+        var strArray = Array(response_dat.characters).map { String($0) }
+        let chunkSize = 2
+        let sepratedString = stride(from: 0, to: strArray.count, by: chunkSize).map {
+            Array(strArray[$0..<min($0 + chunkSize, strArray.count)]).joined()
+            }.joined(separator: ":")
+        
+        return sepratedString
+    }
+    
   public func processJsonStdoutOutput (response_data: Any?, complete: (String)->()){
     
     var result = ""
@@ -73,6 +85,8 @@ public class MethodsClass: UIViewController {
       print("klaida")
     }
   }
+
+
   public func getJsonValue (response_data: Any?, complete: (String)->()){
     
     var gotDeviceInterface = ""

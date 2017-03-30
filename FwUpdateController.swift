@@ -32,7 +32,7 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   @IBOutlet weak var tableView: UITableView!
   override func viewDidLoad() {
     super.viewDidLoad()
-    updateButton.layer.cornerRadius = 20
+    updateButton.layer.cornerRadius = 15
     updateButton.isHidden = true
     
     activityIndicator.center = self.view.center

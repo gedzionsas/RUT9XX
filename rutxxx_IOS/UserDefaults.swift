@@ -44,8 +44,43 @@ class UserDefaultsManager {
     private static let FW_INFORMATION = "fwinformation"
     private static let FW_VALUE = "fwValue"
     private static let FWUPDATE_ARRAY = "fwupdate_array"
+    private static let DEVICESERIAL_NUMBER = "deviceserial_number"
+    private static let DEVICEIMEI_NUMBER = "deviceimei_number"
+    private static let DEVICELANMAC_NUMBER = "devicelanmac_number"
+    private static let ROUTERDETAILS_ARRAY = "routerdetails_array"
 
-  
+    static var setRouterDetailsArray: String {
+        get {
+            return UserDefaults.standard.string(forKey: ROUTERDETAILS_ARRAY)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ROUTERDETAILS_ARRAY)
+        }
+    }
+    static var setDeviceLanMacNumber: String {
+        get {
+            return UserDefaults.standard.string(forKey: DEVICELANMAC_NUMBER)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: DEVICELANMAC_NUMBER)
+        }
+    }
+    static var setDeviceImeiNumber: String {
+        get {
+            return UserDefaults.standard.string(forKey: DEVICEIMEI_NUMBER)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: DEVICEIMEI_NUMBER)
+        }
+    }
+  static var setDeviceSerialNumber: String {
+        get {
+            return UserDefaults.standard.string(forKey: DEVICESERIAL_NUMBER)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: DEVICESERIAL_NUMBER)
+        }
+    }
   static var setFwUpdateArray: String {
     get {
       return UserDefaults.standard.string(forKey: FWUPDATE_ARRAY)!

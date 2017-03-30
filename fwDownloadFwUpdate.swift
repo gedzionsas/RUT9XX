@@ -42,7 +42,6 @@ class fwDownloadFwUpdate: UIViewController {
               if !(checkValue == "0") {
                 print("Updating", checkValue)
                 Json().updateNewFirmware(token: token as! String) { (value) in
-                  print("done", value)
                 }
                 
               }

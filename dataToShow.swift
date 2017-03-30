@@ -21,7 +21,6 @@ class dataToShow {
       return nil
     }
     
-    // The rating must be between 0 and 5 inclusively
     guard !value.isEmpty else {
       return nil
     }
