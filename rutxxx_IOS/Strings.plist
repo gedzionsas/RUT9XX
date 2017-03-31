@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>VRRP LAN</string>
+	<string>OpenVPN servers</string>
+	<string>OpenVPN clients</string>
+	<string>SNMP agent</string>
+	<string>SNMP trap</string>
+	<string>NTP client</string>
+	<string>IPsec</string>
+	<string>Ping reboot</string>
+	<string>Input/Output rules</string>
+	<string>DDNS</string>
+	<string>Site blocking</string>
+	<string>Content blocker</string>
+	<string>SMS utils rules</string>
+	<string>Hotspot</string>
+	<string>Hotspot logging</string>
+	<string>GRE tunnel</string>
+	<string>QoS</string>
+	<string>GPS</string>
+</array>
+</plist>

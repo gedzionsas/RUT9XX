@@ -36,10 +36,13 @@
 		69DE5B701E7935A4006E5E6F /* FwUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE5B6F1E7935A4006E5E6F /* FwUpdateModel.swift */; };
 		69DE5B721E7A7923006E5E6F /* fwUpdateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE5B711E7A7923006E5E6F /* fwUpdateCell.swift */; };
 		9E1B37C91E8A349B0013412B /* Rut9xxRouterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B37C81E8A349B0013412B /* Rut9xxRouterDetails.swift */; };
+		9E544E461E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E544E451E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift */; };
+		9E544E481E8E438300D8445E /* ServicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E544E471E8E438300D8445E /* ServicesCell.swift */; };
 		9E54F79B1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F79A1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift */; };
 		9E54F79D1E8B76FB00B936F8 /* RouterDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F79C1E8B76FB00B936F8 /* RouterDetailsCell.swift */; };
 		9E54F79F1E8BC42300B936F8 /* Rut9xxServicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F79E1E8BC42300B936F8 /* Rut9xxServicesModel.swift */; };
 		9E54F7A11E8BDB4600B936F8 /* Rut9xxServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F7A01E8BDB4600B936F8 /* Rut9xxServices.swift */; };
+		9E6C0E791E8E58D000D00A43 /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C0E781E8E58D000D00A43 /* Strings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,10 +77,13 @@
 		69DE5B6F1E7935A4006E5E6F /* FwUpdateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FwUpdateModel.swift; sourceTree = "<group>"; };
 		69DE5B711E7A7923006E5E6F /* fwUpdateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fwUpdateCell.swift; sourceTree = "<group>"; };
 		9E1B37C81E8A349B0013412B /* Rut9xxRouterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRouterDetails.swift; sourceTree = "<group>"; };
+		9E544E451E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServicesRestartTask.swift; sourceTree = "<group>"; };
+		9E544E471E8E438300D8445E /* ServicesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesCell.swift; sourceTree = "<group>"; };
 		9E54F79A1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRouterDetailsModel.swift; sourceTree = "<group>"; };
 		9E54F79C1E8B76FB00B936F8 /* RouterDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterDetailsCell.swift; sourceTree = "<group>"; };
 		9E54F79E1E8BC42300B936F8 /* Rut9xxServicesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServicesModel.swift; sourceTree = "<group>"; };
 		9E54F7A01E8BDB4600B936F8 /* Rut9xxServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServices.swift; sourceTree = "<group>"; };
+		9E6C0E781E8E58D000D00A43 /* Strings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		EACB91FE602BFE1045E541F1 /* Pods-bandymasAlam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandymasAlam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bandymasAlam/Pods-bandymasAlam.debug.xcconfig"; sourceTree = "<group>"; };
 		FDD2008CD4934132B496A104 /* Pods_bandymasAlam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bandymasAlam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +146,7 @@
 				696A6E671E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld */,
 				6916B38D1E37843800C9E7A2 /* UserDefaults.swift */,
 				69B840DC1E51EB0F00B5CF95 /* MainVC.swift */,
+				9E6C0E781E8E58D000D00A43 /* Strings.plist */,
 			);
 			path = rutxxx_IOS;
 			sourceTree = "<group>";
@@ -157,6 +164,7 @@
 				692E05F81E7BD75C002F523E /* fwDownloadFwUpdate.swift */,
 				9E54F79A1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift */,
 				9E54F79E1E8BC42300B936F8 /* Rut9xxServicesModel.swift */,
+				9E544E451E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -168,6 +176,7 @@
 				692EEBC11E81403D009770CA /* DesignableTextField.swift */,
 				692EEBC31E815049009770CA /* DesignableButton.swift */,
 				9E54F79C1E8B76FB00B936F8 /* RouterDetailsCell.swift */,
+				9E544E471E8E438300D8445E /* ServicesCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -266,6 +275,7 @@
 			files = (
 				696A6E6E1E1FBDAE00EA77DB /* LaunchScreen.storyboard in Resources */,
 				6935F4211E4460A90015E1D0 /* Assets.xcassets in Resources */,
+				9E6C0E791E8E58D000D00A43 /* Strings.plist in Resources */,
 				696A6E661E1FBDAE00EA77DB /* Main.storyboard in Resources */,
 				69227B211E5F1F320082EA4F /* Localizable.strings in Resources */,
 			);
@@ -327,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E54F79F1E8BC42300B936F8 /* Rut9xxServicesModel.swift in Sources */,
+				9E544E461E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift in Sources */,
 				691954801E728DFC0041BE2A /* WebUiController.swift in Sources */,
 				9E54F79D1E8B76FB00B936F8 /* RouterDetailsCell.swift in Sources */,
 				69DE5B6E1E79329B006E5E6F /* FwUpdateController.swift in Sources */,
@@ -344,6 +355,7 @@
 				69227B191E543EB70082EA4F /* MainVC.swift in Sources */,
 				692E05F91E7BD75C002F523E /* fwDownloadFwUpdate.swift in Sources */,
 				6935F4231E4474BF0015E1D0 /* LoginModel.swift in Sources */,
+				9E544E481E8E438300D8445E /* ServicesCell.swift in Sources */,
 				696A6E611E1FBDAE00EA77DB /* AppDelegate.swift in Sources */,
 				6964196E1E2CC666000349E5 /* SplashVC.swift in Sources */,
 				692EEBC21E81403D009770CA /* DesignableTextField.swift in Sources */,

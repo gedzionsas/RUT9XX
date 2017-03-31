@@ -96,10 +96,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
             let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
-            if (endFrame?.origin.y)! >= (UIScreen.main.bounds.size.height - 289) {
-                self.keyboardHeightLayoutConstraint?.constant = 289 - ((endFrame?.size.height)! - (UIScreen.main.bounds.size.height - 455)) ?? 289.0
+            if (endFrame?.origin.y)! >= (UIScreen.main.bounds.size.height) {
+                self.keyboardHeightLayoutConstraint?.constant = 289
             } else {
-                self.keyboardHeightLayoutConstraint?.constant = 289.0
+                self.keyboardHeightLayoutConstraint?.constant = 289.0 - ((endFrame?.size.height)! - (UIScreen.main.bounds.size.height - 455))
+                
             }
             UIView.animate(withDuration: duration,
                            delay: TimeInterval(0),

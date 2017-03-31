@@ -48,7 +48,16 @@ class UserDefaultsManager {
     private static let DEVICEIMEI_NUMBER = "deviceimei_number"
     private static let DEVICELANMAC_NUMBER = "devicelanmac_number"
     private static let ROUTERDETAILS_ARRAY = "routerdetails_array"
+    private static let TEMP = "temp"
 
+    static var setTemp: String {
+        get {
+            return UserDefaults.standard.string(forKey: TEMP)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: TEMP)
+        }
+    }
     static var setRouterDetailsArray: String {
         get {
             return UserDefaults.standard.string(forKey: ROUTERDETAILS_ARRAY)!
