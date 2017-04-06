@@ -10,6 +10,9 @@ import UIKit
 import SwiftyJSON
 
 class Rut9xxServicesModel: UIViewController {
+    let checkInOut = "uci get hwinfo.hwinfo.in_out",
+    checkGps = "uci get hwinfo.hwinfo.gps"
+    
 
     let enabledCapital = "Enabled", disabledCapital = "Disabled", noDataCapital = "No data"
     
@@ -45,6 +48,7 @@ class Rut9xxServicesModel: UIViewController {
             smsUtilsRulesCommand = "uci show sms_utils | grep 'rule' | grep 'enabled='",
             greTunnelCommand = "uci show gre_tunnel | grep 'enabled='",
             qosCommand = "uci show qos | grep 'enabled='"
+
         
 
         
@@ -68,7 +72,7 @@ class Rut9xxServicesModel: UIViewController {
 
         Json().fileExec2Comm(token: token as! String, command: ipSecCommand) { (ipSecJson) in
             let ipSecValue = self.checkResultValue(receicedData: (self.checkForStdout(receivedData: ipSecJson)))
-        Json().deviceinform(token: token as! String, config: pingRebootConfig, section: pingRebootSection, option: enabledOption) { (pingRebootJson) in
+        Json().deviceinform(token: token as! String, config: pingRebootConfig, section: pingRebootSection, option: enableOption) { (pingRebootJson) in
                 MethodsClass().getJsonValue(response_data: pingRebootJson){ (pingRebootValue) in
                 let pingReboot =  self.checkResultValue(receicedData: (pingRebootValue))
         Json().fileExec2Comm(token: token as! String, command: inputOutputRulesCommand) { (rulesEnabledJson) in
@@ -101,24 +105,20 @@ class Rut9xxServicesModel: UIViewController {
             let gpsEnabledValue = self.checkResultValue(receicedData: (self.checkForStdout(receivedData: gpsEnabledJson)))
 
             var serversStatus = [vrrpLanValue, openVPNServersValue, openVpnClientValue, snmpAgentsValue, snmpTrapValue, ntpClientValue, ipSecValue, pingReboot, rulesEnabledValue, ddnsEnabledValue, siteBlocking, contentBlocker, smsUtilsRulesValue, hotspotsEnabledValue, hotspotLogg, greTunnelValue, qosValue, gpsEnabledValue]
+      //      UserDefaults.standard.setValue(serversStatus, forKey: "routerservices_array")
             
-          //  print("ytres", serversStatus)
-            
-            
-        var arraysOfNames: [String] = []
-            
-        if let path = Bundle.main.path(forResource: "Strings", ofType: "plist") {
-                if let array = NSArray(contentsOfFile: path) as? [String] {
-                    for arrays in array {
-                        arraysOfNames.append(arrays)
-                }}
-            }
-            
-           print(arraysOfNames)
-            
+          //  var originalState: [String] = UserDefaults.standard.value(forKey: "routerservices_array") as! [String]
             
             
 print("dsa", result, openVPNServersValue, openVpnClientValue, snmpdResult, snmpdTrapResult, ntpClientResult, ipSecValue, pingRebootValue, rulesEnabledValue, ddnsEnabledValue, siteBlockingValue, contentBlockerValue, smsUtilsRulesValue, hotspotsEnabledValue, hotspotLogging, greTunnelValue, qosValue, gpsEnabledValue)
+            
+            
+            
+
+            self.checkServices(){ (gpsEnabledJson) in
+              UserDefaults.standard.setValue(gpsEnabledJson, forKey: "routerservices_status")
+            }
+            
             
             complete(serversStatus)
             }}}}}}}}}}}}}}}}}}
@@ -127,13 +127,34 @@ print("dsa", result, openVPNServersValue, openVpnClientValue, snmpdResult, snmpd
         }
         
     }
+// check If roeter got services
+    
+    func checkServices(complete: @escaping (Bool)->()){
+        var result: Bool = true
+            Json().fileExec2Comm(token: UserDefaults.standard.value(forKey: "saved_token") as! String, command: checkInOut) { (checkServicesInOut) in
+                MethodsClass().processJsonStdoutOutput(response_data: checkServicesInOut){ (resultInOut) in
+           
+            Json().fileExec2Comm(token: UserDefaults.standard.value(forKey: "saved_token") as! String, command: self.checkGps) { (checkServicesGPS) in
+                MethodsClass().processJsonStdoutOutput(response_data: checkServicesGPS){ (resultGps) in
+            if resultInOut.trimmingCharacters(in: .whitespacesAndNewlines) == "0" && resultGps.trimmingCharacters(in: .whitespacesAndNewlines) == "0" {
+                result = false
+                complete(result)
+            } else {
+                result = true
+                complete(result)
+                    }
+}
+                    }
+            }
+            }
+        
+    }
+    
     
     func checkForStdout(receivedData: Any?)-> (String) {
         var result = ""
         if let jsonDic = receivedData as? JSON {
-                if (jsonDic["result"].exists()){
-                    for item in jsonDic["result"].arrayValue {
-                        if item["stdout"].exists(){
+            if jsonDic["result"][1]["stdout"].exists() {
                             MethodsClass().processJsonStdoutOutput(response_data: receivedData){ (result) in
                                 UserDefaults.standard.set(result, forKey: "temp")
                             }
@@ -141,8 +162,6 @@ print("dsa", result, openVPNServersValue, openVpnClientValue, snmpdResult, snmpd
                         } else {
                             result = "0"
                         }
-                    }
-            }
             } else {
                 print("Error checking Stdout")
         }

@@ -55,6 +55,41 @@ class JsonRequests {
     
     return deviceParam
   }
+    
+    static func setInformationToConfig(token: String, config: String, section: String, configsOption: String, value: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": config, "section": section, "values": [configsOption: value]]
+            ]]
+        
+        return deviceParam
+    }
+    
+    static func commitConfigChanges(token: String, config: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "commit", [ "config": config]
+            ]]
+        
+        return deviceParam
+    }
+    
+    static func luciReloadAfterChanges(token: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "file", "exec", [ "command": "luci-reload"]
+            ]]
+        
+        return deviceParam
+    }
+    
+    
   static func aboutDeviceParam1(token: String, command: String, parameter : String) -> [String:Any] {
     
     let deviceParam1: [String : Any] = ["jsonrpc": "2.0",

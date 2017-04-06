@@ -49,7 +49,25 @@ class UserDefaultsManager {
     private static let DEVICELANMAC_NUMBER = "devicelanmac_number"
     private static let ROUTERDETAILS_ARRAY = "routerdetails_array"
     private static let TEMP = "temp"
+    private static let ROUTERSERVICES_ARRAY = "routerservices_array"
+    private static let ROUTERSERVICES_STATUS = "routerservices_status"
 
+    static var setRouterServicesStatus: String {
+        get {
+            return UserDefaults.standard.string(forKey: ROUTERSERVICES_STATUS)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ROUTERSERVICES_STATUS)
+        }
+    }
+    static var setRouterServicesArray: String {
+        get {
+            return UserDefaults.standard.string(forKey: ROUTERSERVICES_ARRAY)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ROUTERSERVICES_ARRAY)
+        }
+    }
     static var setTemp: String {
         get {
             return UserDefaults.standard.string(forKey: TEMP)!

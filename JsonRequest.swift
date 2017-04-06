@@ -36,7 +36,32 @@ class Json {
       loginCompletion(json)
     })
   }
-  
+    
+    public func setConfigInformation(token: String, config: String, section: String, configOption: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setInformationToConfig(token: token, config: config, section: section, configsOption: configOption, value: value)
+        print(deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    
+    public func commitConfigsChanges(token: String, config: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceinformation = JsonRequests.commitConfigChanges(token: token, config: config)
+        print(deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func luciReload(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceinformation = JsonRequests.luciReloadAfterChanges(token: token)
+        print(deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    
   public func infoAboutFirmware(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.firmawareInformation(token: token, param1: param1, param2 : param2)
@@ -114,7 +139,7 @@ class Json {
     
     var request = URLRequest(url: NSURL.init(string: urlAddress) as! URL)
     request.httpMethod = requestMethod
-    request.timeoutInterval = 4
+    request.timeoutInterval = 6
     let postString = params
     request.httpBody = try! JSONSerialization.data(withJSONObject: postString, options: [])
     Alamofire.request(request).responseJSON {

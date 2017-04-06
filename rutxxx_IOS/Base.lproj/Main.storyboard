@@ -286,6 +286,9 @@
                                         <state key="normal" title="Router Settings">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="NyZ-vq-sZo" kind="show" id="7Yd-N6-IjK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g2-54-s6a">
                                         <rect key="frame" x="8" y="198" width="214" height="30"/>
@@ -674,6 +677,106 @@
             </objects>
             <point key="canvasLocation" x="4006.875" y="-1515.8450704225352"/>
         </scene>
+        <!--Rut 9xx Router Settings-->
+        <scene sceneID="vDe-gB-0Xj">
+            <objects>
+                <viewController storyboardIdentifier="routerSettings" id="NyZ-vq-sZo" customClass="Rut9xxRouterSettings" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xNX-fw-1YT"/>
+                        <viewControllerLayoutGuide type="bottom" id="z6f-Wh-bel"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jzA-4U-xIe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="New router password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pOw-4c-9XJ">
+                                <rect key="frame" x="16" y="119" width="288" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="2wh-N3-CMN"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="newPasswordEditChanged:" destination="NyZ-vq-sZo" eventType="editingChanged" id="6tA-Rm-9lY"/>
+                                    <action selector="newPasswordEditingEnd:" destination="NyZ-vq-sZo" eventType="editingDidEnd" id="t8m-k2-5h4"/>
+                                    <action selector="newPasswordEdittingBegin:" destination="NyZ-vq-sZo" eventType="editingDidBegin" id="mZP-Wp-ivr"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Repeat router password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8fp-Rt-aUV">
+                                <rect key="frame" x="16" y="172" width="288" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="6B6-Y7-Nd7"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Router Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzl-vd-IIt">
+                                <rect key="frame" x="16" y="72" width="163" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="163" id="Sr1-ZA-pFd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" red="0.0045097512193024158" green="0.23158586025238037" blue="0.52651280164718628" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXB-MW-P1t">
+                                <rect key="frame" x="16" y="225" width="163" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="163" id="w5L-MZ-3Xj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" red="0.0045097512189999998" green="0.2315858603" blue="0.52651280160000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary SIM card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGF-ih-kVc">
+                                <rect key="frame" x="16" y="256" width="143" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="143" id="71x-lB-CRk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecd-wv-21q">
+                                <rect key="frame" x="262" y="256" width="42" height="21"/>
+                                <color key="tintColor" red="0.17386376857757568" green="0.36592096090316772" blue="0.60266196727752686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.00048031356637105456" green="0.064309103463183859" blue="0.14981267211350757" alpha="0.65883582746478864" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iGF-ih-kVc" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="3g1-To-s0r"/>
+                            <constraint firstItem="pOw-4c-9XJ" firstAttribute="top" secondItem="wzl-vd-IIt" secondAttribute="bottom" constant="24" id="41x-MQ-w1y"/>
+                            <constraint firstItem="sXB-MW-P1t" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="8" id="4Ed-WH-XWN"/>
+                            <constraint firstItem="wzl-vd-IIt" firstAttribute="top" secondItem="xNX-fw-1YT" secondAttribute="bottom" constant="8" id="4ew-SE-0V9"/>
+                            <constraint firstItem="Ecd-wv-21q" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="39" id="Prj-Hw-nNm"/>
+                            <constraint firstItem="pOw-4c-9XJ" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="QjT-ni-dgr"/>
+                            <constraint firstItem="8fp-Rt-aUV" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="TMn-Zx-nOw"/>
+                            <constraint firstItem="wzl-vd-IIt" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="Xj2-Oi-jjD"/>
+                            <constraint firstItem="8fp-Rt-aUV" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="agr-Cb-rzs"/>
+                            <constraint firstItem="pOw-4c-9XJ" firstAttribute="centerX" secondItem="jzA-4U-xIe" secondAttribute="centerX" id="eG8-31-xG5"/>
+                            <constraint firstItem="8fp-Rt-aUV" firstAttribute="top" secondItem="pOw-4c-9XJ" secondAttribute="bottom" constant="8" id="hc1-KZ-b5z"/>
+                            <constraint firstItem="sXB-MW-P1t" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="kEs-Ei-IfR"/>
+                            <constraint firstItem="8fp-Rt-aUV" firstAttribute="centerX" secondItem="jzA-4U-xIe" secondAttribute="centerX" id="oxA-Pd-Qlb"/>
+                            <constraint firstItem="Ecd-wv-21q" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="u14-DC-TsQ"/>
+                            <constraint firstItem="pOw-4c-9XJ" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="uhh-O4-mdo"/>
+                            <constraint firstItem="iGF-ih-kVc" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="39" id="yHL-6e-R0m"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="newPasswordTextField" destination="pOw-4c-9XJ" id="D4T-Up-mmP"/>
+                        <outlet property="primarySimCardField" destination="Ecd-wv-21q" id="QxV-N6-h5z"/>
+                        <outlet property="reapeatPasswordField" destination="8fp-Rt-aUV" id="B7L-kq-y3f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="za3-1k-g6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4989.375" y="-1363.7323943661972"/>
+        </scene>
         <!--Rut 9xx Services-->
         <scene sceneID="fNs-5d-mit">
             <objects>
@@ -690,7 +793,7 @@
                                 <rect key="frame" x="0.0" y="139" width="320" height="380"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="routerServicesCell" id="rXA-LL-hVA" customClass="ServicesCell" customModule="rutxxx_IOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="routerServicesCell" id="rXA-LL-hVA" customClass="ServicesCell" customModule="rutxxx_IOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rXA-LL-hVA" id="J0G-8S-jJn">
@@ -735,6 +838,7 @@
                                                 <constraint firstItem="h3I-bk-6np" firstAttribute="trailing" secondItem="J0G-8S-jJn" secondAttribute="trailingMargin" constant="-12" id="ovC-HA-h94"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="restartButton" destination="Pop-09-rze" id="2IJ-7i-8NB"/>
                                             <outlet property="servicesName" destination="CKs-mw-dTx" id="t8B-Ap-cPn"/>

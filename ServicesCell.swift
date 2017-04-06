@@ -29,22 +29,6 @@ class ServicesCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-//    @IBAction func switchButtonAction(_ sender: Any) {
-//        if switchButton.isOn {
-//            print("Switch is on")
-//            switchButton.setOn(false, animated:true)
-//        } else {
-//            print("Switch is off")
-//            switchButton.setOn(true, animated:true)
-//        }
-  //  }
-    
-//    func switchIsChanged(mySwitch: UISwitch) {
-//        if switchButton.isOn {
-//            print("UISwitch is ON")
-//        } else {
-//            print("UISwitch is OFF")
-//        }
-//    }
+
 
 }

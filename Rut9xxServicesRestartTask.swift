@@ -17,9 +17,9 @@ class Rut9xxServicesRestartTask: UIViewController {
         hostblockConfig = "hostblock", privoxyConfig = "privoxy",
         openVpnConfig = "openvpn", strongswanConfig = "strongswan", ddnsConfig = "ddns",
         smsUtilsRulesConfig = "sms_utils", hotspotConfig = "coovachilli",
-        greTunnelConfig = "gre_tunnel", qosConfig = "qos", gpsConfig = "gps";
+        greTunnelConfig = "gre_tunnel", qosConfig = "qos", gpsConfig = "gps"
         
-        let zero = "0", one = "1";
+        let zero = "0", one = "1"
         
         if params == zero {
             restartService(serviceData: vrrpdConfig)
@@ -67,8 +67,10 @@ class Rut9xxServicesRestartTask: UIViewController {
     func restartService(serviceData: String) {
         if (!serviceData.isEmpty) {
             let token = UserDefaults.standard.value(forKey: "saved_token")
-            let command = "/etc/init.d/" + serviceData + " restart"
+            let command = "/etc/init.d/\(serviceData) restart"
+            print(command)
             Json().fileExec2Comm(token: token as! String, command: command) { (json) in
+                print(json)
             }
         }
         
