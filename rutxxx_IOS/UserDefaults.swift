@@ -51,7 +51,17 @@ class UserDefaultsManager {
     private static let TEMP = "temp"
     private static let ROUTERSERVICES_ARRAY = "routerservices_array"
     private static let ROUTERSERVICES_STATUS = "routerservices_status"
+    private static let SETNEWROUTER_PASSWORD = "routernew_password"
 
+
+    static var setRouterNewPassword: String {
+        get {
+            return UserDefaults.standard.string(forKey: SETNEWROUTER_PASSWORD)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: SETNEWROUTER_PASSWORD)
+        }
+    }
     static var setRouterServicesStatus: String {
         get {
             return UserDefaults.standard.string(forKey: ROUTERSERVICES_STATUS)!

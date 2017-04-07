@@ -12,14 +12,19 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var reapeatPasswordField: UITextField!
-    @IBOutlet weak var primarySimCardField: UILabel!
-var roundButton = UIButton()
+    @IBOutlet weak var primarySimCardField: UIButton!
+    
+    var roundButton = UIButton()
     
     var notChangedRouterPasswordFieldText = ""
+    var notChangedRepeatRouterPasswordFieldText = ""
+    var simCardValue = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        primarySimCardField.text = checkSimCard(value: UserDefaults.standard.value(forKey: "simcard_value") as! String)
+        primarySimCardField.setTitle(checkSimCard(value: UserDefaults.standard.value(forKey: "simcard_value") as! String), for: .normal)
+        simCardValue = (primarySimCardField.titleLabel?.text)!
+        
         // Do any additional setup after loading the view.
         self.roundButton = UIButton(type: .custom)
         self.roundButton.setTitleColor(UIColor.orange, for: .normal)
@@ -34,10 +39,23 @@ var roundButton = UIButton()
        roundButton.isHidden = false
     }
     
-    @IBAction func newPasswordEdittingBegin(_ sender: UITextField) {
-    }
     @IBAction func newPasswordEditingEnd(_ sender: UITextField) {
+        if newPasswordTextField.text == "" || reapeatPasswordField.text == "" {
+            roundButton.isHidden = true
+        } else {
          notChangedRouterPasswordFieldText = newPasswordTextField.text!
+        }
+    }
+    @IBAction func repeatPasswordEditChanged(_ sender: Any) {
+        roundButton.isHidden = false
+    }
+
+    @IBAction func repeatPasswordEdittingEnd(_ sender: Any) {
+        if newPasswordTextField.text == "" || reapeatPasswordField.text == "" {
+            roundButton.isHidden = true
+        } else {
+            notChangedRepeatRouterPasswordFieldText = reapeatPasswordField.text!
+        }
     }
     override func viewWillLayoutSubviews() {
         
@@ -59,6 +77,29 @@ var roundButton = UIButton()
     }
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
+    
+        var routerPassword = newPasswordTextField.text
+        var repeatRouterPasswordValue = reapeatPasswordField.text
+        var checkedSimCard = primarySimCardField.titleLabel?.text
+        print(routerPassword, repeatRouterPasswordValue, checkedSimCard)
+        
+        if routerPassword == repeatRouterPasswordValue {
+            UserDefaults.standard.setValue(routerPassword, forKey: "routernew_password")
+            Ru9xxRouterChangePasswordModel().performRouterPasswordTask(params: [routerPassword!]){ () in
+                
+            }
+        } else {
+            let alert = UIAlertController(title: "", message: "Password do not match!", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
+            newPasswordTextField.text = ""
+            reapeatPasswordField.text = ""
+        }
+        
+        if !(simCardValue == checkedSimCard){
+           print(simCardValue, checkedSimCard)
+        }
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,6 +120,12 @@ var roundButton = UIButton()
         // Pass the selected object to the new view controller.
     }
     */
+//    func performRouterSimSwitchTask(primarySimCardValue){
+//        
+//        
+//        
+//        
+//    }
 
     
     

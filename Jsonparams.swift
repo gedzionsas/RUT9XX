@@ -130,6 +130,15 @@ class JsonRequests {
       ]]
     return fileExec2
   }
+    static func setRouterPassword(token: String, password: String) -> [String:Any] {
+        
+        let info: [String : Any] = ["jsonrpc": "2.0",
+                                         "id": 1,
+                                         "method": "call",
+                                         "params": [ token, "file", "exec2", [ "command": "(echo '\(password)'; sleep 1; echo '\(password)') | passwd 'root'"]
+            ]]
+        return info
+    }
   static func firmawareInformation(token: String, param1: String, param2: String) -> [String:Any] {
     
     let firmwareInfo: [String : Any] = ["jsonrpc": "2.0",

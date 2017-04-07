@@ -700,7 +700,6 @@
                                 <connections>
                                     <action selector="newPasswordEditChanged:" destination="NyZ-vq-sZo" eventType="editingChanged" id="6tA-Rm-9lY"/>
                                     <action selector="newPasswordEditingEnd:" destination="NyZ-vq-sZo" eventType="editingDidEnd" id="t8m-k2-5h4"/>
-                                    <action selector="newPasswordEdittingBegin:" destination="NyZ-vq-sZo" eventType="editingDidBegin" id="mZP-Wp-ivr"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Repeat router password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8fp-Rt-aUV">
@@ -711,6 +710,10 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="repeatPasswordEditChanged:" destination="NyZ-vq-sZo" eventType="editingChanged" id="tG6-wc-QhI"/>
+                                    <action selector="repeatPasswordEdittingEnd:" destination="NyZ-vq-sZo" eventType="editingDidEnd" id="XfG-Pw-LeT"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Router Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzl-vd-IIt">
                                 <rect key="frame" x="16" y="72" width="163" height="23"/>
@@ -739,13 +742,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecd-wv-21q">
-                                <rect key="frame" x="262" y="256" width="42" height="21"/>
-                                <color key="tintColor" red="0.17386376857757568" green="0.36592096090316772" blue="0.60266196727752686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.00048031356637105456" green="0.064309103463183859" blue="0.14981267211350757" alpha="0.65883582746478864" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAI-g8-PIi">
+                                <rect key="frame" x="258" y="251" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="47w-6r-Pew" kind="presentation" id="aTV-i5-3cG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -753,7 +756,8 @@
                             <constraint firstItem="pOw-4c-9XJ" firstAttribute="top" secondItem="wzl-vd-IIt" secondAttribute="bottom" constant="24" id="41x-MQ-w1y"/>
                             <constraint firstItem="sXB-MW-P1t" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="8" id="4Ed-WH-XWN"/>
                             <constraint firstItem="wzl-vd-IIt" firstAttribute="top" secondItem="xNX-fw-1YT" secondAttribute="bottom" constant="8" id="4ew-SE-0V9"/>
-                            <constraint firstItem="Ecd-wv-21q" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="39" id="Prj-Hw-nNm"/>
+                            <constraint firstItem="vAI-g8-PIi" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="34" id="HLf-LM-g9N"/>
+                            <constraint firstItem="vAI-g8-PIi" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="IQd-id-vtS"/>
                             <constraint firstItem="pOw-4c-9XJ" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="QjT-ni-dgr"/>
                             <constraint firstItem="8fp-Rt-aUV" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="TMn-Zx-nOw"/>
                             <constraint firstItem="wzl-vd-IIt" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="Xj2-Oi-jjD"/>
@@ -762,20 +766,101 @@
                             <constraint firstItem="8fp-Rt-aUV" firstAttribute="top" secondItem="pOw-4c-9XJ" secondAttribute="bottom" constant="8" id="hc1-KZ-b5z"/>
                             <constraint firstItem="sXB-MW-P1t" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="kEs-Ei-IfR"/>
                             <constraint firstItem="8fp-Rt-aUV" firstAttribute="centerX" secondItem="jzA-4U-xIe" secondAttribute="centerX" id="oxA-Pd-Qlb"/>
-                            <constraint firstItem="Ecd-wv-21q" firstAttribute="trailing" secondItem="jzA-4U-xIe" secondAttribute="trailingMargin" id="u14-DC-TsQ"/>
                             <constraint firstItem="pOw-4c-9XJ" firstAttribute="leading" secondItem="jzA-4U-xIe" secondAttribute="leadingMargin" id="uhh-O4-mdo"/>
                             <constraint firstItem="iGF-ih-kVc" firstAttribute="top" secondItem="8fp-Rt-aUV" secondAttribute="bottom" constant="39" id="yHL-6e-R0m"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="newPasswordTextField" destination="pOw-4c-9XJ" id="D4T-Up-mmP"/>
-                        <outlet property="primarySimCardField" destination="Ecd-wv-21q" id="QxV-N6-h5z"/>
+                        <outlet property="primarySimCardField" destination="vAI-g8-PIi" id="hQu-SM-EHA"/>
                         <outlet property="reapeatPasswordField" destination="8fp-Rt-aUV" id="B7L-kq-y3f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="za3-1k-g6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4989.375" y="-1363.7323943661972"/>
+        </scene>
+        <!--Rut 9xx Sim Card Pop Up-->
+        <scene sceneID="k0y-dr-iva">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="47w-6r-Pew" customClass="Rut9xxSimCardPopUp" customModule="rutxxx_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JLJ-6c-Orj"/>
+                        <viewControllerLayoutGuide type="bottom" id="cjk-77-UiD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DIA-dN-cXi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7bB-KD-os6">
+                                <rect key="frame" x="11.5" y="220" width="297" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tm-hS-itl">
+                                        <rect key="frame" x="8" y="41" width="125" height="79"/>
+                                        <color key="backgroundColor" red="0.1738637686" green="0.36592096089999998" blue="0.60266196729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="79" id="cnO-45-2eG"/>
+                                            <constraint firstAttribute="width" constant="125" id="eTg-ZS-11y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <state key="normal" title="SIM 1">
+                                            <color key="titleColor" red="0.0039215686274509803" green="0.71316713094711304" blue="0.74580913782119751" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sim1Action:" destination="47w-6r-Pew" eventType="touchUpInside" id="1BU-z9-vnT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oor-va-KwG">
+                                        <rect key="frame" x="163" y="41" width="125" height="79"/>
+                                        <color key="backgroundColor" red="0.1738637686" green="0.36592096089999998" blue="0.60266196729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="79" id="BGW-Yk-X3X"/>
+                                            <constraint firstAttribute="width" constant="125" id="N5s-HA-US3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <state key="normal" title="SIM 2">
+                                            <color key="titleColor" red="0.0030596191063523293" green="0.70953673124313354" blue="0.74221211671829224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sim2Action:" destination="47w-6r-Pew" eventType="touchUpInside" id="fKv-xo-Ga1"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set primary SIM card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqm-h2-JdX">
+                                        <rect key="frame" x="66" y="0.0" width="165" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="cqm-h2-JdX" secondAttribute="trailing" constant="66" id="5lw-Ai-djX"/>
+                                    <constraint firstItem="cqm-h2-JdX" firstAttribute="top" secondItem="7bB-KD-os6" secondAttribute="top" id="6Pv-IM-G2R"/>
+                                    <constraint firstAttribute="trailing" secondItem="oor-va-KwG" secondAttribute="trailing" constant="9" id="AbN-3l-4cu"/>
+                                    <constraint firstAttribute="width" constant="297" id="FCU-CL-SVP"/>
+                                    <constraint firstItem="cqm-h2-JdX" firstAttribute="centerX" secondItem="7bB-KD-os6" secondAttribute="centerX" id="OpO-XY-TQF"/>
+                                    <constraint firstItem="3tm-hS-itl" firstAttribute="top" secondItem="cqm-h2-JdX" secondAttribute="bottom" constant="20" id="aSl-5p-EAV"/>
+                                    <constraint firstItem="3tm-hS-itl" firstAttribute="leading" secondItem="7bB-KD-os6" secondAttribute="leading" constant="8" id="aem-9g-wgE"/>
+                                    <constraint firstItem="oor-va-KwG" firstAttribute="top" secondItem="cqm-h2-JdX" secondAttribute="bottom" constant="20" id="erf-0b-JdX"/>
+                                    <constraint firstItem="cqm-h2-JdX" firstAttribute="leading" secondItem="7bB-KD-os6" secondAttribute="leading" constant="66" id="ijS-l4-T7P"/>
+                                    <constraint firstAttribute="height" constant="128" id="jda-TV-feX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7bB-KD-os6" firstAttribute="centerX" secondItem="DIA-dN-cXi" secondAttribute="centerX" id="Uc3-AD-Qpg"/>
+                            <constraint firstItem="7bB-KD-os6" firstAttribute="centerY" secondItem="DIA-dN-cXi" secondAttribute="centerY" id="j2y-ls-q4i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sim1Button" destination="3tm-hS-itl" id="CWl-9d-h3p"/>
+                        <outlet property="sim2Button" destination="oor-va-KwG" id="W7V-VO-dvZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wMQ-16-WXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5752.5" y="-1376.4084507042253"/>
         </scene>
         <!--Rut 9xx Services-->
         <scene sceneID="fNs-5d-mit">

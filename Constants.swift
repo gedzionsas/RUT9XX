@@ -11,3 +11,4 @@ import UIKit
     
 let URLREQUEST = "http://192.168.1.1/ubus"
 let IP = URL(string: "http://192.168.1.1")
+let SIM_CARD_CONFIG = "simcard"

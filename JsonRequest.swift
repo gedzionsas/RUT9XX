@@ -121,6 +121,15 @@ class Json {
       loginCompletion(json)
     })
   }
+    
+    public func setPassword(token: String, password: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceParam = JsonRequests.setRouterPassword(token: token, password: password)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    
   public func deviceWirelessDetails(token: String, param1: String, param2: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceWirelessParam = JsonRequests.requestForWirelessDetails(token: token, param1: param1, param2: param2)
@@ -131,11 +140,7 @@ class Json {
   
   
   private func makeWebServiceCall (urlAddress: String, requestMethod: String, params:[String:Any], completion: @escaping (_ JSONResponse : Any?, _ error: Error?) -> ()) {
-//    let manager = Alamofire.SessionManager.default
-
-    
-//    manager.session.configuration.timeoutIntervalForRequest = 2
-    
+ 
     
     var request = URLRequest(url: NSURL.init(string: urlAddress) as! URL)
     request.httpMethod = requestMethod
@@ -144,13 +149,7 @@ class Json {
     request.httpBody = try! JSONSerialization.data(withJSONObject: postString, options: [])
     Alamofire.request(request).responseJSON {
       response in
-      
-//    }
-//    
-//    manager.request(urlAddress, method: requestMethod, parameters: params, encoding: JSONEncoding.default).responseJSON{ response in
-    
-//      print(response.timeline)
- //     print(response.error)
+
       
       switch response.result {
       case .success(let value):
@@ -172,33 +171,13 @@ class Json {
         
       case .failure(let error):
         print(error)
-//       Json().showErrorWith(title: "Error", message: "errorlocalizedDescription") {
 
         
         completion(nil, error)
-        
-    //    }
         
       }
       
     }
   }
-  
-//  func showErrorWith(title:String? = nil, message:String? = nil, complition:(() -> ())?){
-//    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-//      
-//      
-//      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//      let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
-//      let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//      appDelegate.window?.rootViewController = view
-//      
-//    }))
-//    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-//    alertWindow.rootViewController = UIViewController()
-//    alertWindow.windowLevel = UIWindowLevelAlert + 1;
-//    alertWindow.makeKeyAndVisible()
-//    alertWindow.rootViewController?.working?
-//  }
+
 }

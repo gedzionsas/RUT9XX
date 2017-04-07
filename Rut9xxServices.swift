@@ -42,16 +42,12 @@ var routerServices = [dataToShow]()
             Rut9xxServicesSetData().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
                 print("asdsa", result)
                 if !(result == "") {
-                  //  self.showAlert(error: result)
-                    let alert = UIAlertController(title: "", message: result, preferredStyle: .alert)
-                    self.present(alert, animated: true, completion: nil)
-                    Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
-
+                   self.showAlert(error: result)
                     DispatchQueue.main.async {
                         let row = self.routerServices[indexPath.row]
-                        row.value = sender.isOn ? "Enabled" : "Disabled"
+                        row.value = sender.isOn ? "Disabled" : "Enabled"
                         self.routerServices[indexPath.row] = row
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic) 
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
                 
@@ -73,12 +69,10 @@ let point = sender.superview?.convert(sender.center, to: self.tableView)
                 UIApplication.shared.beginIgnoringInteractionEvents()
             Rut9xxServicesSetData().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
                 if !(result == "") {
-                    let alert = UIAlertController(title: "", message: result, preferredStyle: .alert)
-                    self.present(alert, animated: true, completion: nil)
-                    Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
+                    self.showAlert(error: result)
                     DispatchQueue.main.async {
                         let row = self.routerServices[indexPath.row]
-                        row.value = sender.isOn ? "Enabled" : "Disabled"
+                        row.value = sender.isOn ? "Disabled" : "Enabled"
                         self.routerServices[indexPath.row] = row
                         self.tableView.reloadRows(at: [indexPath], with: .automatic) 
                     }                }
