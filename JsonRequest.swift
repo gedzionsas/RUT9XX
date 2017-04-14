@@ -39,9 +39,10 @@ class Json {
     
     public func setConfigInformation(token: String, config: String, section: String, configOption: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setInformationToConfig(token: token, config: config, section: section, configsOption: configOption, value: value)
-        print(deviceinformation)
+        print("vo", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
+            print(json)
         })
     }
     

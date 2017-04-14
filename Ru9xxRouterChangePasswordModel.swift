@@ -21,8 +21,10 @@ class Ru9xxRouterChangePasswordModel: UIViewController {
 //        lowOption = "low"
 
         
-        if !params[0].isEmpty || params != nil {
+        if !params[0].isEmpty {
             Json().setPassword(token: token as! String, password: params[0]){ (response) in
+                print(response)
+                complete()
             }
         } else {
             let alert = UIAlertController(title: "", message: "Password fields are empty!", preferredStyle: .alert)

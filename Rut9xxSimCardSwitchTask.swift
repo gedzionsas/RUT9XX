@@ -10,15 +10,13 @@ import UIKit
 
 class Rut9xxSimCardSwitchTask: UIViewController {
 
-    internal func Rut9xxSimCardSwitchTask (complete: @escaping (String)->()){
+    internal func simCardSwitchTask (complete: @escaping ()->()){
         let token = UserDefaults.standard.value(forKey: "saved_token")
         let commandToSetFirstSim = "sim_switch change sim1",
         commandToSetSecondSim = "sim_switch change sim2",
         simCardSection = "simcard",
         simCardOption = "default"
-        
-      //  var simValue = UserDefaults.standard.value(forKey: "simcard_value") as? String
-        
+                
         guard let simValue = UserDefaults.standard.value(forKey: "simcard_value") as? String else {
             print("No sim card value")
             return
@@ -37,9 +35,12 @@ class Rut9xxSimCardSwitchTask: UIViewController {
                         Json().fileExec2Comm(token: token as! String, command: commandToSetFirstSim) { (valueToSet) in
                             
                             Json().luciReload(token: token as! String) { (luciValue) in
+                                
+                                
                             }}}}
             } else {
                 Json().setConfigInformation(token: token as! String, config:SIM_CARD_CONFIG, section: simCardSection, configOption: simCardOption, value: simValue) { (response) in
+                    print("sad", response)
                     
                     Json().commitConfigsChanges(token: token as! String, config: SIM_CARD_CONFIG) { (valueOfCommit) in
                         
@@ -66,7 +67,7 @@ class Rut9xxSimCardSwitchTask: UIViewController {
             
         }
         
-        complete(" ")
+        complete()
     }
     
     func checkSimCardValueToGpio(value: String)->(String){
@@ -78,6 +79,7 @@ class Rut9xxSimCardSwitchTask: UIViewController {
                 result = "0"
             }
         }
+        print(result)
         return result
     }
 

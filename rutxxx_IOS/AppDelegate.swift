@@ -18,9 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        
+        if let myImage = UIImage(named: "fonas.png"){
+       //     myImage.c = .scaleToFill
+            UINavigationBar.appearance().setBackgroundImage(myImage, for: .default)
+        }
+        let textAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = textAttributes
+        UINavigationBar.appearance().tintColor = UIColor.white
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
         window?.rootViewController = SplashVC()
         
         return true

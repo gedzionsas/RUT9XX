@@ -11,7 +11,19 @@ import UIKit
 class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet var menuView: UIView!
-  let section = ["MOBILE", "WIRELESS"]
+    
+ var mainData = [dataToShowMain]()
+ var mainData2 = [dataToShowMain2]()
+ var mainData3 = [dataToShowMainCircles]()
+
+    
+  let mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
+  let wirelessNames = ["WIRELESS NAME", "MODEL/CHANNEL", "ENCRYPTION", "CLIENTS"]
+    
+    var ring1: UICircularProgressRingView!
+    var ring2: UICircularProgressRingView!
+
+var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
   
   @IBAction func rebootButton(_ sender: Any) {
@@ -52,14 +64,40 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
   }
+    
+    
   var menuShowing = false
   @IBOutlet var tableView: UITableView!
   
   override func viewDidLoad() {
-    
-    
     super.viewDidLoad()
-    MainWindowModel().mainTasks(param1: "")
+    
+    activityIndicator.center = self.view.center
+    activityIndicator.hidesWhenStopped = true
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+    view.addSubview(activityIndicator)
+    
+    activityIndicator.startAnimating()
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    tableView.delegate = self
+    tableView.dataSource = self
+
+    MainWindowModel().mainTasks(){ (result) in
+        print(result)
+        UserDefaults.standard.setValue(result, forKey: "temp")
+        let valuee = UserDefaults.standard.array(forKey: "temp")
+        self.updateUIMain(value: valuee?[2] as! [String] , names: valuee?[3] as! [String])
+        self.updateUI(valueMobile: valuee?[0] as! [String] , valueWireless: valuee?[1] as! [String])
+        
+        var valueMobileSignal = valuee![4] as? [String]
+        var valueWirelessQuality = valuee![6] as? [String]
+        let finalSignalValue = Double((valueMobileSignal?[0])!)
+        let finalWirelessQuality = Int((valueWirelessQuality?[0])!)
+
+        self.updateUIMainCircles(value: finalSignalValue!, wirelessValue: finalWirelessQuality!)
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
     
     menuView.layer.shadowOpacity = 1
     menuView.layer.shadowRadius = 6
@@ -68,22 +106,81 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     tableView.dataSource = self
   }
   
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return self.section [section]
-  }
+
   func numberOfSections(in tableView: UITableView) -> Int {
-    return self.section.count
+    return 1
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-   return 6
+   return (mainData.count + mainData2.count + mainData3.count)
   }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell1", for: indexPath)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+        return 80
+        } else if indexPath.row == 1 {
+        return 190
+        } else {
+            return 52
+        }
+    }
 
-    return cell
-  }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+        let indexPath = IndexPath(item: 1, section: 0)
+        let row = mainData3[indexPath.row]
+        ring1.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 7){
+            print("pabaiga")
+        }
+        ring2.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 7)
+        
+    }
+   
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    
+    if indexPath.row == 0 {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell1", for: indexPath) as? MainPrototypeCell1 else {
+            fatalError("The dequeued cell is not an instance of MainPrototypeCell1.")
+        }
+        let row = mainData2[indexPath.row]
+        cell.uptimeLabel.text = row.nameUptime
+        cell.uptimeValue.text = row.valueUptime
+        cell.dataUsageLabel.text = row.nameDataUsage
+        cell.dataUsageValue.text = row.valueDataUsage
+        cell.clientsLabel.text = row.nameClients
+        cell.clientsValue.text = row.valueClients
+        return cell
+    }
+    else if indexPath.row == 1 {
+        
+        print(indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell2", for: indexPath) as? MainPrototypeCell2 else {
+            fatalError("The dequeued cell is not an instance of MainPrototypeCell2.")
+        }
+        let row = mainData3[indexPath.row - 1]
+        self.ring1 = cell.wirelessQualityRing
+        self.ring2 = cell.mobileStrenghtRing
+        
+        cell.wirelessQualityRing.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 6.0){
+        }
+        cell.mobileStrenghtRing.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 6.0)
+        return cell
+    } else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell3", for: indexPath) as? MainPrototypeCell3 else {
+            fatalError("The dequeued cell is not an instance of MainPrototypeCell3.")
+        }
+    let row = mainData[indexPath.row - 2]
+    cell.labelOneField.text = row.nameMobile
+    cell.labelTwoField.text = row.nameWireless
+    
+    cell.valueLabelOne.text = row.valueMobile
+    cell.valueLabelTwo.text = row.valueWireless
+        
+        return cell
+    }
+    }
+    
   
   @IBAction func menuBarButton(_ sender: Any) {
     
@@ -101,4 +198,45 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     menuShowing = !menuShowing
   }
+    
+    
+    private func updateUI(valueMobile: [String], valueWireless: [String]) {
+        let counted = valueMobile.count
+        var i = 0
+        for _ in valueMobile {
+            guard let row = dataToShowMain(nameMobile: mobileNames[i], valueMobile: valueMobile[i], nameWireless:wirelessNames[i], valueWireless:valueWireless[i] ) else {
+                fatalError("Unable to instantiate row1")
+            }
+            mainData += [row]
+            i += 1
+        }
+      tableView.reloadData()
+    }
+    private func updateUIMain(value: [String], names: [String]) {
+        var i = 0
+            guard let row = dataToShowMain2(nameUptime: names[0], valueUptime: value[0], nameDataUsage:names[1], valueDataUsage:value[1],  nameClients:names[2], valueClients:value[2] ) else {
+                fatalError("Unable to instantiate row1")
+            }
+            mainData2 += [row]
+        tableView.reloadData()
+
+    }
+    private func updateUIMainCircles(value: Double, wirelessValue: Int) {
+        guard let row = dataToShowMainCircles(mobileStrenghtRing: value, wirelessQualityRing: wirelessValue) else {
+            fatalError("Unable to instantiate row1")
+        }
+        mainData3 += [row]
+        tableView.reloadData()
+                let indexPath = IndexPath(item: 1, section: 0)
+        if let visibleIndexPaths = tableView.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+            if visibleIndexPaths != NSNotFound {
+                tableView.reloadRows(at: [indexPath], with: .fade)
+                ring1.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 6)
+                ring2.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 6)
+            }
+        }
+        
+    }
+
+    
 }

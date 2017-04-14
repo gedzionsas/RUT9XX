@@ -13,6 +13,9 @@ import SwiftyJSON
 
 public class MainWindowModel: UIViewController {
   
+    
+  private let MOBILE_CONNECTION_CONNECTED = "connected"
+  private let MOBILE_CONNECTION_DISCONNECTED = "Disconnected"
   private let WIRELESS_DOWNLOAD = "wirelessDownload"
   private let WIRELESS_UPLOAD = "wirelessUpload"
   private let MOBILE_DOWNLOAD = "mobileDownload"
@@ -23,7 +26,7 @@ public class MainWindowModel: UIViewController {
   private let MOBILE_COLLECTED_MONTH_RX = "CollectedMonthRx"
   private let MOBILE_COLLECTED_MONTH_TX = "CollectedMonthTx"
   
-  internal func mainTasks (param1: String){
+  internal func mainTasks (complete: @escaping ([[String]])->()){
     
     let token = UserDefaults.standard.value(forKey: "saved_token")
     let GSM_3G_CONNECTION_STATE = "-j"
@@ -163,8 +166,9 @@ public class MainWindowModel: UIViewController {
                                             } else {
                                               print("Error unwrapping values")
                                             }
-                                            print(UserDefaults.standard.array(forKey: "display_data"))
                                             
+                                           let array = self.setDataMainWindow(params: UserDefaults.standard.array(forKey: "display_data")!)
+                                          complete (array)
                                           }}}
                                       // Module data
                                       Json().deviceinform(token: token as! String, config: "system", section: "module", option: "vid") { (moduleVid) in
@@ -180,7 +184,137 @@ public class MainWindowModel: UIViewController {
                                       
                                     }}}}
                             }}}
-                      }}}}}}}}}}}
+                      }}}}}}}}}}
+    
+    }
+    
+    func setDataMainWindow (params: [Any])->([[String]]) {
+        
+        let deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
+
+        
+        var objectGsmData = [String:String]()
+        var convertedData = [String:Double]()
+        var paramsObject = [String:String]()
+        var devicesObject = [String:String]()
+        var object1 = [String:String]()
+
+        var wifiClientsCount = ""
+        var wifiQuality = ""
+        var connectionUpTime = ""
+        var mobileOperatorValue = ""
+        var mobileConnectionValue = ""
+        var completedUpTime = ""
+        var completedSimCardState = ""
+        var dataUsage = ""
+        var mobileSignalStrength = 0.0
+
+        print(params)
+        object1 = params[1] as! [String : String]
+          objectGsmData = params[3] as! [String : String]
+          paramsObject = params[0] as! [String : String]
+        devicesObject = params[5] as! [String : String]
+
+        if objectGsmData[MOBILE_COLLECTED_RX] != nil && objectGsmData[MOBILE_COLLECTED_TX] != nil {
+            convertedData = convertedDataCountToMb(object: params[3] as! [String : String], downloadObjectName: MOBILE_COLLECTED_RX, uploadObjectName: MOBILE_COLLECTED_TX)
+            dataUsage = "DATA USAGE (CURRENT SESSION)"
+            
+        } else if objectGsmData[MOBILE_COLLECTED_MONTH_RX] != nil && objectGsmData[MOBILE_COLLECTED_MONTH_TX] != nil {
+            convertedData = convertedDataCountToMb(object: params[3] as! [String : String], downloadObjectName: MOBILE_COLLECTED_MONTH_RX, uploadObjectName: MOBILE_COLLECTED_MONTH_TX)
+            dataUsage = "DATA USAGE (MONTH SESSION)"
+        }else {
+            convertedData[MOBILE_COLLECTED_MONTH_RX] = 0
+            convertedData[MOBILE_COLLECTED_MONTH_TX] = 0
+            dataUsage = "DATA USAGE"
+        }
+        var finalDataUsage = calculatedMobileData(object: convertedData)
+        let mode = checkWirelessMode(param: paramsObject["mode"]!)
+        let chanel = paramsObject["chanel"]
+        let ssid = paramsObject["SSID"]
+        let encryption = paramsObject["encryption"]
+        
+        if devicesObject["WirelessClientsCount"] != nil {
+            wifiClientsCount = devicesObject["WirelessClientsCount"]!
+        } else {
+            wifiClientsCount = "N/A"
+        }
+        if devicesObject["WirelessQuality"] != nil {
+            wifiQuality = devicesObject["WirelessQuality"]!
+        } else {
+            wifiQuality = "0"
+        }
+        if objectGsmData["ConnectionStatus"] != nil {
+            connectionUpTime = objectGsmData["ConnectionStatus"]!.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            connectionUpTime = "N/A"
+        }
+        
+        if !(object1["signal"]?.isEmpty)! {
+            let index = object1["signal"]?.index((object1["signal"]?.startIndex)!, offsetBy: 1)
+        var signalValue = object1["signal"]?.substring(from: index!) as? String
+            print(signalValue)
+            if signalValue?.isNumeric == true {
+                mobileSignalStrength = Double(object1["signal"]!) ?? 0.0
+            } else {
+                mobileSignalStrength = -112.0
+            }
+        } else {
+            mobileSignalStrength = -112.0
+        }
+        
+        
+        let finalMobileConnectionValue = String((112 + mobileSignalStrength))
+
+        
+        if object1["operator"] != nil {
+            mobileOperatorValue = object1["operator"]!.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            mobileOperatorValue = "N/A"
+        }
+        if object1["connection"] != nil {
+            mobileConnectionValue = object1["connection"]!.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            mobileConnectionValue = "N/A"
+        }
+
+
+        if deviceName.range(of: "RUT9") != nil {
+           var simCardState = ""
+            
+           var selectedSimCard = (UserDefaults.standard.value(forKey: "simcard_value") as? String)?.uppercased()
+            
+            if devicesObject["SimCardState"] != nil {
+                simCardState = devicesObject["SimCardState"]!
+            } else {
+                simCardState = "N/A"
+            }
+            completedSimCardState = selectedSimCard! + "(\(simCardState))"
+        }
+        
+        if !mobileConnectionValue.isEmpty {
+        } else {
+            mobileConnectionValue = "Undefined"
+        }
+        if connectionUpTime == MOBILE_CONNECTION_CONNECTED {
+          completedUpTime = uptimeData(params: params)
+        } else {
+            completedUpTime = MOBILE_CONNECTION_DISCONNECTED
+        }
+        
+        let mobileRoaming = roamingStatus(params: params)
+        let chanelValue = chanel != nil ? "\(chanel!)" : ""
+        let modeChannel = "\(mode) / \(chanelValue)"
+        var mobileArray = [completedSimCardState, mobileOperatorValue, mobileConnectionValue, mobileRoaming]
+        var wirelessArray = ["\(ssid ?? "")", "\(modeChannel)", "\(encryption ?? "")", "\(wifiClientsCount)"]
+        var importantStats = [completedUpTime, finalDataUsage, "\(wifiClientsCount)"]
+        var importantStatsName = ["CONNECTION UPTIME", dataUsage, "CLIENTS CONNECTED"]
+        let signalWords = mobileSignalCheck(strength: mobileSignalStrength)
+    //    var signalsArray = [finalMobileConnectionValue, signalWords , wifiQuality]
+        let finalValue = [mobileArray, wirelessArray, importantStats, importantStatsName, [finalMobileConnectionValue], [signalWords] , [wifiQuality]]
+        return finalValue as! ([[String]])
+
+    }
+    
   
   public func getCountOfWirelessClients (response_data: Any?, complete: (Int)->()){
     
@@ -211,7 +345,7 @@ public class MainWindowModel: UIViewController {
           if item["signal"].exists() {
             result = item["signal"].stringValue
             let index = result.index(result.startIndex, offsetBy: 1)
-            resultValue = result.substring(from: index) + "%"
+            resultValue = result.substring(from: index)
           }
         }
         complete(resultValue)
@@ -223,12 +357,11 @@ public class MainWindowModel: UIViewController {
     }
   }
   func parseDeviceDataObject (deviceResult: Any?, mobileConnectionUptime: Any?, processedGsmData: Array<String>, wirelessDownloadUploadResult: Array<Any>, mobileData: Array<String>, mobileDataArray: Array<String>, DeviceInterface: String, mobileRoaming: String, wirelessClientsCount: Int, wirelessQualityResult: String, wirelessMode: String, connectionStatus: String, simcardState: String)-> [Any] {
-    
     var object1: [String: String] = ["signal": processedGsmData[0], "operator": processedGsmData[1], "connection": MainWindowModel().gsmConnectionChecker(processedGsmData: processedGsmData[2] as! String)]
     
     var objectWifi: [String: String] = [:]
     var objectGsm: [String: String] = [:]
-    var objectDevices: [String: Any] = [:]
+    var objectDevices: [String: String] = [:]
     var array = [Any]()
     
     do {
@@ -275,14 +408,11 @@ public class MainWindowModel: UIViewController {
       
     }
     objectGsm["ConnectionStatus"] = connectionStatus
-    //  let labas = MainWindowModel().convertedDataCountToMb(object: objectGsm, downloadObjectName: MOBILE_COLLECTED_RX, uploadObjectName: MOBILE_COLLECTED_TX)
-    //   print("labai idomu man", MainWindowModel().calculatedMobileData(object: labas))
     objectDevices["MobileDevice"] = DeviceInterface
-    objectDevices["WirelessClientsCount"] = wirelessClientsCount
+    objectDevices["WirelessClientsCount"] = String(wirelessClientsCount)
     objectDevices["WirelessQuality"] = wirelessQualityResult
-    objectDevices["SimCardState"] = (simcardState ).trimmingCharacters(in: .whitespacesAndNewlines)
+    objectDevices["SimCardState"] = (simcardState).trimmingCharacters(in: .whitespacesAndNewlines)
     var arrayResultWifi = MethodsClass().jsonResultObject(response_data: deviceResult)
-    print("das", arrayResultWifi)
     if (UserDefaults.standard.value(forKey: "wireless_device") as? String) == "0" {
       var objectWDevices: [String: String] = [:]
       objectWDevices["mode"] = "N/A"
@@ -294,13 +424,12 @@ public class MainWindowModel: UIViewController {
     } else {
       array.insert(MainWindowModel().processedWirelessInformation(deviceResult: arrayResultWifi, wirelessMode: wirelessMode), at: 0)
     }
-    array.insert(object1, at: 0)
-    array.insert(objectWifi, at: 0)
-    array.insert(objectGsm, at: 0)
+    array.insert(object1, at: 1)
+    array.insert(objectWifi, at: 2)
+    array.insert(objectGsm, at: 3)
     let arrayResultMobile = MethodsClass().jsonResultObject(response_data: mobileConnectionUptime)
-    array.insert(MainWindowModel().processedMobileInformation(mobileUptime: arrayResultMobile, mobileRoaming: mobileRoaming), at: 0)
-    array.insert(objectDevices, at: 0)
-    print(array)
+    array.insert(MainWindowModel().processedMobileInformation(mobileUptime: arrayResultMobile, mobileRoaming: mobileRoaming), at: 4)
+    array.insert(objectDevices, at: 5)
     return array
   }
   
@@ -327,18 +456,20 @@ public class MainWindowModel: UIViewController {
     return objectDevices
   }
   
-  func processedWirelessInformation (deviceResult: [Any?], wirelessMode: String) -> Dictionary<String,Any> {
+  func processedWirelessInformation (deviceResult: [Any?], wirelessMode: String) -> Dictionary<String,String> {
     var result = ""
-    var objectDevices: [String: Any] = [:]
+    var objectDevices: [String: String] = [:]
     if let information = deviceResult[1] as? Dictionary<String, Any> {
       let chanel = information["channel"]
       let ssid = information["ssid"]
       let bssid = information["bssid"]
       let encryption = MainWindowModel().checkWirelessEncryption(encryption: information["encryption"])
       objectDevices["mode"] = wirelessMode
-      objectDevices["chanel"] = chanel
-      objectDevices["SSID"] = ssid
-      objectDevices["BSSID"] = bssid
+        if let temp = chanel {
+            objectDevices["chanel"] = "\(temp)"
+        }
+      objectDevices["SSID"] = ssid as? String
+      objectDevices["BSSID"] = bssid as? String
       objectDevices["encryption"] = encryption
     }
     return objectDevices
@@ -404,7 +535,7 @@ public class MainWindowModel: UIViewController {
   public func convertedDataCountToMb (object: [String: String], downloadObjectName: String, uploadObjectName: String) -> [String: Double] {
     var convertedToMb: [String: Double] = [:]
     let mega = 1048576.0
-    
+    print(object)
     do {
       if (downloadObjectName != nil && uploadObjectName != nil){
         var download = 0.0
@@ -431,6 +562,7 @@ public class MainWindowModel: UIViewController {
         }
       }
     }
+    print(convertedToMb)
     return convertedToMb
   }
   
@@ -470,6 +602,144 @@ public class MainWindowModel: UIViewController {
     }
     return finalAmount
   }
+    func uptimeData(params:[Any])-> (String){
+        
+        var result = 0
+        var time = ""
+        var years: Int = 0
+        var months: Int = 0
+        var days: Int = 0
+        var hours: Int = 0
+        var minutes: Int = 0
+
+        
+        var objectUptime = [String:String]()
+        var objectDevices = [String:String]()
+        
+        objectUptime = params[4] as! [String : String]
+        objectDevices = params[5] as! [String : String]
+        
+        var uptime = objectUptime["uptime"] as? Int
+        var uptimeDevices = objectUptime["device"]
+        
+        var mobileDevice = objectDevices["MobileDevice"]
+        
+        
+        if mobileDevice == uptimeDevices {
+
+            if uptime! > 60 {
+                if (uptime! / 60) >= 60 {
+                    if uptime! / 3600 >= 24 {
+                        if uptime! / 86400 >= 30 {
+                            if uptime! / 2592000 >= 12 {
+                                result = uptime! / 31104000
+                                years = roundOffTimeValue(result: Double(result))
+                                if years > 1 {
+                                    time = "\(years) years"
+                                }else {
+                                    time = "\(years) year"
+                                }
+                            } else {
+                                result = uptime! / 2592000
+                                months = roundOffTimeValue(result: Double(result))
+                                if months > 1 {
+                                    time = "\(months) months"
+                                } else {
+                                    time = "\(months) month"
+                                }
+                            }
+                        } else {
+                            result = uptime! / 86400
+                            days = roundOffTimeValue(result: Double(result))
+                            if days > 1 {
+                                time = "\(days) days"
+                            } else {
+                                time = "\(days) day"
+                            }
+                        }
+                    } else {
+                        result = uptime! / 3600
+                        hours = roundOffTimeValue(result: Double(result))
+                        if hours > 1 {
+                            time = "\(hours) hours"
+                        } else {
+                            time = "\(hours) hour"
+                        }
+                        
+                    }
+                    
+                } else {
+                    result = uptime! / 60
+                    minutes = roundOffTimeValue(result: Double(result))
+                    if minutes > 1 {
+                        time = "\(minutes) minutes"
+                    } else {
+                        time = "\(minutes) minute"
+                    }
+                }
+            } else {
+                time = "\(uptime) s"
+            }
+        } else {
+            time = "Device is OFF";
+        }
+        return time
+    }
+    
+    func roamingStatus(params:[Any])-> (String){
+    var result = ""
+        var objectDevices = [String:String]()
+        objectDevices = params[4] as! [String : String]
+        var roamingValue = objectDevices["roaming"]
+        if roamingValue == "roaming"{
+        result = "Active"
+        } else {
+            result = "Inactive"
+        }
+    return result
+    }
+
+    func mobileSignalCheck(strength: Double)-> (String) {
+        
+        var result = ""
+        
+        if (strength > -52) {
+            result = "EXCELLENT"
+        } else if (strength > -67) {
+            result = "GOOD"
+        } else if (strength > -82) {
+            result = "OK"
+        } else if (strength > -97) {
+            result = "POOR"
+        } else if (strength > -112) {
+            result = "WEAK"
+        } else if (strength <= -112) {
+            result = "NO SIGNAL"
+        }
+        
+        return result
+    }
+    
+    func roundOffTimeValue(result : Double)-> (Int) {
+
+        let fractionalPart: Double = result.truncatingRemainder(dividingBy: 1)
+        let timeCount: Double = result - fractionalPart
+        let timeValue = String(timeCount)
+        var token = timeValue.components(separatedBy: ".")
+        let intToken: Int = Int(token[0])!
+        return intToken
+    }
+    
+    
+    func checkWirelessMode(param: String)-> (String) {
+        var result = ""
+        if param == "ap" {
+            result = "Access Point (\(param.uppercased()))"
+        }else {
+            result = "STA"
+        }
+        return result
+    }
 }
 
 extension String {

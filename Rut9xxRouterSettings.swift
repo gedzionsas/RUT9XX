@@ -8,7 +8,23 @@
 
 import UIKit
 
-class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate {
+
+
+class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate, PassdataDelegate {
+    
+    
+    func passData(value: String) {
+        print(value)
+        primarySimCardField?.titleLabel?.text = value
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "popUpIdent") {
+            let destVC: Rut9xxSimCardPopUp = segue.destination as! Rut9xxSimCardPopUp
+            destVC.delegate = self
+        }
+    }
+
     
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var reapeatPasswordField: UITextField!
@@ -85,25 +101,31 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate {
         
         if routerPassword == repeatRouterPasswordValue {
             UserDefaults.standard.setValue(routerPassword, forKey: "routernew_password")
-            Ru9xxRouterChangePasswordModel().performRouterPasswordTask(params: [routerPassword!]){ () in
-                
-            }
+     //       Ru9xxRouterChangePasswordModel().performRouterPasswordTask(params: [routerPassword!]){ () in
+                        if !(self.simCardValue == checkedSimCard){
+           print(self.simCardValue, checkedSimCard!)
+            self.performRouterSimSwitchTask(_: checkedSimCard!)
+                        } else {
+                            print("baddd", self.simCardValue, checkedSimCard)
+                }
+          //  }
         } else {
             let alert = UIAlertController(title: "", message: "Password do not match!", preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
             Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
             newPasswordTextField.text = ""
             reapeatPasswordField.text = ""
+            roundButton.isHidden = true
         }
         
-        if !(simCardValue == checkedSimCard){
-           print(simCardValue, checkedSimCard)
-        }
+
 
     }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        roundButton.isHidden = false
         
     }
     
@@ -111,21 +133,21 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    func performRouterSimSwitchTask(_: String){
+        
+            var simCardValue = self.primarySimCardField.titleLabel?.text
+         //   UserDefaults.standard.setValue(self.checkedSimCardValue(value: simCardValue!), forKey: "simcard_value")
+   
+                Rut9xxSimCardSwitchTask().simCardSwitchTask(){ () in
+
+        }
+        
+        
+        
     }
-    */
-//    func performRouterSimSwitchTask(primarySimCardValue){
-//        
-//        
-//        
-//        
-//    }
 
     
     
@@ -139,6 +161,18 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate {
             }
         } else {
             result = "N/A"
+        }
+        return result
+    }
+    
+    func checkedSimCardValue(value: String)->(String){
+        var result = ""
+        if value.lowercased().range(of: "sim") != nil {
+            if value.range(of: "1") != nil {
+                result = "sim1"
+            } else {
+                result = "sim2"
+            }
         }
         return result
     }
