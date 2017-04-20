@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import MBCircularProgressBar
 
 class MainPrototypeCell2: UITableViewCell {
 
-    @IBOutlet weak var mobileStrenghtRing: UICircularProgressRingView!
-    @IBOutlet weak var wirelessQualityRing: UICircularProgressRingView!
+    @IBOutlet weak var mobileStrenghtCircle: MBCircularProgressBarView!
+    @IBOutlet weak var wirelessStrenghtCircle: MBCircularProgressBarView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+
         
 //        let progressRing = UICircularProgressRingView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
 //        // Change any of the properties you'd like

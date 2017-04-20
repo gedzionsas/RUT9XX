@@ -103,7 +103,6 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate, PassdataDeleg
             UserDefaults.standard.setValue(routerPassword, forKey: "routernew_password")
      //       Ru9xxRouterChangePasswordModel().performRouterPasswordTask(params: [routerPassword!]){ () in
                         if !(self.simCardValue == checkedSimCard){
-           print(self.simCardValue, checkedSimCard!)
             self.performRouterSimSwitchTask(_: checkedSimCard!)
                         } else {
                             print("baddd", self.simCardValue, checkedSimCard)
@@ -139,10 +138,10 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate, PassdataDeleg
     func performRouterSimSwitchTask(_: String){
         
             var simCardValue = self.primarySimCardField.titleLabel?.text
-         //   UserDefaults.standard.setValue(self.checkedSimCardValue(value: simCardValue!), forKey: "simcard_value")
-   
-                Rut9xxSimCardSwitchTask().simCardSwitchTask(){ () in
-
+            UserDefaults.standard.setValue(self.checkedSimCardValue(value: simCardValue!), forKey: "simcard_value")
+                Rut9xxSimCardSwitchTask().simCardSwitchTask(){ (result) in
+        
+                    print("done")
         }
         
         

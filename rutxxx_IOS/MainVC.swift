@@ -20,8 +20,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   let mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
   let wirelessNames = ["WIRELESS NAME", "MODEL/CHANNEL", "ENCRYPTION", "CLIENTS"]
     
-    var ring1: UICircularProgressRingView!
-    var ring2: UICircularProgressRingView!
 
 var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
@@ -91,10 +89,11 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
         
         var valueMobileSignal = valuee![4] as? [String]
         var valueWirelessQuality = valuee![6] as? [String]
+        var nameQuality = valuee![5] as? [String]
         let finalSignalValue = Double((valueMobileSignal?[0])!)
         let finalWirelessQuality = Int((valueWirelessQuality?[0])!)
 
-        self.updateUIMainCircles(value: finalSignalValue!, wirelessValue: finalWirelessQuality!)
+        self.updateUIMainCircles(value: finalSignalValue!, wirelessValue: finalWirelessQuality!, stringQuality: (nameQuality?[0])! )
         self.activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
@@ -125,16 +124,6 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     }
 
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        
-        let indexPath = IndexPath(item: 1, section: 0)
-        let row = mainData3[indexPath.row]
-        ring1.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 7){
-            print("pabaiga")
-        }
-        ring2.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 7)
-        
-    }
    
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
@@ -159,12 +148,16 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
             fatalError("The dequeued cell is not an instance of MainPrototypeCell2.")
         }
         let row = mainData3[indexPath.row - 1]
-        self.ring1 = cell.wirelessQualityRing
-        self.ring2 = cell.mobileStrenghtRing
         
-        cell.wirelessQualityRing.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 6.0){
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 3, delay: 0, options: [], animations: {
+                cell.mobileStrenghtCircle.value = CGFloat(row.mobileStrenghtRing)
+                cell.mobileStrenghtCircle.unitString = row.nameString
+                cell.wirelessStrenghtCircle.value = CGFloat(row.wirelessQualityRing)
+                
+            }, completion: nil)
         }
-        cell.mobileStrenghtRing.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 6.0)
+        
         return cell
     } else {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell3", for: indexPath) as? MainPrototypeCell3 else {
@@ -221,20 +214,13 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
         tableView.reloadData()
 
     }
-    private func updateUIMainCircles(value: Double, wirelessValue: Int) {
-        guard let row = dataToShowMainCircles(mobileStrenghtRing: value, wirelessQualityRing: wirelessValue) else {
+    private func updateUIMainCircles(value: Double, wirelessValue: Int, stringQuality: String) {
+        guard let row = dataToShowMainCircles(mobileStrenghtRing: value, wirelessQualityRing: wirelessValue, nameString: stringQuality) else {
             fatalError("Unable to instantiate row1")
         }
         mainData3 += [row]
         tableView.reloadData()
-                let indexPath = IndexPath(item: 1, section: 0)
-        if let visibleIndexPaths = tableView.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-            if visibleIndexPaths != NSNotFound {
-                tableView.reloadRows(at: [indexPath], with: .fade)
-                ring1.setProgress(value: CGFloat(row.wirelessQualityRing), animationDuration: 6)
-                ring2.setProgress(value: CGFloat(row.mobileStrenghtRing), animationDuration: 6)
-            }
-        }
+
         
     }
 

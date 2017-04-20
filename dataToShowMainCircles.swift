@@ -10,10 +10,11 @@ import Foundation
 class dataToShowMainCircles {
     var mobileStrenghtRing: Double
     var wirelessQualityRing: Int
+    var nameString: String
     
     //MARK: Initialization
     
-    init?(mobileStrenghtRing: Double, wirelessQualityRing: Int) {
+    init?(mobileStrenghtRing: Double, wirelessQualityRing: Int, nameString: String) {
         
         // The name must not be empty
 //        guard mobileStrenghtRing == nil else {
@@ -27,6 +28,7 @@ class dataToShowMainCircles {
         // Initialize stored properties.
         self.mobileStrenghtRing = mobileStrenghtRing
         self.wirelessQualityRing = wirelessQualityRing
+        self.nameString = nameString
         
     }
 }

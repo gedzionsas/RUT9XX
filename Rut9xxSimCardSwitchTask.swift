@@ -29,34 +29,32 @@ class Rut9xxSimCardSwitchTask: UIViewController {
             var simCardValueToSet = checkSimCardValueToGpio(value: simValue)
             if simCardValueToSet == "1" {
                 Json().setConfigInformation(token: token as! String, config:SIM_CARD_CONFIG, section: simCardSection, configOption: simCardOption, value: simValue) { (response) in
-                    
+                    }
                     Json().commitConfigsChanges(token: token as! String, config: SIM_CARD_CONFIG) { (valueOfCommit) in
-                        
+                        }
                         Json().fileExec2Comm(token: token as! String, command: commandToSetFirstSim) { (valueToSet) in
-                            
+                            }
                             Json().luciReload(token: token as! String) { (luciValue) in
                                 
-                                
-                            }}}}
+                            }
             } else {
                 Json().setConfigInformation(token: token as! String, config:SIM_CARD_CONFIG, section: simCardSection, configOption: simCardOption, value: simValue) { (response) in
-                    print("sad", response)
-                    
+                    }
                     Json().commitConfigsChanges(token: token as! String, config: SIM_CARD_CONFIG) { (valueOfCommit) in
-                        
+                        }
                         Json().fileExec2Comm(token: token as! String, command: commandToSetSecondSim) { (valueToSet) in
-                            
+                            }
                             Json().luciReload(token: token as! String) { (luciValue) in
-                            }}}}
+                                
+                            }
                 
             }
             
-            while (simCardStateResult.isEmpty || !(simCardStateResult == "inserted")) {
-                
+            while (simCardStateResult == "" || !(simCardStateResult == "inserted")) {
+      //          print("gedas")
                 Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-z") { (json) in
                     MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardState) in
                         UserDefaults.standard.setValue(simCardState, forKey: "temp")
-                        
                         simCardStateResult = UserDefaults.standard.value(forKey: "temp") as! String
                     }
                 }

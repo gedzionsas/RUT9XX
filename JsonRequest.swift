@@ -42,7 +42,6 @@ class Json {
         print("vo", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
-            print(json)
         })
     }
     
@@ -171,6 +170,25 @@ class Json {
         
         
       case .failure(let error):
+        
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        //...
+        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        if let navigationController = rootViewController as? UINavigationController {
+            rootViewController = navigationController.viewControllers.first
+        }
+        if let tabBarController = rootViewController as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+        rootViewController?.present(alertController, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = view
+        }))
+
+        
         print(error)
 
         

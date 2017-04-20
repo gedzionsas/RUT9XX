@@ -11,12 +11,16 @@ import UIKit
 class AboutController: UIViewController {
   
   @IBOutlet weak var rightsLabel: UILabel!
-  @IBOutlet weak var visionLabel: UILabel!
-  @IBOutlet weak var firstBlockLabel: UITextView!
-  @IBOutlet weak var secondBlockLabel: UITextView!
-  @IBOutlet weak var thirdBlockLabel: UITextView!
+    @IBOutlet weak var versionLabel: UILabel!
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
+    
+    if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+        self.versionLabel.text = "Version: \(version)"
+    }
     
   }
   

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="eVV-zL-Lh3">
-    <device id="ipad9_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="eVV-zL-Lh3">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,29 +20,27 @@
                         <viewControllerLayoutGuide type="bottom" id="sap-7t-MXB"/>
                     </layoutGuides>
                     <view key="view" contentMode="center" id="a7F-Mh-Qcw">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nj-6H-L3d">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-LC-4jT">
-                                <rect key="frame" x="279.5" y="482.5" width="209" height="59"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="eVe-Cy-WyA"/>
-                                    <constraint firstAttribute="width" constant="209" id="qbk-Uq-4Yd"/>
-                                </constraints>
+                                <rect key="frame" x="144" y="199" width="32" height="170"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.01129572478" green="0.49879354970000001" blue="0.99877062179999998" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerX" secondItem="a7F-Mh-Qcw" secondAttribute="centerX" id="2Mb-EW-qJY"/>
                             <constraint firstAttribute="trailing" secondItem="5nj-6H-L3d" secondAttribute="trailing" id="I4x-Qn-KeY"/>
                             <constraint firstItem="5nj-6H-L3d" firstAttribute="top" secondItem="a7F-Mh-Qcw" secondAttribute="topMargin" id="InX-tn-A89"/>
                             <constraint firstItem="sap-7t-MXB" firstAttribute="top" secondItem="5nj-6H-L3d" secondAttribute="bottom" id="bEx-A2-p9k"/>
-                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerY" secondItem="a7F-Mh-Qcw" secondAttribute="centerY" id="iaX-fW-5H7"/>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="width" secondItem="a7F-Mh-Qcw" secondAttribute="width" multiplier="0.1" id="bZe-UO-2Y1"/>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="height" secondItem="a7F-Mh-Qcw" secondAttribute="height" multiplier="0.3" id="icY-Gi-Hfr"/>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerX" secondItem="a7F-Mh-Qcw" secondAttribute="centerX" id="pfM-WC-TQZ"/>
                             <constraint firstItem="5nj-6H-L3d" firstAttribute="leading" secondItem="a7F-Mh-Qcw" secondAttribute="leading" id="sqt-xO-KGt"/>
+                            <constraint firstItem="g0S-LC-4jT" firstAttribute="centerY" secondItem="a7F-Mh-Qcw" secondAttribute="centerY" id="zDe-Aq-pRI"/>
                         </constraints>
                     </view>
                 </viewController>
