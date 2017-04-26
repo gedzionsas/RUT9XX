@@ -184,9 +184,8 @@ let point = sender.superview?.convert(sender.center, to: self.tableView)
 
     
     private func updateUI(names: [String], array: [String]) {
-        var j = array.count
         var i = 0
-        for valueArray in array {
+        for _ in array {
         guard let row = dataToShow(name: names[i], value: array[i]) else {
             fatalError("Unable to instantiate row1")
             }

@@ -252,7 +252,6 @@ public class MainWindowModel: UIViewController {
         if !(object1["signal"]?.isEmpty)! {
             let index = object1["signal"]?.index((object1["signal"]?.startIndex)!, offsetBy: 1)
         var signalValue = object1["signal"]?.substring(from: index!) as? String
-            print(signalValue)
             if signalValue?.isNumeric == true {
                 mobileSignalStrength = Double(object1["signal"]!) ?? 0.0
             } else {
@@ -281,7 +280,7 @@ public class MainWindowModel: UIViewController {
         if deviceName.range(of: "RUT9") != nil {
            var simCardState = ""
             
-           var selectedSimCard = (UserDefaults.standard.value(forKey: "simcard_value") as? String)?.uppercased()
+           let selectedSimCard = (UserDefaults.standard.value(forKey: "simcard_value") as? String)?.uppercased()
             
             if devicesObject["SimCardState"] != nil {
                 simCardState = devicesObject["SimCardState"]!

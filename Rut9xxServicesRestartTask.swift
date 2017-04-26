@@ -70,7 +70,6 @@ class Rut9xxServicesRestartTask: UIViewController {
             let command = "/etc/init.d/\(serviceData) restart"
             print(command)
             Json().fileExec2Comm(token: token as! String, command: command) { (json) in
-                print(json)
             }
         }
         

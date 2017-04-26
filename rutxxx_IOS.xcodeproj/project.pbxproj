@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		260DFAA86A5B41EFF96409DC /* Pods_rutxxx_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81E0CB98E07F6C7C9E7D400 /* Pods_rutxxx_IOS.framework */; };
-		3ACEA363941717B03BD81CB8 /* Pods_bandymasAlam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2008CD4934132B496A104 /* Pods_bandymasAlam.framework */; };
 		6916B38E1E37843800C9E7A2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38D1E37843800C9E7A2 /* UserDefaults.swift */; };
 		6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */; };
 		691954801E728DFC0041BE2A /* WebUiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6919547F1E728DFB0041BE2A /* WebUiController.swift */; };
@@ -46,14 +45,22 @@
 		9E54F79D1E8B76FB00B936F8 /* RouterDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F79C1E8B76FB00B936F8 /* RouterDetailsCell.swift */; };
 		9E54F79F1E8BC42300B936F8 /* Rut9xxServicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F79E1E8BC42300B936F8 /* Rut9xxServicesModel.swift */; };
 		9E54F7A11E8BDB4600B936F8 /* Rut9xxServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E54F7A01E8BDB4600B936F8 /* Rut9xxServices.swift */; };
+		9E5F68FF1EADCF9100A844AB /* apnPrototypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F68FE1EADCF9100A844AB /* apnPrototypeCell.swift */; };
+		9E5F69011EADD25B00A844AB /* dataToShowMobileSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F69001EADD25B00A844AB /* dataToShowMobileSettings.swift */; };
+		9E5F69031EAE1BB600A844AB /* pickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F69021EAE1BB500A844AB /* pickerCell.swift */; };
+		9E5F69071EAF291500A844AB /* WifiPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F69061EAF291500A844AB /* WifiPickerCell.swift */; };
+		9E5F69091EAF292B00A844AB /* WifiPasswordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F69081EAF292B00A844AB /* WifiPasswordCell.swift */; };
 		9E6C0E791E8E58D000D00A43 /* Strings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C0E781E8E58D000D00A43 /* Strings.plist */; };
 		9E6C0E7B1E92086000D00A43 /* Rut9xxServicesSetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C0E7A1E92086000D00A43 /* Rut9xxServicesSetData.swift */; };
 		9E6C0E7F1E9237E500D00A43 /* dataToShowForServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C0E7E1E9237E500D00A43 /* dataToShowForServices.swift */; };
 		9E6C0E811E96032A00D00A43 /* Rut9xxRouterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C0E801E96032600D00A43 /* Rut9xxRouterSettings.swift */; };
 		9E6C73C31EA87FBE0027596B /* MainSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */; };
+		9E6C73C51EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */; };
+		9E75C3711EB09E9000C60BBC /* PickerButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75C3701EB09E9000C60BBC /* PickerButtonCell.swift */; };
 		9ECF75671E9795650078303A /* Rut9xxSimCardPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF75661E9795650078303A /* Rut9xxSimCardPopUp.swift */; };
 		9ED25A9F1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED25A9E1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift */; };
 		9ED25AA11E9758A1000E2251 /* Rut9xxSimCardSwitchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED25AA01E9758A1000E2251 /* Rut9xxSimCardSwitchTask.swift */; };
+		9EEEF4F31EAF48B100BF1021 /* dataToShowWirelessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEEF4F21EAF48B100BF1021 /* dataToShowWirelessSettings.swift */; };
 		9EFB7F181E9CDAF40090F63E /* MainPrototypeCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB7F171E9CDAF30090F63E /* MainPrototypeCell3.swift */; };
 		9EFB7F1A1E9CDBFA0090F63E /* dataToShowMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB7F191E9CDBFA0090F63E /* dataToShowMain.swift */; };
 		9EFB7F1C1E9CF3100090F63E /* dataToShowMain2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB7F1B1E9CF3100090F63E /* dataToShowMain2.swift */; };
@@ -64,7 +71,6 @@
 
 /* Begin PBXFileReference section */
 		3572AF2B77C22AB9C68C50B9 /* Pods-rutxxx_IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rutxxx_IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-rutxxx_IOS/Pods-rutxxx_IOS.release.xcconfig"; sourceTree = "<group>"; };
-		3ECB1ABD54A55FC6FE90F204 /* Pods-bandymasAlam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandymasAlam.release.xcconfig"; path = "Pods/Target Support Files/Pods-bandymasAlam/Pods-bandymasAlam.release.xcconfig"; sourceTree = "<group>"; };
 		6916B38D1E37843800C9E7A2 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		6916B38F1E387F6E00C9E7A2 /* Jsonparams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jsonparams.swift; sourceTree = "<group>"; };
 		6919547F1E728DFB0041BE2A /* WebUiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebUiController.swift; sourceTree = "<group>"; };
@@ -104,14 +110,22 @@
 		9E54F79C1E8B76FB00B936F8 /* RouterDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterDetailsCell.swift; sourceTree = "<group>"; };
 		9E54F79E1E8BC42300B936F8 /* Rut9xxServicesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServicesModel.swift; sourceTree = "<group>"; };
 		9E54F7A01E8BDB4600B936F8 /* Rut9xxServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServices.swift; sourceTree = "<group>"; };
+		9E5F68FE1EADCF9100A844AB /* apnPrototypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apnPrototypeCell.swift; sourceTree = "<group>"; };
+		9E5F69001EADD25B00A844AB /* dataToShowMobileSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowMobileSettings.swift; sourceTree = "<group>"; };
+		9E5F69021EAE1BB500A844AB /* pickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pickerCell.swift; sourceTree = "<group>"; };
+		9E5F69061EAF291500A844AB /* WifiPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiPickerCell.swift; sourceTree = "<group>"; };
+		9E5F69081EAF292B00A844AB /* WifiPasswordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiPasswordCell.swift; sourceTree = "<group>"; };
 		9E6C0E781E8E58D000D00A43 /* Strings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Strings.plist; sourceTree = "<group>"; };
 		9E6C0E7A1E92086000D00A43 /* Rut9xxServicesSetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxServicesSetData.swift; sourceTree = "<group>"; };
 		9E6C0E7E1E9237E500D00A43 /* dataToShowForServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowForServices.swift; sourceTree = "<group>"; };
 		9E6C0E801E96032600D00A43 /* Rut9xxRouterSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRouterSettings.swift; sourceTree = "<group>"; };
 		9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSettingsModel.swift; sourceTree = "<group>"; };
+		9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxSettingsInformationModel.swift; sourceTree = "<group>"; };
+		9E75C3701EB09E9000C60BBC /* PickerButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerButtonCell.swift; sourceTree = "<group>"; };
 		9ECF75661E9795650078303A /* Rut9xxSimCardPopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxSimCardPopUp.swift; sourceTree = "<group>"; };
 		9ED25A9E1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ru9xxRouterChangePasswordModel.swift; sourceTree = "<group>"; };
 		9ED25AA01E9758A1000E2251 /* Rut9xxSimCardSwitchTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxSimCardSwitchTask.swift; sourceTree = "<group>"; };
+		9EEEF4F21EAF48B100BF1021 /* dataToShowWirelessSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowWirelessSettings.swift; sourceTree = "<group>"; };
 		9EFB7F171E9CDAF30090F63E /* MainPrototypeCell3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPrototypeCell3.swift; sourceTree = "<group>"; };
 		9EFB7F191E9CDBFA0090F63E /* dataToShowMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowMain.swift; sourceTree = "<group>"; };
 		9EFB7F1B1E9CF3100090F63E /* dataToShowMain2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowMain2.swift; sourceTree = "<group>"; };
@@ -120,8 +134,6 @@
 		9EFB7F281E9E508D0090F63E /* dataToShowMainCircles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataToShowMainCircles.swift; sourceTree = "<group>"; };
 		CD211C4A54BF3DA64D639471 /* Pods-rutxxx_IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rutxxx_IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rutxxx_IOS/Pods-rutxxx_IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E81E0CB98E07F6C7C9E7D400 /* Pods_rutxxx_IOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rutxxx_IOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EACB91FE602BFE1045E541F1 /* Pods-bandymasAlam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandymasAlam.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bandymasAlam/Pods-bandymasAlam.debug.xcconfig"; sourceTree = "<group>"; };
-		FDD2008CD4934132B496A104 /* Pods_bandymasAlam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bandymasAlam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +141,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ACEA363941717B03BD81CB8 /* Pods_bandymasAlam.framework in Frameworks */,
 				260DFAA86A5B41EFF96409DC /* Pods_rutxxx_IOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,7 +151,6 @@
 		514E0A64091FAE090C18292C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FDD2008CD4934132B496A104 /* Pods_bandymasAlam.framework */,
 				E81E0CB98E07F6C7C9E7D400 /* Pods_rutxxx_IOS.framework */,
 			);
 			name = Frameworks;
@@ -149,7 +159,7 @@
 		696A6E541E1FBDAE00EA77DB = {
 			isa = PBXGroup;
 			children = (
-				69D978BC1E28F02500FCBC4C /* Images */,
+				69D978BC1E28F02500FCBC4C /* Settings */,
 				69D978B91E27A63C00FCBC4C /* Controllers */,
 				69D978B81E27A63100FCBC4C /* Views */,
 				69D978B71E27A62700FCBC4C /* Models */,
@@ -207,6 +217,7 @@
 				9ED25A9E1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift */,
 				9ED25AA01E9758A1000E2251 /* Rut9xxSimCardSwitchTask.swift */,
 				9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */,
+				9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -248,18 +259,23 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		69D978BC1E28F02500FCBC4C /* Images */ = {
+		69D978BC1E28F02500FCBC4C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				9E5F68FE1EADCF9100A844AB /* apnPrototypeCell.swift */,
+				9E5F69001EADD25B00A844AB /* dataToShowMobileSettings.swift */,
+				9E5F69021EAE1BB500A844AB /* pickerCell.swift */,
+				9E5F69061EAF291500A844AB /* WifiPickerCell.swift */,
+				9E5F69081EAF292B00A844AB /* WifiPasswordCell.swift */,
+				9EEEF4F21EAF48B100BF1021 /* dataToShowWirelessSettings.swift */,
+				9E75C3701EB09E9000C60BBC /* PickerButtonCell.swift */,
 			);
-			name = Images;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		7DD31BAC2A4360EDCBE20B19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EACB91FE602BFE1045E541F1 /* Pods-bandymasAlam.debug.xcconfig */,
-				3ECB1ABD54A55FC6FE90F204 /* Pods-bandymasAlam.release.xcconfig */,
 				CD211C4A54BF3DA64D639471 /* Pods-rutxxx_IOS.debug.xcconfig */,
 				3572AF2B77C22AB9C68C50B9 /* Pods-rutxxx_IOS.release.xcconfig */,
 			);
@@ -394,9 +410,12 @@
 			files = (
 				9E3AD8381EA76BDD00CB1EA2 /* WirelessSettingsController.swift in Sources */,
 				9E54F79F1E8BC42300B936F8 /* Rut9xxServicesModel.swift in Sources */,
+				9E5F69071EAF291500A844AB /* WifiPickerCell.swift in Sources */,
 				9E544E461E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift in Sources */,
 				691954801E728DFC0041BE2A /* WebUiController.swift in Sources */,
 				9E54F79D1E8B76FB00B936F8 /* RouterDetailsCell.swift in Sources */,
+				9E5F69031EAE1BB600A844AB /* pickerCell.swift in Sources */,
+				9E75C3711EB09E9000C60BBC /* PickerButtonCell.swift in Sources */,
 				9ECF75671E9795650078303A /* Rut9xxSimCardPopUp.swift in Sources */,
 				69DE5B6E1E79329B006E5E6F /* FwUpdateController.swift in Sources */,
 				69D978BB1E27B59C00FCBC4C /* Constants.swift in Sources */,
@@ -405,14 +424,17 @@
 				6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */,
 				69227B1D1E5EC0DD0082EA4F /* MainWindowModel.swift in Sources */,
 				9E3AD83A1EA76BFA00CB1EA2 /* MobileSettingsController.swift in Sources */,
+				9EEEF4F31EAF48B100BF1021 /* dataToShowWirelessSettings.swift in Sources */,
 				69DE5B701E7935A4006E5E6F /* FwUpdateModel.swift in Sources */,
 				9E6C0E7B1E92086000D00A43 /* Rut9xxServicesSetData.swift in Sources */,
 				9ED25A9F1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift in Sources */,
 				696A6E631E1FBDAE00EA77DB /* LoginController.swift in Sources */,
+				9E6C73C51EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift in Sources */,
 				9E1B37C91E8A349B0013412B /* Rut9xxRouterDetails.swift in Sources */,
 				9E54F79B1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift in Sources */,
 				9EFB7F271E9E14520090F63E /* MainPrototypeCell2.swift in Sources */,
 				69227B1B1E5C25D10082EA4F /* MethodsClass.swift in Sources */,
+				9E5F68FF1EADCF9100A844AB /* apnPrototypeCell.swift in Sources */,
 				69CD70371E6ED1B2003D7B3E /* AboutController.swift in Sources */,
 				696A6E691E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld in Sources */,
 				692EEBC41E815049009770CA /* DesignableButton.swift in Sources */,
@@ -433,11 +455,13 @@
 				696419701E2CFE6D000349E5 /* JsonRequest.swift in Sources */,
 				9E6C73C31EA87FBE0027596B /* MainSettingsModel.swift in Sources */,
 				69397F861E7AB52B0080D56F /* dataToShow.swift in Sources */,
+				9E5F69011EADD25B00A844AB /* dataToShowMobileSettings.swift in Sources */,
 				691954821E768BC10041BE2A /* NetworkReachability.swift in Sources */,
 				9EFB7F291E9E508D0090F63E /* dataToShowMainCircles.swift in Sources */,
 				69DE5B721E7A7923006E5E6F /* fwUpdateCell.swift in Sources */,
 				9EFB7F1A1E9CDBFA0090F63E /* dataToShowMain.swift in Sources */,
 				9E6C0E7F1E9237E500D00A43 /* dataToShowForServices.swift in Sources */,
+				9E5F69091EAF292B00A844AB /* WifiPasswordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,7 +588,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LGT2UGV788;
 				INFOPLIST_FILE = rutxxx_IOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teltonika.rutxxx-IOS-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -580,7 +604,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LGT2UGV788;
 				INFOPLIST_FILE = rutxxx_IOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teltonika.rutxxx-IOS-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -70,7 +70,6 @@ public class LoginModel: UIViewController {
                 deviceName = newDeviceName
               }
               UserDefaults.standard.setValue(deviceName, forKey: "device_name")
-              print("asdasd", UserDefaults.standard.value(forKey: "device_name"))
               UserDefaults.standard.synchronize()
             }
             complete(true)

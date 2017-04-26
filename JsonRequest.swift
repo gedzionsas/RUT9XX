@@ -144,7 +144,7 @@ class Json {
     
     var request = URLRequest(url: NSURL.init(string: urlAddress) as! URL)
     request.httpMethod = requestMethod
-    request.timeoutInterval = 6
+    request.timeoutInterval = 15
     let postString = params
     request.httpBody = try! JSONSerialization.data(withJSONObject: postString, options: [])
     Alamofire.request(request).responseJSON {
