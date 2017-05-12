@@ -52,8 +52,25 @@ class UserDefaultsManager {
     private static let ROUTERSERVICES_ARRAY = "routerservices_array"
     private static let ROUTERSERVICES_STATUS = "routerservices_status"
     private static let SETNEWROUTER_PASSWORD = "routernew_password"
-
-
+    private static let MOBILEDETAILS_ARRAY = "mobiledetails_array"
+    private static let WIRELESSDETAILS_ARRAY = "wirelessdetails_array"
+    
+    static var setWirelessDetailsArray: String {
+        get {
+            return UserDefaults.standard.string(forKey: WIRELESSDETAILS_ARRAY)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: WIRELESSDETAILS_ARRAY)
+        }
+    }
+    static var setMobileDetailsArray: String {
+        get {
+            return UserDefaults.standard.string(forKey: MOBILEDETAILS_ARRAY)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: MOBILEDETAILS_ARRAY)
+        }
+    }
     static var setRouterNewPassword: String {
         get {
             return UserDefaults.standard.string(forKey: SETNEWROUTER_PASSWORD)!

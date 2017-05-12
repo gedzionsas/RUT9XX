@@ -8,7 +8,11 @@
 
 import UIKit
 
-class apnPrototypeCell: UITableViewCell {
+
+
+class apnPrototypeCell: UITableViewCell, UITextFieldDelegate {
+
+    var textFieldEddited: Bool = false
 
     @IBOutlet weak var apnTextField: UITextField!
     
@@ -16,6 +20,8 @@ class apnPrototypeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        apnTextField.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,5 +29,16 @@ class apnPrototypeCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print("Leaving textField")
+        var textFieldEddited: Bool = true
 
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("pabaiga")
+
+    }
 }
