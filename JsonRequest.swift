@@ -21,7 +21,7 @@ class Json {
     
     
     let loginrequest = JsonRequests.loginRequest(userName: userName, password: password)
-    
+    print(loginrequest)
     makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: loginrequest, completion: { (json, error) in
       loginCompletion(json, error)
       
@@ -39,7 +39,49 @@ class Json {
     
     public func setConfigInformation(token: String, config: String, section: String, configOption: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setInformationToConfig(token: token, config: config, section: section, configsOption: configOption, value: value)
-        print("vo", deviceinformation)
+        print("uzklausa", deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func setNotRequiredWirelessPassword(token: String, currentWirelessSSID: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setNotRequiredWirelessPassword(token: token, currentWirelessSSID: currentWirelessSSID)
+        print("uzklausa", deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func setWirelessWpaEncryptionPassword2(token: String, value: String,currentWirelessSSID: String, passwordKey: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setWirelessWpaEncryptionPassword2(token: token, value: value, currentWirelessSSID: currentWirelessSSID, passwordKey: passwordKey)
+        print("uzklausa", deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func setWirelessWpaEncryptionPassword(token: String, value: String, passwordKey: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setWirelessWpaEncryptionPassword(token: token, value: value, passwordKey: passwordKey)
+        print("uzklausa", deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func setSimCardApn(token: String, simCardNumber: String, apnValue: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setSimCardApn(token: token, simCardNumber: simCardNumber, apnValue: apnValue, value: value)
+        print(deviceinformation, "kili")
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func setWirelessSSID(token: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.setWirelessSSID(token: token, value: value)
+        print("xzcvo", deviceinformation)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+            print(json, error.debugDescription)
+        })
+    }
+    public func deleteConfigInformation(token: String, config: String, section: String, configOption: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceinformation = JsonRequests.deleteConfigsOption(token: token, config: config, section: section, configsOption: configOption)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
@@ -77,6 +119,19 @@ class Json {
       loginCompletion(json)
     })
   }
+    public func getOperatorsInformation(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        let deviceParam = JsonRequests.getOperatorsInformation(token: token)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func simPinCheck(token: String, simPin: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceParam = JsonRequests.simPinCheckRequest(token: token, simPin: simPin)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
   public func downloadNewFirmware(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.downloadFirmware(token: token)
@@ -113,7 +168,22 @@ class Json {
       loginCompletion(json)
     })
   }
-  
+ public func startSpeedTest(token: String, fileValue: Int, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceParam = JsonRequests.startSpeedTest(token: token, fileValue: fileValue)
+    print("startspeed", deviceParam)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+    public func readSpeedTestFile(token: String, fileValue: Int, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceParam = JsonRequests.readSpeedTestFile(token: token, fileValue: fileValue)
+            print("startspeed", deviceParam)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
   public func fileExec2Comm(token: String, command: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.fileExec2Command(token: token, command: command)

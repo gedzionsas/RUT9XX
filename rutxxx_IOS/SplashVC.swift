@@ -49,7 +49,7 @@ public class SplashVC: UINavigationController {
       }
       
     } else {
-
+        
           self.perform(#selector(self.showLoginVC), with: nil, afterDelay: 0.01)
     }
     } else {
@@ -109,6 +109,11 @@ public class SplashVC: UINavigationController {
     let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
     self.present(viewController, animated: true)
   }
+    func showWizardVC() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+        self.present(viewController, animated: true)
+    }
   
 }
 

@@ -10,9 +10,11 @@ import UIKit
 
 
 
+
 class apnPrototypeCell: UITableViewCell, UITextFieldDelegate {
 
     var textFieldEddited: Bool = false
+
 
     @IBOutlet weak var apnTextField: UITextField!
     
@@ -22,13 +24,34 @@ class apnPrototypeCell: UITableViewCell, UITextFieldDelegate {
         // Initialization code
         
         apnTextField.delegate = self
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+    
+//    @IBAction func editttingEnded(_ sender: Any) {
+//        Rut9xxSettingsInformationModel().routerInformationSettingsModel(){ (result) in
+//            if !(self.apnTextField.text?.trimmingCharacters(in: .whitespaces) == result[2].trimmingCharacters(in: .whitespaces)) {
+//                print("notmatch", result[2], self.apnTextField.text!)
+//                if self.delegate != nil {
+//                    self.delegate?.passTextData(string: self.apnTextField.text!)
+//                }            } else {
+//                print("match")
+//                if self.delegate != nil {
+//                    self.delegate?.passTextData(string: self.apnTextField.text!)
+//                }
+//            }
+//        }
+//        
+//    }
+//    
+
+    
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         print("Leaving textField")
@@ -42,3 +65,5 @@ class apnPrototypeCell: UITableViewCell, UITextFieldDelegate {
 
     }
 }
+
+

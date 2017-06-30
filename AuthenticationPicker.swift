@@ -15,6 +15,7 @@ protocol PassauthdataDelegate {
 }
 
 
+
 class AuthenticationPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let authentication_array = ["None", "CHAP", "PAP"]
@@ -31,6 +32,7 @@ class AuthenticationPicker: UIViewController, UIPickerViewDataSource, UIPickerVi
             let row = pickerView.selectedRow(inComponent: 0)
             print("nunu", authentication_array[row])
             self.delegate?.passAuthData(value: authentication_array[row])
+
         }
         dismiss(animated: true, completion: nil)
     }

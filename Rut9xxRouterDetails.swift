@@ -11,12 +11,18 @@ import UIKit
 class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var routerDetails = [dataToShow]()
 
-    
+    var refresh: UIRefreshControl!
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        refresh = UIRefreshControl()
+        tableView.addSubview(refresh)
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresh.addTarget(self, action: #selector(Rut9xxRouterDetails.refreshData), for: UIControlEvents.valueChanged)
         
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -43,6 +49,17 @@ class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
+    func refreshData() {
+        Rut9xxRouterDetailsModel().routerDetailsModel(){ (result) in
+            self.routerDetails.removeAll()
+            UserDefaults.standard.setValue(result, forKey: "routerdetails_array")
+            self.updateUI(array: UserDefaults.standard.array(forKey: "routerdetails_array") as! [String])
+            
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
+        }
+    }
+
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

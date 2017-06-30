@@ -22,9 +22,9 @@ class dataToShowMobileSettings {
             return nil
         }
         
-        guard !value.isEmpty else {
-            return nil
-        }
+//        guard !value.isEmpty else {
+//            return nil
+//        }
         
         // Initialize stored properties.
         self.name = name

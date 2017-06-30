@@ -45,6 +45,26 @@ class JsonRequests {
     
     return deviceParam
   }
+    static func getOperatorsInformation(token: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "file", "exec", [ "command": "/sbin/get_operators"]
+            ]]
+        
+        return deviceParam
+    }
+    static func simPinCheckRequest(token: String, simPin: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "file", "exec", [ "command": "gsmctl", "params": ["-A", "AT+CPIN=\(simPin)"]]
+            ]]
+        
+        return deviceParam
+    }
   static func downloadFirmware(token: String) -> [String:Any] {
     
     let deviceParam: [String : Any] = ["jsonrpc": "2.0",
@@ -62,6 +82,70 @@ class JsonRequests {
                                            "id": 1,
                                            "method": "call",
                                            "params": [ token, "uci", "set", [ "config": config, "section": section, "values": [configsOption: value]]
+            ]]
+        
+        return deviceParam
+    }
+    static func setWirelessWpaEncryptionPassword2(token: String, value: String, currentWirelessSSID: String, passwordKey: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": "wireless", "type": "wifi-iface", "match": ["ssid": currentWirelessSSID], "values": ["encryption": value, "key": passwordKey]]
+            ]]
+        
+        return deviceParam
+    }
+    static func setNotRequiredWirelessPassword(token: String, currentWirelessSSID: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": "wireless", "type": "wifi-iface", "match": ["ssid": currentWirelessSSID], "values": ["encryption": "none"
+                                            ]]
+            ]]
+        
+        return deviceParam
+    }
+
+    static func setWirelessWpaEncryptionPassword(token: String, value: String, passwordKey: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": "wireless", "type": "wifi-iface", "values": ["encryption": value, "key": passwordKey]]
+            ]]
+        
+        return deviceParam
+    }
+    static func setSimCardApn(token: String, simCardNumber: String, apnValue: String, value: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": "simcard", "type": simCardNumber, "values": [value: apnValue]]
+            ]]
+        
+        return deviceParam
+    }
+    
+    static func setWirelessSSID(token: String, value: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "set", [ "config": "wireless", "type": "wifi-iface", "values": ["ssid": value]]
+            ]]
+        
+        return deviceParam
+    }
+    
+    static func deleteConfigsOption(token: String, config: String, section: String, configsOption: String) -> [String:Any] {
+        
+        let deviceParam: [String : Any] = ["jsonrpc": "2.0",
+                                           "id": 1,
+                                           "method": "call",
+                                           "params": [ token, "uci", "delete", [ "config": config, "section": section, "options": [configsOption]]
             ]]
         
         return deviceParam
@@ -138,6 +222,24 @@ class JsonRequests {
                                          "params": [ token, "file", "exec2", [ "command": "(echo '\(password)'; sleep 1; echo '\(password)') | passwd 'root'"]
             ]]
         return info
+    }
+    static func startSpeedTest(token: String, fileValue: Int) -> [String:Any] {
+        
+        let fileExec2: [String : Any] = ["jsonrpc": "2.0",
+                                         "id": 1,
+                                         "method": "call",
+                                         "params": [ token, "file", "exec2", [ "command": "speedtest \(fileValue) &"]
+            ]]
+        return fileExec2
+    }
+    static func readSpeedTestFile(token: String, fileValue: Int) -> [String:Any] {
+        
+        let fileExec2: [String : Any] = ["jsonrpc": "2.0",
+                                         "id": 1,
+                                         "method": "call",
+                                         "params": [ token, "file", "read", [ "path": "/tmp/speedtest\(fileValue)"]
+            ]]
+        return fileExec2
     }
   static func firmawareInformation(token: String, param1: String, param2: String) -> [String:Any] {
     

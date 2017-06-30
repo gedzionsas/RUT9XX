@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let myImage = UIImage(named: "fonas.png"){
        //     myImage.c = .scaleToFill
             UINavigationBar.appearance().setBackgroundImage(myImage, for: .default)
+       //     UINavigationBar.appearance().backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
+
         }
         let textAttributes = [NSForegroundColorAttributeName:UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = textAttributes

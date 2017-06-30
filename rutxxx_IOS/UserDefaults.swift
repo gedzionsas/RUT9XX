@@ -54,7 +54,99 @@ class UserDefaultsManager {
     private static let SETNEWROUTER_PASSWORD = "routernew_password"
     private static let MOBILEDETAILS_ARRAY = "mobiledetails_array"
     private static let WIRELESSDETAILS_ARRAY = "wirelessdetails_array"
+    private static let WIRELESSPASSWORD_VALUE = "wirelesspassword_value"
+    private static let MOBILEAUTHENTICATION_VALUE = "mobileauthentication_value"
+    private static let REGISTRATIONAPN_VALUE = "registrationapn_value"
+    private static let OPERATORS_VALUE = "operators_value"
+    private static let OPERATORPROFILE_VALUE = "operator_profile_value"
+    private static let ROAMING_VALUE = "roaming_value"
+    private static let APN_VALUE = "apn_value"
+    private static let AUTHENTICATION_USERNAME = "authentication_username"
+    private static let AUTHENTICATION_PASSWORD = "authentication_password"
+    private static let WIRELESSENCRYPTION_VALUE = "wirelessencryption_value"
+
     
+    
+    static var setOperatorProfileValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: OPERATORPROFILE_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: OPERATORPROFILE_VALUE)
+        }
+    }
+    static var setWirelessEncryptionValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: WIRELESSENCRYPTION_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: WIRELESSENCRYPTION_VALUE)
+        }
+    }
+    static var setAuthenticationPassword: String {
+        get {
+            return UserDefaults.standard.string(forKey: AUTHENTICATION_PASSWORD)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AUTHENTICATION_PASSWORD)
+        }
+    }
+    static var setAuthenticationUsername: String {
+        get {
+            return UserDefaults.standard.string(forKey: AUTHENTICATION_USERNAME)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AUTHENTICATION_USERNAME)
+        }
+    }
+    static var setApnValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: APN_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: APN_VALUE)
+        }
+    }
+    static var setRoamingValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: ROAMING_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ROAMING_VALUE)
+        }
+    }
+    static var setOperatorsValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: OPERATORS_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: OPERATORS_VALUE)
+        }
+    }
+    static var setRegistrationApnValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: REGISTRATIONAPN_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: REGISTRATIONAPN_VALUE)
+        }
+    }
+    static var setMobileAuthenticationValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: MOBILEAUTHENTICATION_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: MOBILEAUTHENTICATION_VALUE)
+        }
+    }
+    static var setWirelessPasswordValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: WIRELESSPASSWORD_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: WIRELESSPASSWORD_VALUE)
+        }
+    }
     static var setWirelessDetailsArray: String {
         get {
             return UserDefaults.standard.string(forKey: WIRELESSDETAILS_ARRAY)!

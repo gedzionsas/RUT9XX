@@ -12,7 +12,8 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   var fwUpdateData = [dataToShow]()
   
   var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-  
+    var refresh: UIRefreshControl!
+
   @IBAction func updateButtonTapped(_ sender: Any) {
     activityIndicator.center = self.view.center
     activityIndicator.hidesWhenStopped = true
@@ -32,6 +33,15 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
   @IBOutlet weak var tableView: UITableView!
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
+    
+    refresh = UIRefreshControl()
+    tableView.addSubview(refresh)
+    refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+    refresh.addTarget(self, action: #selector(FwUpdateController.refreshData), for: UIControlEvents.valueChanged)
+    
+    
     updateButton.layer.cornerRadius = 15
     updateButton.isHidden = true
     
@@ -60,11 +70,32 @@ class FwUpdateController: UIViewController, UITableViewDelegate, UITableViewData
     }
   }
   
+    
+    
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
+    
+    func refreshData() {
+        
+        
+        FwUpdateModel().fwUpdateTask(){ (result) in
+            self.fwUpdateData.removeAll()
+            var newFwVersion = result[2].lowercased()
+            if (newFwVersion.range(of: "No".lowercased()) != nil) || (newFwVersion.range(of: "n/a".lowercased()) != nil){
+                self.updateButton.isHidden = true
+            } else {
+                self.updateButton.isHidden = false
+            }
+            UserDefaults.standard.setValue(result, forKey: "fwupdate_array")
+            self.updateUI(array: UserDefaults.standard.array(forKey: "fwupdate_array") as! [String])
+            
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
+        }
+    }
   
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1

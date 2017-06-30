@@ -113,5 +113,14 @@ public class MethodsClass: UIViewController {
     print(lines)
     complete(lines)
   }
+    public func checkForBraces(value: String, complete: (String)->()){
+    var result = ""
+    if(value == "'") {
+    result = value.replacingOccurrences(of: "'", with: "")
+    } else {
+    result = value
+    }
+    complete(result)
+    }
   
 }

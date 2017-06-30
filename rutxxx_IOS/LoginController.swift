@@ -29,7 +29,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
   @IBOutlet var userName: UITextField!
   @IBOutlet var password: UITextField!
   
-  @IBAction func loginButton(_ sender: Any) {
+  @IBAction func loginButton(_ sender: Any) {   
     if userName.text == "" || password.text == "" {
       displayAlert(title: "Error", message: "Username and password are required")
     } else {

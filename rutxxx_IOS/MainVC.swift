@@ -15,6 +15,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
  var mainData = [dataToShowMain]()
  var mainData2 = [dataToShowMain2]()
  var mainData3 = [dataToShowMainCircles]()
+    var refresh: UIRefreshControl!
 
     
   let mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
@@ -70,6 +71,15 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
+    
+    refresh = UIRefreshControl()
+    tableView.addSubview(refresh)
+    refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+    refresh.addTarget(self, action: #selector(MainVC.refreshData), for: UIControlEvents.valueChanged)
+    
+    
     activityIndicator.center = self.view.center
     activityIndicator.hidesWhenStopped = true
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
@@ -101,10 +111,31 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     menuView.layer.shadowOpacity = 1
     menuView.layer.shadowRadius = 6
     
-    tableView.delegate = self
-    tableView.dataSource = self
+
   }
   
+    func refreshData() {
+        
+        MainWindowModel().mainTasks(){ (result) in
+            self.mainData.removeAll()
+            self.mainData2.removeAll()
+            self.mainData3.removeAll()
+            UserDefaults.standard.setValue(result, forKey: "temp")
+            let valuee = UserDefaults.standard.array(forKey: "temp")
+            self.updateUIMain(value: valuee?[2] as! [String] , names: valuee?[3] as! [String])
+            self.updateUI(valueMobile: valuee?[0] as! [String] , valueWireless: valuee?[1] as! [String])
+            
+            var valueMobileSignal = valuee![4] as? [String]
+            var valueWirelessQuality = valuee![6] as? [String]
+            var nameQuality = valuee![5] as? [String]
+            let finalSignalValue = Double((valueMobileSignal?[0])!)
+            let finalWirelessQuality = Int((valueWirelessQuality?[0])!)
+            
+            self.updateUIMainCircles(value: finalSignalValue!, wirelessValue: finalWirelessQuality!, stringQuality: (nameQuality?[0])! )
+            self.tableView.reloadData()
+            self.refresh.endRefreshing()
+        }
+    }
 
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1

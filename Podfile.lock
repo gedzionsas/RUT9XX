@@ -2,17 +2,20 @@ PODS:
   - Alamofire (4.3.0)
   - MBCircularProgressBar (0.3.5)
   - SwiftyJSON (3.1.4)
+  - TwicketSegmentedControl (0.1.2)
 
 DEPENDENCIES:
   - Alamofire (= 4.3.0)
   - MBCircularProgressBar
   - SwiftyJSON
+  - TwicketSegmentedControl
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TwicketSegmentedControl: 6d7a4cf243657e0ac3f00d06d873a25334c04042
 
-PODFILE CHECKSUM: c63d162a97e7feb215a61a65733797c72d375838
+PODFILE CHECKSUM: 64c722f3debd0a7b93d8e1bf286a3d37985d263d
 
 COCOAPODS: 1.2.1

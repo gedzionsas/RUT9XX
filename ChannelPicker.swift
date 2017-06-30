@@ -12,7 +12,7 @@ protocol PassChanneldataDelegate {
 
 class ChannelPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    let channel_array = ["Auto", "2.412", "2.417", "2.422", "2.427", "2.432", "2.437", "2.442", "2.447", "2.452", "2.457", "2.462"]
+    let channel_array = ["Auto", "1 (2.412 GHz)", "2 (2.417 GHz)", "3 (2.422 GHz)", "4 (2.427 GHz)", "5 (2.432 GHz)", "6 (2.437 GHz)", "7 (2.442 GHz)", "8 (2.447 GHz)", "9 (2.452 GHz)", "10 (2.457 GHz)", "11 (2.462 GHz)"]
 
     var delegate : PassChanneldataDelegate?
 

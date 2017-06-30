@@ -7,5 +7,7 @@ target ‘rutxxx_IOS’ do
   pod 'Alamofire', '4.3.0'
   pod 'SwiftyJSON'
   pod "MBCircularProgressBar"
+  pod 'TwicketSegmentedControl'
+
 
 end

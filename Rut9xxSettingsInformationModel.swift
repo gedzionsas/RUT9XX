@@ -58,6 +58,7 @@ class Rut9xxSettingsInformationModel: UIViewController {
     let finalWirelessChannel = self.checkWirelessChannel(value: wirelessChannel)
     Json().deviceinform(token: token as! String, config: wirelessConfig, section: encryptionSection, option: encryptionOption) { (wifiResponse3) in
         MethodsClass().getJsonValue(response_data: wifiResponse3) { (wirelessEncryption) in
+            print("jiba", wifiResponse3)
     let finalWirelessEncryption = self.checkWirelessEncryption(value: wirelessEncryption)
     let cipherValue = self.getCipherPartFromEncryption(value: wirelessEncryption)
     Json().deviceinform(token: token as! String, config: wirelessConfig, section: encryptionSection, option: encryptionWepUsingKey) { (wifiResponse4) in
@@ -131,7 +132,7 @@ class Rut9xxSettingsInformationModel: UIViewController {
     if value == auto {
         result = autoChannel
     } else if value == firstValue {
-        result = firstValue
+        result = firstChannel
     } else if value == secondValue {
         result = secondChannel
     } else if value == thirdValue {
@@ -158,7 +159,7 @@ class Rut9xxSettingsInformationModel: UIViewController {
     
     func checkWirelessEncryption(value: String)-> (String) {
         let none = "none", wepOpen = "wep-open", wepShared = "wep-shared", psk = "psk", psk2 = "psk2",
-        pskMixed = "psk-mixed", noEncryption = "No Encryption", wepOpenSystem = "WEP open system",
+        pskMixed = "psk-mixed", paskccmp = "psk+ccmp", noEncryption = "No Encryption", wepOpenSystem = "WEP open system",
         wepSharedKey = "WEP shared key", wpaPsk = "WPA-PSK", wpa2Psk = "WPA2-PSK",
         wpaPskWpa1pskMixedMode = "WPA-PSK/WPA2-PSK mixed mode"
         var result = ""
@@ -175,8 +176,11 @@ class Rut9xxSettingsInformationModel: UIViewController {
                 result = wpa2Psk
             } else if value == psk {
                 result = wpaPsk
+            } else if value == paskccmp {
+                result = wpaPsk
             }
         }
+        print("encr", result)
         return result
     }
     private func getCipherPartFromEncryption(value: String)-> (String){

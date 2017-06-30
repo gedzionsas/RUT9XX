@@ -50,6 +50,7 @@ public class MainWindowModel: UIViewController {
         UserDefaults.standard.setValue(devicesInterface, forKey: "device_interface")
         UserDefaults.standard.synchronize()
         Json().aboutDevice2(token: token as! String, deviceInterface: (UserDefaults.standard.value(forKey: "device_interface") as! String).trimmingCharacters(in: .whitespacesAndNewlines), parameter: "" ) { (json) in
+            print(json, "asdasd")
           MethodsClass().processJsonStdoutOutput(response_data: json){ (processedGsmData) in
             MethodsClass().processedDataArrayString(response_data: processedGsmData){ (finalGsmDataResult) in
               UserDefaults.standard.set(finalGsmDataResult, forKey: "processedgsm_data")
@@ -356,7 +357,14 @@ public class MainWindowModel: UIViewController {
     }
   }
   func parseDeviceDataObject (deviceResult: Any?, mobileConnectionUptime: Any?, processedGsmData: Array<String>, wirelessDownloadUploadResult: Array<Any>, mobileData: Array<String>, mobileDataArray: Array<String>, DeviceInterface: String, mobileRoaming: String, wirelessClientsCount: Int, wirelessQualityResult: String, wirelessMode: String, connectionStatus: String, simcardState: String)-> [Any] {
-    var object1: [String: String] = ["signal": processedGsmData[0], "operator": processedGsmData[1], "connection": MainWindowModel().gsmConnectionChecker(processedGsmData: processedGsmData[2] as! String)]
+   
+    var object1: [String: String] = [:]
+    if !(processedGsmData[0] == "") {
+        print("There are objects!")
+         object1 = ["signal": processedGsmData[0], "operator": processedGsmData[1], "connection": MainWindowModel().gsmConnectionChecker(processedGsmData: processedGsmData[2] as! String)]
+    } else {
+         object1 = ["signal": "N/A", "operator": "N/A", "connection": "N/A"]
+    }
     
     var objectWifi: [String: String] = [:]
     var objectGsm: [String: String] = [:]
@@ -364,7 +372,7 @@ public class MainWindowModel: UIViewController {
     var array = [Any]()
     
     do {
-      
+
       if ((wirelessDownloadUploadResult[0] as! String).isNumeric) == true {
         objectWifi[WIRELESS_DOWNLOAD] = (wirelessDownloadUploadResult[0] as! String)
       } else {
@@ -383,11 +391,15 @@ public class MainWindowModel: UIViewController {
       } else {
         objectGsm[MOBILE_DOWNLOAD] = "0"
       }
+        if (mobileData.count > 1) {
       if ((mobileData[1] ).isNumeric) == true {
         objectGsm[MOBILE_UPLOAD] = mobileData[1] 
       } else {
         objectGsm[MOBILE_UPLOAD] = "0"
-      }
+            }} else {
+            objectGsm[MOBILE_UPLOAD] = "0"
+
+        }
       if ((mobileDataArray[2] ).isNumeric) == true {
         objectGsm[MOBILE_COLLECTED_MONTH_RX] = mobileDataArray[2] 
       } else {
@@ -526,6 +538,8 @@ public class MainWindowModel: UIViewController {
       
     } else if (processedGsmData.range(of: "LTE") != nil) {
       connectionType = "4G (" + processedGsmData + ")"
+    }  else if processedGsmData == "N/A" {
+        connectionType = "N/A"
     }
     return connectionType
   }

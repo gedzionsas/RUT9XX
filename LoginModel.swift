@@ -17,7 +17,7 @@ public class LoginModel: UIViewController {
   
   internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
-    Json().login(userName: param1, password: param2) { (json, error) in      
+    Json().login(userName: param1, password: param2) { (json, error) in
       if error != nil {
         //Show alert
         print(error!.localizedDescription)
@@ -92,7 +92,23 @@ public class LoginModel: UIViewController {
             Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "mac") { (json) in
                 MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceLanMacNumber) in
                     UserDefaults.standard.setValue(deviceLanMacNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicelanmac_number")
-                    print("klai", UserDefaults.standard.value(forKey: "devicelanmac_number"))
+                }}
+            Json().deviceinform(token: self.loginToken, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: AUTHENTICATION) { (response3) in
+                MethodsClass().getJsonValue(response_data: response3) { (mobileAuthentication) in
+                UserDefaults.standard.setValue(self.parseAuthenticationValue(value: mobileAuthentication).trimmingCharacters(in: .whitespacesAndNewlines), forKey: "mobileauthentication_value")
+                }}
+            Json().deviceinform(token: self.loginToken, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: APN) { (response) in
+                MethodsClass().getJsonValue(response_data: response) { (mobileApn) in
+                    UserDefaults.standard.setValue(mobileApn, forKey: "registrationapn_value")
+                }}
+            Json().getOperatorsInformation(token: self.loginToken) { (response1) in
+                MethodsClass().processJsonStdoutOutput(response_data: response1){ (operators) in
+                    UserDefaults.standard.setValue(operators, forKey: "operators_value")
+                    print("operatoriai", UserDefaults.standard.value(forKey: "operators_value"))
+                }}
+            Json().deviceinform(token: self.loginToken, config: "wireless", section: "@wifi-iface[0]", option: "key") { (responseKey) in
+                MethodsClass().getJsonValue(response_data: responseKey) { (wirelessPsk) in
+                    UserDefaults.standard.setValue(wirelessPsk, forKey: "wirelesspassword_value")
                 }}
         }else {
           if (self.loginToken.contains("Access denied")) {
@@ -123,4 +139,28 @@ public class LoginModel: UIViewController {
     
   }
   
+    func parseAuthenticationValue (value: String) -> (String) {
+        let noneValue = "none"
+        let chapValue = "chap"
+        let papValue = "pap"
+        var result = ""
+        var authenticationValue = ""
+        
+        if !value.isEmpty {
+            if (value.range(of: noneValue) != nil) {
+                authenticationValue = "None"
+            } else if ((value.range(of: chapValue)) != nil){
+                authenticationValue = value.uppercased()
+            } else if (value.range(of: papValue) != nil) {
+                authenticationValue = value.uppercased()
+            }
+            result = authenticationValue
+        }
+        if result.isEmpty {
+            result = "No data"
+        }
+        return result
+    }
+    
+    
 }

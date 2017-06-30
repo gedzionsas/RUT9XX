@@ -14,7 +14,7 @@ var routerServices = [dataToShow]()
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBAction func switchButtonAction(_ sender: UISwitch) {
         var checked = ""
@@ -57,7 +57,6 @@ var routerServices = [dataToShow]()
             
         } else {
         checked = "0"
-            print("gaidus", checked)
 let point = sender.superview?.convert(sender.center, to: self.tableView)
                 var stringRowNumber = String(indexPath.row)
                 activityIndicator.center = self.view.center
@@ -97,6 +96,8 @@ let point = sender.superview?.convert(sender.center, to: self.tableView)
         }}
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -127,6 +128,8 @@ let point = sender.superview?.convert(sender.center, to: self.tableView)
         }
         
     }
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
