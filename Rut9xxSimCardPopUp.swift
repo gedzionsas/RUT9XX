@@ -27,12 +27,12 @@ class Rut9xxSimCardPopUp: UIViewController {
         sim1Button.backgroundColor = .clear
         sim1Button.layer.cornerRadius = 20
         sim1Button.layer.borderWidth = 5
-        sim1Button.layer.borderColor = UIColor(red:1.0/255.0, green:182.0/255.0, blue:190.0/255.0, alpha: 1.0).cgColor        
+        sim1Button.layer.borderColor = UIColor(red:12.0/255.0, green:87.0/255.0, blue:168.0/255.0, alpha: 1.0).cgColor
         
         sim2Button.backgroundColor = .clear
         sim2Button.layer.cornerRadius = 20
         sim2Button.layer.borderWidth = 5
-        sim2Button.layer.borderColor = UIColor(red:1.0/255.0, green:182.0/255.0, blue:190.0/255.0, alpha: 1.0).cgColor
+        sim2Button.layer.borderColor = UIColor(red:12.0/255.0, green:87.0/255.0, blue:168.0/255.0, alpha: 1.0).cgColor
         // Do any additional setup after loading the view.
     }
 

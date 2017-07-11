@@ -43,6 +43,7 @@ public class MainWindowModel: UIViewController {
       return
     }
     UserDefaults.standard.setValue(wifiName, forKey: "wifi_ssid")
+    print("wifi vardas", UserDefaults.standard.value(forKey: "wifi_ssid"))
     
     // Mobile data, Mobile web services calss
     Json().deviceinform(token: token as! String, config: "network", section: "ppp", option: "ifname") { (json) in
@@ -123,7 +124,6 @@ public class MainWindowModel: UIViewController {
                                 getConnectedWirelessIfNameParam.append((UserDefaults.standard.value(forKey: "wifi_ssid") as! String).trimmingCharacters(in: .whitespacesAndNewlines))
                                 Json().fileExec2Comm(token: token as! String, command: getConnectedWirelessIfNameParam) { (json) in
                                   MethodsClass().processJsonStdoutOutput(response_data: json){ (wirelessDevice) in
-                                    print("kanors", wirelessDevice)
                                     if wirelessDevice.isEmpty{
                                       UserDefaults.standard.setValue("0", forKey: "wireless_device")
                                       
@@ -152,12 +152,14 @@ public class MainWindowModel: UIViewController {
                                           }
                                           
                                           Json().deviceWirelessDetails(token: token as! String, param1: "info", param2: wirelesssDeviceTrimmed) { (wirelessQuality) in
+                                            
+                                            print("trimed", wirelesssDeviceTrimmed)
                                             MainWindowModel().getDeviceQuality(response_data: wirelessQuality){ (wirelessQualityResult) in
                                               UserDefaults.standard.setValue(wirelessQualityResult, forKey: "wirelessquality_result")
                                             }
                                             
                                             
-                                            //      print("rasiu",UserDefaults.standard.value(forKey: "device_result"), UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary, (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), (UserDefaults.standard.array(forKey: "arr_data") as? [String]), (UserDefaults.standard.value(forKey: "device_interface") as? String), (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), (UserDefaults.standard.value(forKey: "wireless_mode") as? String), (UserDefaults.standard.value(forKey: "connection_status") as? String), (UserDefaults.standard.value(forKey: "simcard_state") as? String))
+                                               //   print("rasiu",UserDefaults.standard.value(forKey: "device_result"), UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary, (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), (UserDefaults.standard.array(forKey: "arr_data") as? [String]), (UserDefaults.standard.value(forKey: "device_interface") as? String), (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), (UserDefaults.standard.value(forKey: "wireless_mode") as? String), (UserDefaults.standard.value(forKey: "connection_status") as? String), (UserDefaults.standard.value(forKey: "simcard_state") as? String))
                                             
                                             
                                             if let deviceResultUnwrapped = (UserDefaults.standard.value(forKey: "device_result")), let mobileConnectionUptimeUnwrapped = (UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary), let processedGsmDataUnwrapped = (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), let wirelessDownloadUploadResultUnwrapped = (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), let mobileDataUnwrapped = (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), let mobileDataArray = (UserDefaults.standard.array(forKey: "arr_data") as? [String]), let DeviceInterfaceUnwrapped = (UserDefaults.standard.value(forKey: "device_interface") as? String), let mobileRoamingUnwrapped = (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), let wirelessClientsCountUnwrapped = (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), let wirelessQualityResultUnwrapped = (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), let wirelessModeUnwrapped = (UserDefaults.standard.value(forKey: "wireless_mode") as? String), let connectionStatusUnwrapped = (UserDefaults.standard.value(forKey: "connection_status") as? String), let simcardStateUnwrapped = (UserDefaults.standard.value(forKey: "simcard_state") as? String) {
@@ -239,7 +241,8 @@ public class MainWindowModel: UIViewController {
         } else {
             wifiClientsCount = "N/A"
         }
-        if devicesObject["WirelessQuality"] != nil {
+        if devicesObject["WirelessQuality"] != nil && !(devicesObject["WirelessQuality"] == "") {
+            print("kascia", devicesObject["WirelessQuality"])
             wifiQuality = devicesObject["WirelessQuality"]!
         } else {
             wifiQuality = "0"

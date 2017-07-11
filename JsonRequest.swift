@@ -229,7 +229,9 @@ class Json {
         if let message = json["error"]["message"].string, message == "Access denied" {
           let loginController = LoginController()
           loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
-            
+            print("nepasibaige")
+   //         UserDefaults.standard.setValue(, forKey: "saved_token")
+
           
           }
           print("Access denied+")

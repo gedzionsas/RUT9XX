@@ -12,6 +12,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet var menuView: UIView!
     
+    @IBOutlet weak var inputOutput: UIStackView!
  var mainData = [dataToShowMain]()
  var mainData2 = [dataToShowMain2]()
  var mainData3 = [dataToShowMainCircles]()
@@ -48,6 +49,10 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
   }
   
+    @IBAction func wizardTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+        self.tabBarController?.tabBar.isTranslucent = true
+    }
   
   @IBOutlet var leadingConstraintForSlideMenu: NSLayoutConstraint!
   @IBAction func logOutButton(_ sender: Any) {
@@ -71,6 +76,14 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    if UserDefaults.standard.value(forKey: "inputoutput_value") as? String == "0" {
+        inputOutput.isHidden = true
+    } else {
+        inputOutput.isHidden = false
+    }
+    
+    
+    
     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
     
@@ -91,7 +104,7 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     tableView.dataSource = self
 
     MainWindowModel().mainTasks(){ (result) in
-        print(result)
+        print("rezultatai", result)
         UserDefaults.standard.setValue(result, forKey: "temp")
         let valuee = UserDefaults.standard.array(forKey: "temp")
         self.updateUIMain(value: valuee?[2] as! [String] , names: valuee?[3] as! [String])

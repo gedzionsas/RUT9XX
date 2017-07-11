@@ -64,9 +64,26 @@ class UserDefaultsManager {
     private static let AUTHENTICATION_USERNAME = "authentication_username"
     private static let AUTHENTICATION_PASSWORD = "authentication_password"
     private static let WIRELESSENCRYPTION_VALUE = "wirelessencryption_value"
+    private static let INPUTOUTPUT_VALUE = "inputoutput_value"
+    private static let TYPE_VALUE = "type_value"
 
-    
-    
+
+    static var setTypeValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: TYPE_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: TYPE_VALUE)
+        }
+    }
+    static var setInputOutputValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: INPUTOUTPUT_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: INPUTOUTPUT_VALUE)
+        }
+    }
     static var setOperatorProfileValue: String {
         get {
             return UserDefaults.standard.string(forKey: OPERATORPROFILE_VALUE)!

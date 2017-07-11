@@ -14,6 +14,7 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     let token = UserDefaults.standard.value(forKey: "saved_token")
     let SIM_PIN_UNREGISTERED_STATE = "pin required"
     let SIM_CARD_INSERTED_STATE = "inserted"
+    
     func passNextPageData() {
         self.pageControl.currentPage = 1
          let controller = VCArr[1]
@@ -49,7 +50,8 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
          self.dataSource = self
          self.delegate = self
         
-        self.pageControl.backgroundColor = .clear
+        
+    //    self.pageControl.backgroundColor = .clear
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
         if let firstVC = VCArr.first {
@@ -68,13 +70,22 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     override func viewWillAppear(_ animated: Bool) {
         //       self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-        var array = performSimCardCheckTask()
+        performSimCardCheckTask(){ (result) in
+        print(result, "dasresa")
+            
         
-        if array[2] == SIM_CARD_INSERTED_STATE {
-            if array[1] == SIM_PIN_UNREGISTERED_STATE
+        if result[1] == self.SIM_CARD_INSERTED_STATE {
+            if result[0] == self.SIM_PIN_UNREGISTERED_STATE
             {
-                
+                self.delegate = nil
+                self.dataSource = nil
             }
+        } else {
+            self.setViewControllers([self.VCArr[1]], direction: .forward, animated: true, completion: nil)
+            self.pageControl.currentPage = self.VCArr.index(of: self.VCArr[1])!
+
+            }
+        
         }
         
     }
@@ -130,6 +141,8 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
         self.pageControl.tintColor = UIColor.blue
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
+
+        self.pageControl.backgroundColor = UIColor.clear
         self.view.addSubview(pageControl)
     }
     
@@ -140,7 +153,7 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     }
     
     
-    func performSimCardCheckTask ()->([String]) {
+    func performSimCardCheckTask(complete: @escaping ([String])->()){
         Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-u") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (checkIfSimPinIsEntered) in
                 print(checkIfSimPinIsEntered)
@@ -148,7 +161,7 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
                     MethodsClass().processJsonStdoutOutput(response_data: json1){ (simCardStateResult) in
                         print(simCardStateResult)
                         var array = [checkIfSimPinIsEntered, simCardStateResult]
-                        return array
+                        complete (array)
                     }}}}
     }
 

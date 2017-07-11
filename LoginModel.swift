@@ -14,6 +14,9 @@ public class LoginModel: UIViewController {
   
   
   var loginToken = ""
+  let inOutString = "in_out"
+  let hwinfoConfig = "hwinfo"
+
   
   internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
@@ -59,6 +62,7 @@ public class LoginModel: UIViewController {
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
           
           UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
+            print("kascia daros", UserDefaults.standard.value(forKey: "saved_token"))
           
           // Device get name call
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
@@ -105,6 +109,11 @@ public class LoginModel: UIViewController {
                 MethodsClass().processJsonStdoutOutput(response_data: response1){ (operators) in
                     UserDefaults.standard.setValue(operators, forKey: "operators_value")
                     print("operatoriai", UserDefaults.standard.value(forKey: "operators_value"))
+                }}
+            
+            Json().deviceinform(token: self.loginToken, config: self.hwinfoConfig, section: self.hwinfoConfig, option: self.inOutString) { (response1) in
+                MethodsClass().getJsonValue(response_data: response1) { (inputOutputValue) in
+                    UserDefaults.standard.setValue(inputOutputValue, forKey: "inputoutput_value")
                 }}
             Json().deviceinform(token: self.loginToken, config: "wireless", section: "@wifi-iface[0]", option: "key") { (responseKey) in
                 MethodsClass().getJsonValue(response_data: responseKey) { (wirelessPsk) in
@@ -161,6 +170,7 @@ public class LoginModel: UIViewController {
         }
         return result
     }
+    
     
     
 }

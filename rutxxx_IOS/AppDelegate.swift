@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import AFNetworking
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -104,6 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+ // Network reachability checker
+    
 }
 

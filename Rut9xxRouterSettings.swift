@@ -16,6 +16,8 @@ class Rut9xxRouterSettings: UIViewController, UITextFieldDelegate, PassdataDeleg
     func passData(value: String) {
         print(value)
         primarySimCardField?.titleLabel?.text = value
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

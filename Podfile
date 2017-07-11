@@ -8,6 +8,8 @@ target ‘rutxxx_IOS’ do
   pod 'SwiftyJSON'
   pod "MBCircularProgressBar"
   pod 'TwicketSegmentedControl'
+  pod 'AFNetworking', '~> 3.0'
+
 
 
 end

@@ -114,6 +114,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
   public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    
     activityIndicator.center = self.view.center
     activityIndicator.hidesWhenStopped = true
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
@@ -127,15 +129,18 @@ class LoginController: UIViewController, UITextFieldDelegate {
       if success {
         print("successful")
         complete(true)
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
       } else {
         print("not successful")
         complete(false)
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
       }
       
       
     }
-    activityIndicator.stopAnimating()
-    UIApplication.shared.endIgnoringInteractionEvents()
+
     
   }
   
