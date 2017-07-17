@@ -18,6 +18,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
  var mainData3 = [dataToShowMainCircles]()
     var refresh: UIRefreshControl!
 
+    let reachability = Reachability()
+
     
   let mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
   let wirelessNames = ["WIRELESS NAME", "MODEL/CHANNEL", "ENCRYPTION", "CLIENTS"]
@@ -76,6 +78,22 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    reachability?.whenUnreachable = { _ in
+        DispatchQueue.main.async {
+            self.wifiSettings(false)
+
+        }
+    }
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: ReachabilityChangedNotification, object: reachability)
+    do {
+        try reachability?.stopNotifier()
+    } catch {
+        print("Could not start notifier")
+    }
+    
+
+    
     if UserDefaults.standard.value(forKey: "inputoutput_value") as? String == "0" {
         inputOutput.isHidden = true
     } else {
@@ -127,6 +145,50 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
   }
   
+    func internetChanged (note: Notification) {
+        let reachability = note.object as! Reachability
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("wifi changeddddd")
+            } else {
+                DispatchQueue.main.async {
+                    self.wifiSettings(false)
+                }
+            }
+            
+        } else {
+            DispatchQueue.main.async {
+                self.wifiSettings(false)
+            }
+        }
+    }
+    func wifiSettings(_ animated: Bool) {
+        let alertController = UIAlertController (title: "Not connected to router", message: "Go to Wi-fi Settings?", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: "App-Prefs:root=WIFI") else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+                    self.present(viewController, animated: true)                })
+            }
+        }
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        alertWindow.makeKeyAndVisible()
+        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    
     func refreshData() {
         
         MainWindowModel().mainTasks(){ (result) in

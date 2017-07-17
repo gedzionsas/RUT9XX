@@ -11,6 +11,8 @@ import UIKit
 
 class StatusController: UIViewController {
     
+    
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var digitalInput: UILabel!
     @IBOutlet weak var digitalGalvanicallyInput: UILabel!
@@ -20,12 +22,24 @@ class StatusController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
      //   scrollview.contentSize = CGSize(self.view.frame.width, self.view.frame.height+100)
 
         self.navigationController?.navigationBar.topItem?.title = " "
         Rut9xxInputOutputStateModel().Rut9xxInputOutputState(){ (result) in
             self.setData(resultArray: result)
-        
+            
+            
+            
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
 
     }

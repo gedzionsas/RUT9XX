@@ -9,19 +9,76 @@
 import Foundation
 import UIKit
 
-class InputController: UIViewController {
+class InputController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var rulesDetails = [dataForRulesCell]()
+
+    @IBAction func switchTapped(_ sender: UISwitch) {
+        var checked = ""
+        let point = sender.superview?.convert(sender.center, to: self.tableView)
+        if let indexPath = self.tableView.indexPathForRow(at: point!) {
+            let row = rulesDetails[indexPath.row]
+            row.switchButton = sender.isOn ? "1" : "0"
+            rulesDetails[indexPath.row] = row
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+
+            
+            
+            
+            if ((sender as AnyObject).isOn == true)
+            {
+                let point = sender.superview?.convert(sender.center, to: self.tableView)
+                var stringRowNumber = String(indexPath.row)
+                checked = "1"
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                view.addSubview(activityIndicator)
+                
+                activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                Rut9xxRulesEnableDisableMethod().Rut9xxInputRulesMethod(rowNumber: stringRowNumber, valueSwitch: checked){ (result) in
+                   
+                    
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+                
+            } else {
+                checked = "0"
+                let point = sender.superview?.convert(sender.center, to: self.tableView)
+                var stringRowNumber = String(indexPath.row)
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                view.addSubview(activityIndicator)
+                
+                activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                Rut9xxRulesEnableDisableMethod().Rut9xxInputRulesMethod(rowNumber: stringRowNumber, valueSwitch: checked){ (result) in
+                    
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+            }
+        }
+    }
+    
+    
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        tableView.delegate = self
+        tableView.dataSource = self
         Rut9xxInputRulesModel().Rut9xxInputRulesMethod(){ (result) in
-print("labai gerai", result)
             
+            self.updateUI(array: result)
         }
 
-        
+        self.tableView.tableFooterView = UIView()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,7 +87,49 @@ print("labai gerai", result)
     }
    
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if rulesDetails.count != 0 {
+        return rulesDetails.count
+        } else {
+            return 1
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "rulesCell"
+        
+        if rulesDetails.count != 0 {
+        
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? Rut9xxRulesCell else {
+            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+        }
+        
+        let row = rulesDetails[indexPath.row]
+        cell.typeLabel.text = row.type
+        cell.triggerLabel.text = row.trigger
+        cell.actionLabel.text = row.action
+        cell.switchButton.isOn = (row.switchButton == "1")
+        
+        return cell
+            
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? Rut9xxMessageCell else {
+                fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            }
+           cell.messageLabel.text = "There are no input rules created yet. Create rules for input configuration go to the router's WebUI"
+           return cell
+        }
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 60
+    }
+
+
     
     
     private func checkTypeValue(typeValue: String, analogTypeValue: String)-> (String) {
@@ -46,8 +145,6 @@ print("labai gerai", result)
     result = "Current"
     } else {
     let result1 = typeValue.capitalized
-    let index = typeValue.index(typeValue.startIndex, offsetBy: 1)
-    result = result1.substring(to: index)
     }
     } else {
     result = ""
@@ -145,5 +242,39 @@ print("labai gerai", result)
     result = "N/A"
     }
     return result
+    }
+    
+    
+    private func updateUI(array: [[String: String]]) {
+        var i = 0
+        
+
+            for item in array {
+                var enabledValue = item["Enabled"] as? String
+                var typeValue = item["Type"] as? String
+                var triggerValue = item["Trigger"] as? String
+                var actionValue = item["Action"] as? String
+                
+                var analogTypeValue = item["AnalogType"] as? String
+                var minValue = item["MinValue"] as? String
+                var maxValue = item["MaxValue"] as? String
+                var minCValue = item["MinCValue"] as? String
+                var maxCValue = item["MaxCValue"] as? String
+                var outPutNb = item["OutputNb"] as? String
+
+
+                var checkedType = checkTypeValue(typeValue: typeValue!, analogTypeValue: analogTypeValue!)
+                var checkedTrigger = checkTriggerValue(type: typeValue!, trigger: triggerValue!, analogTypeValue: analogTypeValue!, minValue: minValue!, maxValue: maxValue!, minCValue: minCValue!, maxCValue: maxCValue!)
+                var checkedAction = checkAction(action: actionValue!, outPut: outPutNb!)
+            
+        
+        guard let row1 = dataForRulesCell(type: checkedType, trigger: checkedTrigger, action: checkedAction, switchButton: enabledValue!) else {
+            fatalError("Unable to instantiate row1")
+        }
+
+        rulesDetails += [row1]
+                i += 1
+        tableView.reloadData()
+                    }
     }
 }

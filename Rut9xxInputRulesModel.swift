@@ -12,7 +12,6 @@ import UIKit
 
 class Rut9xxInputRulesModel: UIViewController {
     
-    var myGroup = DispatchGroup()
 
     
     internal func Rut9xxInputRulesMethod(complete: @escaping ([[String: String]])->()){
@@ -24,7 +23,6 @@ class Rut9xxInputRulesModel: UIViewController {
         
         Json().fileExec2Comm(token: token as! String, command: "cat /etc/config/ioman") { (response9) in
             MethodsClass().processJsonStdoutOutput(response_data: response9){ (value) in
-                
                 var i = 0
                 
                 let Arr : [String] = value.components(separatedBy: "rule")
@@ -37,10 +35,16 @@ class Rut9xxInputRulesModel: UIViewController {
 
                 var rulesNumber = 0
                 var rulesCount = (i - 1)
-                while (rulesNumber < rulesCount) {
+                
+                
+                let dispatchGroup = DispatchGroup()
+
+                repeat {
+                    
+                    dispatchGroup.enter()
+                    
                     var configSection = "@rule[\(rulesNumber)]"
                     print(rulesNumber, rulesCount)
-                    self.myGroup.enter()
 
                     
                     Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: configEnabledOption) { (response1) in
@@ -79,25 +83,27 @@ class Rut9xxInputRulesModel: UIViewController {
                                                                                                         object["MinCValue"] = minCValue
                                                                                                         object["MaxCValue"] = maxCValue
                                                                                                         object["OutputNb"] = outPutNb
-                                                                                                        arrayObjects.append(object)
+                                                                                                        arrayObjects.insert(object, at: 0)
                             
                                                                                                     }
-                                                                                                    self.myGroup.leave()
 
                                                                                                     if rulesNumber == rulesCount {
-                                                                                                        print(rulesNumber, rulesCount, "f", arrayObjects)
-                                                                                                        complete(arrayObjects)
+
+                                                                                                        dispatchGroup.leave()
+
                                                                                                     }
                                                                                                 
                                                                                                 }}
                                                                                         }} }}}}  }}}}}}}}}}
                         }}
                     rulesNumber += 1
+                } while (rulesNumber < rulesCount)
+                
+                dispatchGroup.notify(queue: DispatchQueue.main) {
+                   complete(arrayObjects)
                     
                 }
-                
-                
-             
+
                 
             }}
 

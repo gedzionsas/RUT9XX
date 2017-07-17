@@ -86,7 +86,25 @@ public class MethodsClass: UIViewController {
     }
   }
 
-
+    public func getJsonArrayValue (response_data: Any?, complete: ([String])->()){
+        
+        var gotDeviceInterface = [""]
+        let valueString = "value"
+        
+        if let jsonDic = response_data as? JSON {
+            if (jsonDic["result"].exists()){
+                for item in jsonDic["result"].arrayValue {
+                    gotDeviceInterface = item[valueString].arrayValue.map { $0.stringValue}
+                }
+                complete(gotDeviceInterface)
+            } else {
+                gotDeviceInterface = [""]
+                complete(gotDeviceInterface)
+            }
+        }else {
+            print("klaida")
+        }
+    }
   public func getJsonValue (response_data: Any?, complete: (String)->()){
     
     var gotDeviceInterface = ""
