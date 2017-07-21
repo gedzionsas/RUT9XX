@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SystemConfiguration.CaptiveNetwork
 
 public class LoginModel: UIViewController {
   
@@ -20,11 +21,12 @@ public class LoginModel: UIViewController {
   
   internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
+
+    
     Json().login(userName: param1, password: param2) { (json, error) in
       if error != nil {
         //Show alert
         print(error!.localizedDescription)
-        
         DispatchQueue.main.async {
           AlertController.showErrorWith(title: "Error", message: error!.localizedDescription, controller: param3) {
             complete(false)
@@ -62,11 +64,12 @@ public class LoginModel: UIViewController {
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
           
           UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
-            print("kascia daros", UserDefaults.standard.value(forKey: "saved_token"))
           
           // Device get name call
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (newDeviceName) in
+                
+                
               if (newDeviceName.characters.count >= 6) {
                 let subString = newDeviceName.substring(to: newDeviceName.index(newDeviceName.startIndex, offsetBy: 6))
                 deviceName = subString
@@ -78,12 +81,21 @@ public class LoginModel: UIViewController {
             }
             complete(true)
           }
-
-          Json().infoAboutFirmware(token: self.loginToken, param1: "read", param2: "/etc/version"){ (json) in
+            Json().fileExec2Comm(token: self.loginToken as! String, command: "sim_switch sim") { (json) in
+                MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardValue) in
+                    UserDefaults.standard.setValue(simCardValue, forKey: "simcard_value")
+                }
+            }
+                Json().infoAboutFirmware(token: self.loginToken, param1: "read", param2: "/etc/version"){ (json) in
             MethodsClass().parseFirmwareInformation(response_data: json){ (firmwareNumber) in
               UserDefaults.standard.setValue(firmwareNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicefirmware_number")
                     }
                 }
+            Json().deviceinform(token: self.loginToken, config: self.hwinfoConfig, section: self.hwinfoConfig, option: self.inOutString) { (response1) in
+                MethodsClass().getJsonValue(response_data: response1) { (inputOutputValue) in
+                    UserDefaults.standard.setValue(inputOutputValue, forKey: "inputoutput_value")
+                }}
+            self.getWIFIInformation()
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "sn") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceSerialNumber) in
               UserDefaults.standard.setValue(deviceSerialNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "deviceserial_number")
@@ -108,13 +120,8 @@ public class LoginModel: UIViewController {
             Json().getOperatorsInformation(token: self.loginToken) { (response1) in
                 MethodsClass().processJsonStdoutOutput(response_data: response1){ (operators) in
                     UserDefaults.standard.setValue(operators, forKey: "operators_value")
-                    print("operatoriai", UserDefaults.standard.value(forKey: "operators_value"))
                 }}
             
-            Json().deviceinform(token: self.loginToken, config: self.hwinfoConfig, section: self.hwinfoConfig, option: self.inOutString) { (response1) in
-                MethodsClass().getJsonValue(response_data: response1) { (inputOutputValue) in
-                    UserDefaults.standard.setValue(inputOutputValue, forKey: "inputoutput_value")
-                }}
             Json().deviceinform(token: self.loginToken, config: "wireless", section: "@wifi-iface[0]", option: "key") { (responseKey) in
                 MethodsClass().getJsonValue(response_data: responseKey) { (wirelessPsk) in
                     UserDefaults.standard.setValue(wirelessPsk, forKey: "wirelesspassword_value")
@@ -136,10 +143,7 @@ public class LoginModel: UIViewController {
             }
             self.loginToken = "Login Error"
             print(self.loginToken)
-            
           }
-          
-          
         }
       }
       self.loginToken = ""
@@ -171,6 +175,20 @@ public class LoginModel: UIViewController {
         return result
     }
     
-    
+    func getWIFIInformation() -> [String:String]{
+        var informationDictionary = [String:String]()
+        let informationArray:NSArray? = CNCopySupportedInterfaces()
+        if let information = informationArray {
+            let dict:NSDictionary? = CNCopyCurrentNetworkInfo(information[0] as! CFString)
+            if let temp = dict {
+                informationDictionary["SSID"] = String(describing: temp["SSID"]!)
+                informationDictionary["BSSID"] = String(describing: temp["BSSID"]!)
+                MAC_ADDRESS = String(describing: temp["BSSID"]!)
+                return informationDictionary
+            }
+        }
+        
+        return informationDictionary
+    }
     
 }

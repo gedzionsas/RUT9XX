@@ -30,8 +30,8 @@ class StatusController: UIViewController {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-     //   scrollview.contentSize = CGSize(self.view.frame.width, self.view.frame.height+100)
-
+        //   scrollview.contentSize = CGSize(self.view.frame.width, self.view.frame.height+100)
+        
         self.navigationController?.navigationBar.topItem?.title = " "
         Rut9xxInputOutputStateModel().Rut9xxInputOutputState(){ (result) in
             self.setData(resultArray: result)
@@ -41,19 +41,19 @@ class StatusController: UIViewController {
             self.activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
         }
-
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-}
-
-
+    }
+    
+    
     
     func setData (resultArray: String) {
         
-
+        
         var antype = "", gDin1 = "", gDin2 = ""
         var gAnalog = 0.0, gResistor = 0.0
         var gDout1 = 0, gDout2 = 0, open_collector_output_cfg = 0, relay_output_cfg = 0
@@ -76,7 +76,7 @@ class StatusController: UIViewController {
                 if (Arr.count - 8) != 0 {
                     antype = Arr[8]
                 }
-
+                
             }
         }
         

@@ -29,7 +29,9 @@ class Ru9xxRouterChangePasswordModel: UIViewController {
         } else {
             let alert = UIAlertController(title: "", message: "Password fields are empty!", preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
-            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
+            Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
+            complete()
+
         }
        
         

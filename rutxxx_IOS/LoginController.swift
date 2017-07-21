@@ -13,48 +13,75 @@ import SwiftyJSON
 
 
 class LoginController: UIViewController, UITextFieldDelegate {
-  
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+
   
   private let ADMIN = "admin"
   private let ROOT = "root"
   
   func displayAlert(title:String, message: String){
+    self.activityIndicator.stopAnimating()
+    UIApplication.shared.endIgnoringInteractionEvents()
     let alertcontroller = UIAlertController(title: title, message: message, preferredStyle: .alert)
     alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     self.present(alertcontroller, animated: true, completion: nil)
   }
   
-    @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!
+  @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet var userName: UITextField!
   @IBOutlet var password: UITextField!
   
-  @IBAction func loginButton(_ sender: Any) {   
-    if userName.text == "" || password.text == "" {
-      displayAlert(title: "Error", message: "Username and password are required")
-    } else {
-      let name : String = userName.text!
-      let replacedUsername = name.replacingOccurrences(of: ADMIN, with: ROOT)
-      
-      UserDefaults.standard.setValue(replacedUsername, forKey: "saved_username")
-      UserDefaults.standard.setValue(password.text, forKey: "saved_password")
-      UserDefaults.standard.synchronize()
-      
-      performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
-        if success {
-          self.finishLoggingIn()
-        } else {
-        }
-        
-      }
-      
-    }
-    
+  @IBAction func loginButton(_ sender: Any) {
+    login()
   }
-  
+    
+    func login() {
+        checkReachability() { success in
+            if success {
+                if userName.text == "" || password.text == "" {
+                    displayAlert(title: "Error", message: "Username and password are required")
+                } else {
+                    if let gateway = getGatewayIP() {
+                        UserDefaults.standard.setValue(gateway, forKey: "gateway_value")
+                        URLREQUEST = "http://\(gateway)/ubus"
+                        IP = URL(string: "http://\(gateway)")
+                        
+                    } else {
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
+                            AlertController.showErrorWith(title: "Error", message: "Getting gateway IP failed", controller: self) {
+                            }
+                        }
+                    }
+                    let name : String = userName.text!
+                    let replacedUsername = name.replacingOccurrences(of: ADMIN, with: ROOT)
+                    
+                    UserDefaults.standard.setValue(replacedUsername, forKey: "saved_username")
+                    UserDefaults.standard.setValue(password.text, forKey: "saved_password")
+                    UserDefaults.standard.synchronize()
+                    
+                    performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
+                        if success {
+                            self.finishLoggingIn()
+                        } else {
+                        }
+                    }
+                }
+            } else {
+                // Then wifi not connected
+                wifiSettings(false)
+            }
+        }
+
+    }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
     NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
 
     
@@ -62,12 +89,20 @@ class LoginController: UIViewController, UITextFieldDelegate {
     self.view.addGestureRecognizer(tapGesture)
   }
   
+    @IBAction func didEndPasswordEditting(_ sender: Any) {
+        self.password.delegate = self;
+
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        login()
+        return false
+    }
+    
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-  
-
   
   func tap(gesture: UITapGestureRecognizer) {
     userName.resignFirstResponder()
@@ -78,12 +113,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     self.view.endEditing(true)
   }
-//  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//    
-//    textField.resignFirstResponder()
-//    
-//    return true
-//  }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -110,10 +139,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
   public func performLogin(userName: String, password: String, complete: @escaping (Bool)->()){
-    
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
     
     activityIndicator.center = self.view.center
@@ -127,14 +153,23 @@ class LoginController: UIViewController, UITextFieldDelegate {
     let loginJsonResult = LoginModel()
     loginJsonResult.jsonResult(param1: userName, param2: password, param3: self){ success in
       if success {
-        print("successful")
+        
+        print("kokia", self.isLoggedIn())
+        if self.isLoggedIn() {
+        } else {
+        let deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
+            print("dasss", deviceName)
+        if (deviceName.isEmpty || !deviceName.contains("RUT")) {
+        } else {
+            self.perform(#selector(self.showWizardVC), with: nil, afterDelay: 0.01)
+            }
+        }
         complete(true)
-        activityIndicator.stopAnimating()
+        self.activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
       } else {
-        print("not successful")
         complete(false)
-        activityIndicator.stopAnimating()
+        self.activityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
       }
       
@@ -144,22 +179,83 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
   }
   
+    
+    func isLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isLoggedIn")
+        
+    }
+    func wifiSettings(_ animated: Bool) {
+        let alertController = UIAlertController (title: "Not connected to router", message: "Go to Wi-fi Settings?", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: "App-Prefs:root=WIFI") else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                    self.perform(#selector(self.showLoginVC), with: nil, afterDelay: 0.01)
+                })
+            }
+        }
+        alertController.addAction(settingsAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        alertWindow.makeKeyAndVisible()
+        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    func getGatewayIP() -> String? {
+        var gatewayaddr = in_addr()
+        let r = getdefaultgateway(&gatewayaddr.s_addr)
+        if r >= 0 {
+            return String(cString: inet_ntoa(gatewayaddr))
+        } else {
+            return nil
+        }
+    }
+    
+    func checkReachability(complete: (Bool)->()){
+        if currentReachabilityStatus == .reachableViaWiFi {
+            print("User is connected to the internet via wifi.")
+            complete(true)
+        } else {
+            print("There is no internet connection")
+            complete(false)
+        }
+    }
+    
+    func showLoginVC() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
+        self.present(viewController, animated: true)
+    }
+    
+    func showWizardVC() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"pageWizard")
+        self.present(viewController, animated: true)
+    }
   func finishLoggingIn() {
-    print("Finish logging in")
-    
-    
+    print(self.isLoggedIn())
+    if self.isLoggedIn() {
+
     let appDelegate = UIApplication.shared.delegate! as! AppDelegate
     
     let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
     appDelegate.window?.rootViewController = initialViewController
     appDelegate.window?.makeKeyAndVisible()
-    
+    }
+        
     UserDefaults.standard.setValue(true, forKey: "isLoggedIn")
     UserDefaults.standard.synchronize()
     dismiss(animated: true, completion: nil)
   }
   
-  // scroll view
 
 }
 

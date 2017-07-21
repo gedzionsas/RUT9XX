@@ -13,48 +13,14 @@ public class SplashVC: UINavigationController {
     // Return IP address of WiFi interface (en0) as a String, or `nil`
 
     
-    func getIFAddresses() -> [String] {
-        var addresses = [String]()
-        
-        // Get list of all interfaces on the local machine:
-        var ifaddr : UnsafeMutablePointer<ifaddrs>?
-        guard getifaddrs(&ifaddr) == 0 else { return [] }
-        guard let firstAddr = ifaddr else { return [] }
-        
-        // For each interface ...
-        for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
-            let flags = Int32(ptr.pointee.ifa_flags)
-            let addr = ptr.pointee.ifa_addr.pointee
-            
-            // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
-            if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
-                if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
-                    
-                    // Convert interface address to a human readable string:
-                    var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-                    if (getnameinfo(ptr.pointee.ifa_addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),
-                                    nil, socklen_t(0), NI_NUMERICHOST) == 0) {
-                        let address = String(cString: hostname)
-                        addresses.append(address)
-                    }
-                }
-            }
-        }
-        
-        freeifaddrs(ifaddr)
-        return addresses
-    }
-    
-  
-  private static let VALID_PASSWORD = UserDefaults.standard.value(forKey: "saved_password")
+private static let VALID_PASSWORD = UserDefaults.standard.value(forKey: "saved_password")
   
   override public func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
     
-//    callObjec()
+
     
-    print("nudavai", getIFAddresses(), "idodsa", getGatewayIP())
 //           let appDomain = Bundle.main.bundleIdentifier!
 // UserDefaults.standard.removePersistentDomain(forName: appDomain)
     
@@ -62,10 +28,25 @@ public class SplashVC: UINavigationController {
     checkReachability() { success in
       if success {
 
+        
         print(isLoggedIn())
     if isLoggedIn() {
       // Auto login when not first time
-
+        if let gateway = getGatewayIP() {
+            UserDefaults.standard.setValue(gateway, forKey: "gateway_value")
+            URLREQUEST = "http://\(gateway)/ubus"
+            IP = URL(string: "http://\(gateway)")
+            
+        } else {
+            DispatchQueue.main.async {
+                let alertcontroller = UIAlertController(title: "Error", message: "Getting gateway IP failed", preferredStyle: .alert)
+                alertcontroller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertcontroller, animated: true, completion: nil)
+                print("getGatewayIP() failed")
+            }
+        }
+        
+        
       let loginController = LoginController()
       loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
         if success {
@@ -99,21 +80,16 @@ public class SplashVC: UINavigationController {
   }
   }
     
-    func getGatewayIP() -> String {
-        var ipString: String? = nil
-        
-        let gatewayaddr: in_addr
-        let r: Int = getdefaultgateway((gatewayaddr.s_addr))
+    func getGatewayIP() -> String? {
+        var gatewayaddr = in_addr()
+        let r = getdefaultgateway(&gatewayaddr.s_addr)
         if r >= 0 {
-            ipString = "\(inet_ntoa(gatewayaddr))"
-            print("default gateway : \(ipString)")
+            return String(cString: inet_ntoa(gatewayaddr))
+        } else {
+            return nil
         }
-        else {
-            print("getdefaultgateway() failed")
-        }
-        return ipString!
     }
-
+    
   
   func checkReachability(complete: (Bool)->()){
     if currentReachabilityStatus == .reachableViaWiFi {
@@ -146,8 +122,12 @@ public class SplashVC: UINavigationController {
         })
       }
     }
+    
     alertController.addAction(settingsAction)
-    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+    let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (_) -> Void in
+        self.perform(#selector(self.showLoginVC), with: nil, afterDelay: 0.01)
+    }
+
     alertController.addAction(cancelAction)
     
   let alertWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -157,16 +137,14 @@ public class SplashVC: UINavigationController {
   alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
   }
  
+ 
   func showLoginVC() {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
     self.present(viewController, animated: true)
   }
-    func showWizardVC() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"LoginVC")
-        self.present(viewController, animated: true)
-    }
+    
+
   
 }
 

@@ -43,57 +43,57 @@ class Rut9xxInputOutputStateModel: UIViewController {
                                                             MethodsClass().getJsonValue(response_data: response7) { (dOut1Value) in
                                                                 Json().deviceinform(token: token as! String, config: iomanConfig, section: iomanConfig, option: dOut2Command) { (response8) in
                                                                     MethodsClass().getJsonValue(response_data: response8) { (dOut2Value) in
-                                                            
+                                                                        
                                                                         
                                                                         
                                                                         Json().fileExec2Comm(token: token as! String, command: "cat /etc/config/ioman") { (response9) in
                                                                             MethodsClass().processJsonStdoutOutput(response_data: response9){ (value) in
                                                                                 
                                                                                 var i = 0
-
+                                                                                
                                                                                 let Arr : [String] = value.components(separatedBy: "rule")
                                                                                 for item in Arr {
                                                                                     i += 1
                                                                                 }
-
-                                                                        
-                                                                        
-                                                                        var rulesNumber = 0
-                                                                        let configOption = "type"
-                                                                        let analogTypeString = "analogtype"
-                                                                        
+                                                                                
+                                                                                
+                                                                                
+                                                                                var rulesNumber = 0
+                                                                                let configOption = "type"
+                                                                                let analogTypeString = "analogtype"
+                                                                                
                                                                                 while rulesNumber < i {
                                                                                     var configSection = "@rule[\(rulesNumber)]"
                                                                                     Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: configOption) { (response10) in
                                                                                         MethodsClass().getJsonValue(response_data: response10) { (configTypeValue) in
-                                                                                    if(configTypeValue == "analog"){
-                                                                                        Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: analogTypeString) { (response11) in
-                                                                                            MethodsClass().getJsonValue(response_data: response11) { (typeValue0) in
-                                                                                                UserDefaults.standard.set(typeValue0, forKey: "type_value")
-                                                                                                
-                                                                                            }} }
+                                                                                            if(configTypeValue == "analog"){
+                                                                                                Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: analogTypeString) { (response11) in
+                                                                                                    MethodsClass().getJsonValue(response_data: response11) { (typeValue0) in
+                                                                                                        UserDefaults.standard.set(typeValue0, forKey: "type_value")
+                                                                                                        
+                                                                                                    }} }
                                                                                         }}
-                                                                                    rulesNumber += 1                                                                    
-                                                                                        }
+                                                                                    rulesNumber += 1
+                                                                                }
                                                                                 
                                                                                 if let typeValue = (UserDefaults.standard.value(forKey: "type_value") as? String) {
                                                                                     result = gpioDin1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gpioDin2Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gAnalog.trimmingCharacters(in: .whitespacesAndNewlines) + "," +
                                                                                         gpioDout1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gpioDout2Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gresistorValue.trimmingCharacters(in: .whitespacesAndNewlines) + "," + dOut1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + dOut2Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + typeValue.trimmingCharacters(in: .whitespacesAndNewlines)
-
+                                                                                    
                                                                                 }else{
                                                                                     result = gpioDin1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gpioDin2Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gAnalog.trimmingCharacters(in: .whitespacesAndNewlines) + "," +
                                                                                         gpioDout1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gpioDout2Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + gresistorValue.trimmingCharacters(in: .whitespacesAndNewlines) + "," + dOut1Value.trimmingCharacters(in: .whitespacesAndNewlines) + "," + dOut2Value.trimmingCharacters(in: .whitespacesAndNewlines)
                                                                                 }
                                                                                 
                                                                                 complete(result)
-                                                                        
+                                                                                
                                                                             }}
                                                                     }}  }}
                                                     }}}}}} }}}}
             }}
         
         
-   
+        
         
     }
 }

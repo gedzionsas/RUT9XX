@@ -16,7 +16,7 @@ class dataForRulesCell {
     var action: String
     var switchButton: String
     //var switchButton:
-
+    
     
     //MARK: Initialization
     

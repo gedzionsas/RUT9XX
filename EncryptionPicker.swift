@@ -33,7 +33,6 @@ class EncryptionPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     @IBAction func doneButton(_ sender: Any) {
         if delegate != nil {
             let row = pickerView.selectedRow(inComponent: 0)
-            print("nunu", encryption_array[row])
             self.delegate?.passEncryptionData(value: encryption_array[row])
         }
         dismiss(animated: true, completion: nil)

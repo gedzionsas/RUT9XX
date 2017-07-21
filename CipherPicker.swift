@@ -18,12 +18,12 @@ protocol PassCipherdataDelegate {
 class CipherPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var delegate : PassCipherdataDelegate?
-
+    
     
     let cipher_array = ["Auto", "Force CCMP (AES)", "WEP shared key", "Force TKIP", "Force TKIP and CCMP (AES)"]
     
     @IBOutlet weak var pickerView: UIPickerView!
-
+    
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -31,12 +31,11 @@ class CipherPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     @IBAction func doneButton(_ sender: Any) {
         if delegate != nil {
             let row = pickerView.selectedRow(inComponent: 0)
-            print("nunu", cipher_array[row])
             self.delegate?.passCipherData(value: cipher_array[row])
         }
         dismiss(animated: true, completion: nil)
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

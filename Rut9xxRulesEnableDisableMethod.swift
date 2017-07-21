@@ -16,8 +16,8 @@ class Rut9xxRulesEnableDisableMethod: UIViewController {
     
     internal func Rut9xxInputRulesMethod(rowNumber: String, valueSwitch: String, complete: @escaping ()->()){
         let token = UserDefaults.standard.value(forKey: "saved_token")
-
-
+        
+        
         let iomanConfig = "ioman"
         let configOption = "enabled"
         let configSection = "@rule[\(rowNumber)]"
@@ -27,9 +27,9 @@ class Rut9xxRulesEnableDisableMethod: UIViewController {
             print("valio", response)
             Json().commitConfigsChanges(token: token as! String, config: iomanConfig) { (json) in
                 Json().luciReload(token: token as! String) { (json) in
-
-                complete()
-                
+                    
+                    complete()
+                    
                 }}}
-
+        
     }}

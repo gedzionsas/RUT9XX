@@ -17,10 +17,10 @@ class SimPinModel: UIViewController {
     let simCardInsertedValue = "inserted"
     let simCardErrorValue = "ERROR"
     let token = UserDefaults.standard.value(forKey: "saved_token")
-
+    
     
     internal func simPinMethod(simPin: String, complete: @escaping (String)->()){
-
+        
         var result = ""
         var simCardResultValue = ""
         let token = UserDefaults.standard.value(forKey: "saved_token")
@@ -30,7 +30,7 @@ class SimPinModel: UIViewController {
             Json().simPinCheck(token: token as! String, simPin: simPin) { (value) in
                 print(value)
                 MethodsClass().processJsonStdoutOutput(response_data: value){ (simCardResult) in
-                      result = simCardResult
+                    result = simCardResult
                     Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-z") { (value1) in
                         MethodsClass().processJsonStdoutOutput(response_data: value1){ (checkValue) in
                             print(checkValue)
@@ -41,12 +41,12 @@ class SimPinModel: UIViewController {
                                         Json().commitConfigsChanges(token: self.token as! String, config: SIM_CARD_CONFIG) { (json) in
                                             result = simCardResult
                                             complete(result)
-
+                                            
                                         }
-                                }
+                                    }
                                 }}
-                    complete(result)
-                }}}}
+                            complete(result)
+                        }}}}
         }
         
     }

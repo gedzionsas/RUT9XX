@@ -15,14 +15,14 @@ protocol PassServiceesdataDelegate {
 
 
 class ServiceModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     var delegate : PassServiceesdataDelegate?
-
+    
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-
+        
     }
     @IBAction func doneButton(_ sender: Any) {
         if delegate != nil {
@@ -32,7 +32,7 @@ class ServiceModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewD
         dismiss(animated: true, completion: nil)
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.dataSource = self
@@ -66,7 +66,7 @@ class ServiceModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewD
         var vidValue = UserDefaults.standard.value(forKey: "modulevid_value") as? String
         var pidValue = UserDefaults.standard.value(forKey: "modulepid_value") as? String
         var moduleVidPid = vidValue! + ":" + pidValue!
-      
+        
         if (moduleVidPid == "12D1:1573" || moduleVidPid == "12D1:15C1" || moduleVidPid == "12D1:15C3") {
             moduleService = "LTE"
         } else if moduleVidPid == "1BC7:1201" {
@@ -87,7 +87,7 @@ class ServiceModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewD
         objectDevices["ModuleService"] = moduleService
         objectDevices["ModuleService2"] = moduleService2
         objectDevices["VidPidValue"] = moduleVidPid
-     return objectDevices
+        return objectDevices
     }
     
     func createServiceList (value: [String: String])-> [String]{
@@ -119,7 +119,6 @@ class ServiceModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewD
         } else {
             serviceArray.insert("Automatic", at: 0)
         }
-    //    print(serviceArray)
         return serviceArray
     }
     

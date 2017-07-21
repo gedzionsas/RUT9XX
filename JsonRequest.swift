@@ -39,45 +39,38 @@ class Json {
     
     public func setConfigInformation(token: String, config: String, section: String, configOption: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setInformationToConfig(token: token, config: config, section: section, configsOption: configOption, value: value)
-        print("uzklausa", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
     }
     public func setNotRequiredWirelessPassword(token: String, currentWirelessSSID: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setNotRequiredWirelessPassword(token: token, currentWirelessSSID: currentWirelessSSID)
-        print("uzklausa", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
     }
     public func setWirelessWpaEncryptionPassword2(token: String, value: String,currentWirelessSSID: String, passwordKey: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setWirelessWpaEncryptionPassword2(token: token, value: value, currentWirelessSSID: currentWirelessSSID, passwordKey: passwordKey)
-        print("uzklausa", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
     }
     public func setWirelessWpaEncryptionPassword(token: String, value: String, passwordKey: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setWirelessWpaEncryptionPassword(token: token, value: value, passwordKey: passwordKey)
-        print("uzklausa", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
     }
     public func setSimCardApn(token: String, simCardNumber: String, apnValue: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setSimCardApn(token: token, simCardNumber: simCardNumber, apnValue: apnValue, value: value)
-        print(deviceinformation, "kili")
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
     }
     public func setWirelessSSID(token: String, value: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         let deviceinformation = JsonRequests.setWirelessSSID(token: token, value: value)
-        print("xzcvo", deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
-            print(json, error.debugDescription)
         })
     }
     public func deleteConfigInformation(token: String, config: String, section: String, configOption: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
@@ -90,7 +83,6 @@ class Json {
     public func commitConfigsChanges(token: String, config: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         
         let deviceinformation = JsonRequests.commitConfigChanges(token: token, config: config)
-        print(deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
@@ -98,7 +90,6 @@ class Json {
     public func luciReload(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         
         let deviceinformation = JsonRequests.luciReloadAfterChanges(token: token)
-        print(deviceinformation)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
             loginCompletion(json)
         })
@@ -115,6 +106,7 @@ class Json {
   public func aboutDevice(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
     let deviceParam = JsonRequests.aboutDeviceParam(token: token, command: command, parameter : parameter)
+    print("uzklausom", deviceParam)
     makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })
@@ -171,7 +163,6 @@ class Json {
  public func startSpeedTest(token: String, fileValue: Int, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         
         let deviceParam = JsonRequests.startSpeedTest(token: token, fileValue: fileValue)
-    print("startspeed", deviceParam)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
             loginCompletion(json)
         })
@@ -179,7 +170,6 @@ class Json {
     public func readSpeedTestFile(token: String, fileValue: Int, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
         
         let deviceParam = JsonRequests.readSpeedTestFile(token: token, fileValue: fileValue)
-            print("startspeed", deviceParam)
         makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
             loginCompletion(json)
         })
@@ -220,16 +210,14 @@ class Json {
     Alamofire.request(request).responseJSON {
       response in
 
-      
       switch response.result {
       case .success(let value):
         
         let json = JSON(value)
-        
         if let message = json["error"]["message"].string, message == "Access denied" {
           let loginController = LoginController()
           loginController.performLogin(userName: UserDefaults.standard.value(forKey: "saved_username")! as! String, password: UserDefaults.standard.value(forKey: "saved_password")! as! String){ success in
-            print("nepasibaige")
+            print("nepasibaige, pasikartojo loginas")
    //         UserDefaults.standard.setValue(, forKey: "saved_token")
 
           
@@ -243,27 +231,29 @@ class Json {
         
       case .failure(let error):
         
-        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-        //...
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-        if let navigationController = rootViewController as? UINavigationController {
-            rootViewController = navigationController.viewControllers.first
-        }
-        if let tabBarController = rootViewController as? UITabBarController {
-            rootViewController = tabBarController.selectedViewController
-        }
-        rootViewController?.present(alertController, animated: true, completion: nil)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = view
-        }))
-
-        
-        print(error)
-
-        
+//        DispatchQueue.main.async {
+//        
+//        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+//        //...
+//        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+//        if let navigationController = rootViewController as? UINavigationController {
+//            rootViewController = navigationController.viewControllers.first
+//        }
+//        if let tabBarController = rootViewController as? UITabBarController {
+//            rootViewController = tabBarController.selectedViewController
+//        }
+//        rootViewController?.present(alertController, animated: true, completion: nil)
+//        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.window?.rootViewController = view
+//        }))
+//
+//        
+//        print(error)
+//
+//        }
         completion(nil, error)
         
       }

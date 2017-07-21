@@ -20,7 +20,7 @@ class ChangeRouterPasswordMethod: UIViewController {
         let sleepOption = "sleep"
         let triggerOption = "trigger"
         let lowOption = "low"
-
+        
         
         if routerPassword != nil && !routerPassword.isEmpty {
             Json().setPassword(token: token as! String, password: routerPassword){ (response) in
@@ -28,5 +28,5 @@ class ChangeRouterPasswordMethod: UIViewController {
                 complete()
             }
         }
-}
+    }
 }

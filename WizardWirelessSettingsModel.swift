@@ -28,7 +28,7 @@ class WizardWirelessSettingsModel: UIViewController {
             
             return
         }
-
+        
         if wirelessSsid != nil && !wirelessSsid.isEmpty {
             Json().setWirelessSSID(token: token as! String, value: wirelessSsid) { (response) in
                 Json().commitConfigsChanges(token: token as! String, config: wireless) { (json) in
@@ -48,5 +48,5 @@ class WizardWirelessSettingsModel: UIViewController {
             
             complete()
         }
-}
+    }
 }

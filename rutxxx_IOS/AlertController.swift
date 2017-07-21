@@ -13,15 +13,17 @@ class AlertController: NSObject {
     
     class func showErrorWith(title:String? = nil, message:String? = nil, controller: UIViewController , complition:(() -> ())?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        DispatchQueue.main.async {
+
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            
-            
+
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window?.rootViewController = view
-                        
+            
                 }))
+        }
         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
         alertWindow.rootViewController = UIViewController()
         alertWindow.windowLevel = UIWindowLevelAlert + 1;

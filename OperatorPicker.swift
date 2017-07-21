@@ -13,17 +13,17 @@ protocol PassOperatorsdataDelegate {
     func passOperatorsData(value: String, apnValue: String)
 }
 class OperatorPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate  {
-
+    
     var delegate: PassOperatorsdataDelegate?
     var operators: [String] = []
     var operatorsApn: [String] = []
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -32,7 +32,6 @@ class OperatorPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBAction func doneTapped(_ sender: Any) {
         if delegate != nil {
             let row = pickerView.selectedRow(inComponent: 0)
-            print("nunu", operators[row])
             self.delegate?.passOperatorsData(value: operators[row], apnValue: operatorsApn[row])
         }
         dismiss(animated: true, completion: nil)
@@ -43,14 +42,14 @@ class OperatorPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         pickerView.dataSource = self
         pickerView.delegate = self
         
-      var asda = separateOperatorsString()
+        var asda = separateOperatorsString()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -67,10 +66,9 @@ class OperatorPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     
     func separateOperatorsString()-> ([String]) {
-    let operatorsString = UserDefaults.standard.value(forKey: "operators_value") as? String
-    let operatorsArrFirst : [String] = operatorsString!.components(separatedBy: ",")
-        print("jega", operatorsArrFirst)
-    var i = 1
+        let operatorsString = UserDefaults.standard.value(forKey: "operators_value") as? String
+        let operatorsArrFirst : [String] = operatorsString!.components(separatedBy: ",")
+        var i = 1
         var j = 0
         operators.append("None")
         operatorsApn.append("")
@@ -78,14 +76,14 @@ class OperatorPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             j = 0
             let operatorsArr : [String] = operatorsArrFirst[i].components(separatedBy: ":")
             while j < operatorsArr.count {
-            operators.append(operatorsArr[j])
+                operators.append(operatorsArr[j])
                 j = j + 1
                 operatorsApn.append(operatorsArr[j])
                 j += 1
             }
             i = i + 1
         }
-     return operators
+        return operators
     }
-
+    
 }

@@ -47,7 +47,7 @@ class dataForPeriodicCell {
         self.action = action
         self.switchButton = switchButton
         self.days = days
-
+        
         
     }
 }

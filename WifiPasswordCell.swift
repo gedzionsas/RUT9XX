@@ -9,7 +9,7 @@
 import UIKit
 
 class WifiPasswordCell: UITableViewCell {
-
+    
     @IBOutlet weak var wifiPasswordField: UITextField!
     @IBOutlet weak var wifiPasswordName: UILabel!
     @IBAction func EdditingEnded(_ sender: Any) {
@@ -25,11 +25,11 @@ class WifiPasswordCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

@@ -11,10 +11,10 @@ import UIKit
 
 class OutputController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-        var periodicControlDetails = [dataForPeriodicCell]()
+    var periodicControlDetails = [dataForPeriodicCell]()
     private let dOut1Value = "DOUT1", dOut2Value = "DOUT2"
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-
+    
     
     
     
@@ -112,17 +112,17 @@ class OutputController: UIViewController, UITableViewDelegate, UITableViewDataSo
                     var dOut2Value = (item["DOut2"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
                     self.checkSwitchValue(switchName: self.ocSwitch, value: dOut1Value!)
                     self.checkSwitchValue(switchName: self.relaySwitch, value: dOut2Value!)
-                
-            }
+                    
+                }
             } else {
                 self.updateUI(array: result)
             }
             
             self.activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
-    }
+        }
         self.tableView.tableFooterView = UIView()
-
+        
         
     }
     
@@ -142,11 +142,11 @@ class OutputController: UIViewController, UITableViewDelegate, UITableViewDataSo
         } else {
             return 1
         }
-    
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if periodicControlDetails.count != 0 {
-        return 65
+            return 65
         } else {
             return 70
         }
@@ -175,42 +175,42 @@ class OutputController: UIViewController, UITableViewDelegate, UITableViewDataSo
             cell.messageLabel.text = "There are no periodic controls created yet. Create periodic controls go to the router's WebUI"
             return cell
         }
-
+        
     }
     
     
     
     func checkSwitchValue(switchName: UISwitch, value: String){
-    if(value == "0"){
-    switchName.isOn = false
-    }else{
-    switchName.isOn = true
-    }
+        if(value == "0"){
+            switchName.isOn = false
+        }else{
+            switchName.isOn = true
+        }
     }
     
     
     func  makeTimeFromStrings(hour: String, minutes: String)-> (String){
-    var result = ""
-    if(hour.isEmpty){
-    if(minutes.isEmpty){
-    result = "-"
-    }else{
-    result = minutes
-    }
-    }else{
-    if(!minutes.isEmpty){
-    result = hour + ":" + minutes
-    }else{
-    result = hour
-    }
-    }
-    return result
+        var result = ""
+        if(hour.isEmpty){
+            if(minutes.isEmpty){
+                result = "-"
+            }else{
+                result = minutes
+            }
+        }else{
+            if(!minutes.isEmpty){
+                result = hour + ":" + minutes
+            }else{
+                result = hour
+            }
+        }
+        return result
     }
     
     
     private func updateUI(array: [[String: String]]) {
         var i = 0
-
+        
         for item in array {
             
             var enabledValue = item["Enabled"] as? String

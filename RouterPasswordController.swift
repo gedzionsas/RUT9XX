@@ -12,7 +12,7 @@ import UIKit
 class RouterPasswordController: UIViewController, UITextFieldDelegate {
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-
+    
     
     
     @IBAction func finishAction(_ sender: Any) {
@@ -70,11 +70,11 @@ class RouterPasswordController: UIViewController, UITextFieldDelegate {
                 UserDefaults.standard.setValue(repeatPassword.text, forKey: "routernew_password")
             }
         } else {
-            UserDefaults.standard.setValue("", forKey: "routernew_password")
-
-            }
+            UserDefaults.standard.setValue(" ", forKey: "routernew_password")
+            
         }
-        
+    }
+    
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

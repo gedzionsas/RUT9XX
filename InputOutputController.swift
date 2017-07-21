@@ -12,24 +12,24 @@ import TwicketSegmentedControl
 
 
 class InputOutputController: UIViewController, TwicketSegmentedControlDelegate {
-
+    
     
     var segmentValue: Int = 0
-
+    
     
     func didSelect(_ segmentIndex: Int) {
         segmentValue = segmentIndex
         updateView()
         
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController?.navigationBar.isTranslucent = false
-
+        
         setupView()
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,7 +37,7 @@ class InputOutputController: UIViewController, TwicketSegmentedControlDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     
     private func setupView() {
         setupSegmentedControl()
@@ -156,7 +156,7 @@ class InputOutputController: UIViewController, TwicketSegmentedControlDelegate {
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
-
+    
     
     
 }

@@ -12,7 +12,7 @@ import UIKit
 
 class Rut9xxInputRulesModel: UIViewController {
     
-
+    
     
     internal func Rut9xxInputRulesMethod(complete: @escaping ([[String: String]])->()){
         let token = UserDefaults.standard.value(forKey: "saved_token")
@@ -29,23 +29,23 @@ class Rut9xxInputRulesModel: UIViewController {
                 for item in Arr {
                     i += 1
                 }
-              
+                
                 var object: [String: String] = [:]
                 var arrayObjects = [[String: String]]()
-
+                
                 var rulesNumber = 0
                 var rulesCount = (i - 1)
                 
                 
                 let dispatchGroup = DispatchGroup()
-
+                
                 repeat {
                     
                     dispatchGroup.enter()
                     
                     var configSection = "@rule[\(rulesNumber)]"
                     print(rulesNumber, rulesCount)
-
+                    
                     
                     Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: configEnabledOption) { (response1) in
                         MethodsClass().getJsonValue(response_data: response1) { (enabledValue) in
@@ -68,8 +68,8 @@ class Rut9xxInputRulesModel: UIViewController {
                                                                                             Json().deviceinform(token: token as! String, config: iomanConfig, section: configSection, option: configOutPut) { (response10) in
                                                                                                 MethodsClass().getJsonValue(response_data: response10) { (outPutNb) in
                                                                                                     
-                                                                                                   
-                                                                               
+                                                                                                    
+                                                                                                    
                                                                                                     
                                                                                                     if (!enabledValue.isEmpty && !typeValue.isEmpty && !triggerValue.isEmpty && !actionValue.isEmpty) {
                                                                                                         object["Enabled"] = enabledValue
@@ -84,15 +84,15 @@ class Rut9xxInputRulesModel: UIViewController {
                                                                                                         object["MaxCValue"] = maxCValue
                                                                                                         object["OutputNb"] = outPutNb
                                                                                                         arrayObjects.insert(object, at: 0)
-                            
+                                                                                                        
                                                                                                     }
-
+                                                                                                    
                                                                                                     if rulesNumber == rulesCount {
-
+                                                                                                        
                                                                                                         dispatchGroup.leave()
-
+                                                                                                        
                                                                                                     }
-                                                                                                
+                                                                                                    
                                                                                                 }}
                                                                                         }} }}}}  }}}}}}}}}}
                         }}
@@ -100,17 +100,17 @@ class Rut9xxInputRulesModel: UIViewController {
                 } while (rulesNumber < rulesCount)
                 
                 dispatchGroup.notify(queue: DispatchQueue.main) {
-                   complete(arrayObjects)
+                    complete(arrayObjects)
                     
                 }
-
+                
                 
             }}
-
-
-
+        
+        
+        
     }
     
-  
+    
     
 }

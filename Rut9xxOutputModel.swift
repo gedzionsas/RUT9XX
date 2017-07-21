@@ -22,7 +22,7 @@ class Rut9xxOutputModel: UIViewController {
         let fixedMinutesOption = "fixed_minute"
         let dayOption = "day"
         let enabledOption = "enabled"
-
+        
         Json().fileExec2Comm(token: token as! String, command: "cat /etc/config/output_control") { (response9) in
             MethodsClass().processJsonStdoutOutput(response_data: response9){ (value) in
                 
@@ -30,7 +30,7 @@ class Rut9xxOutputModel: UIViewController {
                     MethodsClass().processJsonStdoutOutput(response_data: response1){ (dOut1Value) in
                         Json().fileExec2Comm(token: self.token as! String, command: "gpio.sh get DOUT2") { (response2) in
                             MethodsClass().processJsonStdoutOutput(response_data: response2){ (dOut2Value) in
-                            
+                                
                                 var i = 0
                                 
                                 let Arr : [String] = value.components(separatedBy: "rule")
@@ -43,7 +43,7 @@ class Rut9xxOutputModel: UIViewController {
                                 
                                 var rulesNumber = 0
                                 var rulesCount = (i - 1)
-                            
+                                
                                 let dispatchGroup = DispatchGroup()
                                 
                                 while (rulesNumber < rulesCount) {
@@ -75,24 +75,24 @@ class Rut9xxOutputModel: UIViewController {
                                                                             Json().deviceinform(token: self.token as! String, config: config, section: configSection, option: enabledOption) { (response6) in
                                                                                 MethodsClass().getJsonValue(response_data: response6) { (enabledValue) in
                                                                                     
-                                                                                                                    
-                                                                                                                    
-                                                                                                                    if (!actionValue.isEmpty && !modeValue.isEmpty) {
-                                                                                                                        object["Enabled"] = enabledValue
-                                                                                                                        object["Action"] = actionValue
-                                                                                                                        object["Mode"] = modeValue
-                                                                                                                        object["FixedHour"] = fixedHourValue
-                                                                                                                        object["FixedMinutes"] = fixedMinutesValue
-                                                                                                                        object["Day"] = dayValue
-                                                                                                                        object["DOut1"] = dOut1Value
-                                                                                                                        object["DOut2"] = dOut2Value
-                                                                                                                        arrayObjects.insert(object, at: 0)
-                                                                                                                    }
-                                                                                                                    if rulesNumber == rulesCount {
-                                                                                                                        dispatchGroup.leave()
-                                                                                                                    }
-                                                                                                                    
-                                                                                                                 }}}}}}}}}}
+                                                                                    
+                                                                                    
+                                                                                    if (!actionValue.isEmpty && !modeValue.isEmpty) {
+                                                                                        object["Enabled"] = enabledValue
+                                                                                        object["Action"] = actionValue
+                                                                                        object["Mode"] = modeValue
+                                                                                        object["FixedHour"] = fixedHourValue
+                                                                                        object["FixedMinutes"] = fixedMinutesValue
+                                                                                        object["Day"] = dayValue
+                                                                                        object["DOut1"] = dOut1Value
+                                                                                        object["DOut2"] = dOut2Value
+                                                                                        arrayObjects.insert(object, at: 0)
+                                                                                    }
+                                                                                    if rulesNumber == rulesCount {
+                                                                                        dispatchGroup.leave()
+                                                                                    }
+                                                                                    
+                                                                                }}}}}}}}}}
                                         }}
                                     rulesNumber += 1
                                 }
@@ -108,10 +108,10 @@ class Rut9xxOutputModel: UIViewController {
                                     complete(arrayObjects)
                                     
                                 }
-
                                 
                                 
-                            
+                                
+                                
                             }}
                     }}
             }}

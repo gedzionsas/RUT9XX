@@ -17,9 +17,9 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     
     func passNextPageData() {
         self.pageControl.currentPage = 1
-         let controller = VCArr[1]
-         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
-
+        let controller = VCArr[1]
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        
     }
     func passNextPageData3() {
         self.pageControl.currentPage = 3
@@ -38,7 +38,7 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     lazy var VCArr: [UIViewController] = {
         return [self.VCInstance(name: "PinVC"), self.VCInstance(name: "MobileVC"), self.VCInstance(name: "WirelessVC"), self.VCInstance(name: "RouterPassVC")]
     }()
-
+    
     var pageControl = UIPageControl()
     
     private func VCInstance(name: String) -> UIViewController {
@@ -46,23 +46,20 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
     }
     
     override func viewDidLoad() {
-       super.viewDidLoad()
-         self.dataSource = self
-         self.delegate = self
+        super.viewDidLoad()
         
-        
-    //    self.pageControl.backgroundColor = .clear
+        //    self.pageControl.backgroundColor = .clear
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
         if let firstVC = VCArr.first {
-        setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
         
         (VCArr[0] as! SimPinController).delegate = self
         (VCArr[1] as! MobileWizardController).delegate = self
         (VCArr[2] as! WirelessWizardController).delegate = self
-
-
+        
+        
         configurePageControl()
         
     }
@@ -71,52 +68,66 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
         //       self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         super.viewWillAppear(animated)
         performSimCardCheckTask(){ (result) in
-        print(result, "dasresa")
             
-        
-        if result[1] == self.SIM_CARD_INSERTED_STATE {
-            if result[0] == self.SIM_PIN_UNREGISTERED_STATE
-            {
-                self.delegate = nil
-                self.dataSource = nil
+            
+            if result[1] == self.SIM_CARD_INSERTED_STATE {
+                if result[0] == self.SIM_PIN_UNREGISTERED_STATE
+                {
+                    self.delegate = nil
+                    self.dataSource = nil
+                } else {
+                    self.dataSource = self
+                    self.delegate = self
+                    self.setViewControllers([self.VCArr[1]], direction: .forward, animated: true, completion: nil)
+                    self.pageControl.currentPage = self.VCArr.index(of: self.VCArr[1])!
+                }
+            } else {
+                self.dataSource = self
+                self.delegate = self
+                self.setViewControllers([self.VCArr[1]], direction: .forward, animated: true, completion: nil)
+                self.pageControl.currentPage = self.VCArr.index(of: self.VCArr[1])!
+                
             }
-        } else {
-            self.setViewControllers([self.VCArr[1]], direction: .forward, animated: true, completion: nil)
-            self.pageControl.currentPage = self.VCArr.index(of: self.VCArr[1])!
-
-            }
-        
         }
-        
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+       
         guard let viewControllerIndex = VCArr.index(of: viewController) else {
             return nil
         }
-        
+                    if viewControllerIndex == 1 {
+                        return nil
+                    } else {
+                        
+                        
+                    
+                
         let previousIndex = viewControllerIndex - 1
         
         guard previousIndex >= 0 else {
-            return VCArr.last
+            return nil
         }
         
         guard VCArr.count > previousIndex else {
             return nil
         }
-        
         return VCArr[previousIndex]
     }
+        
+    }
+    
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = VCArr.index(of: viewController) else {
             return nil
         }
+
         
         let nextIndex = viewControllerIndex + 1
-        
+
         guard nextIndex < VCArr.count else {
-            return VCArr.first
+            return nil
         }
         
         guard VCArr.count > nextIndex else {
@@ -128,11 +139,12 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
         case 1: (vc as! MobileWizardController).delegate = self
         case 2: (vc as! WirelessWizardController).delegate = self
         default: break
-        
+            
         }
-        return vc 
+        return vc
+        
     }
-
+    
     func configurePageControl() {
         // The total number of pages that are available
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50,width: UIScreen.main.bounds.width,height: 50))
@@ -141,7 +153,7 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
         self.pageControl.tintColor = UIColor.blue
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
-
+        
         self.pageControl.backgroundColor = UIColor.clear
         self.view.addSubview(pageControl)
     }
@@ -164,12 +176,5 @@ class PageWizardVC: UIPageViewController, UIPageViewControllerDataSource, UIPage
                         complete (array)
                     }}}}
     }
-
-    
-    
-    
-    
-    
-    
     
 }

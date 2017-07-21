@@ -51,7 +51,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let wifiName = network().getSSID()
         
+        guard wifiName != nil else {
+            
+            //// TODO: Alert -----
+            print("no wifi name")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = view
+            return
+        }
+        print(wifiName, "va koksss")
+        if !(wifiName == UserDefaults.standard.value(forKey: "wifi_ssid") as? String) {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let view = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = view
+
+        }
+        UserDefaults.standard.setValue(wifiName, forKey: "wifi_ssid")
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

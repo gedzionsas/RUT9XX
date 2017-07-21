@@ -76,6 +76,7 @@
 		9E75C3711EB09E9000C60BBC /* PickerButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75C3701EB09E9000C60BBC /* PickerButtonCell.swift */; };
 		9E75C3741EB1C50E00C60BBC /* AuthenticationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75C3731EB1C50E00C60BBC /* AuthenticationPicker.swift */; };
 		9E75C3761EB35E1C00C60BBC /* ChannelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E75C3751EB35E1A00C60BBC /* ChannelPicker.swift */; };
+		9E77363D1F1DFC5700D0D7E5 /* chechGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77363C1F1DFC5700D0D7E5 /* chechGateway.swift */; };
 		9E7860BC1EC19A0D0048F0F9 /* ServiceModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7860BB1EC19A0D0048F0F9 /* ServiceModePicker.swift */; };
 		9E7860C41EC469CC0048F0F9 /* CipherPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7860C31EC469CA0048F0F9 /* CipherPicker.swift */; };
 		9E7C22791F00F7BC004228D5 /* RouterPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C22781F00F7BC004228D5 /* RouterPasswordController.swift */; };
@@ -186,6 +187,7 @@
 		9E75C3701EB09E9000C60BBC /* PickerButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerButtonCell.swift; sourceTree = "<group>"; };
 		9E75C3731EB1C50E00C60BBC /* AuthenticationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationPicker.swift; sourceTree = "<group>"; };
 		9E75C3751EB35E1A00C60BBC /* ChannelPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelPicker.swift; sourceTree = "<group>"; };
+		9E77363C1F1DFC5700D0D7E5 /* chechGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chechGateway.swift; sourceTree = "<group>"; };
 		9E7860BB1EC19A0D0048F0F9 /* ServiceModePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceModePicker.swift; sourceTree = "<group>"; };
 		9E7860C31EC469CA0048F0F9 /* CipherPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CipherPicker.swift; sourceTree = "<group>"; };
 		9E7C22781F00F7BC004228D5 /* RouterPasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterPasswordController.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				9E5723BF1F1C7F4A0013F188 /* route.h */,
 				9E5723C01F1C7FF40013F188 /* getgateway.c */,
 				9E5723C11F1C7FF40013F188 /* getgateway.h */,
+				9E77363C1F1DFC5700D0D7E5 /* chechGateway.swift */,
 			);
 			path = rutxxx_IOS;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				9E75C3761EB35E1C00C60BBC /* ChannelPicker.swift in Sources */,
 				9E6C0E7F1E9237E500D00A43 /* dataToShowForServices.swift in Sources */,
 				9E5F69091EAF292B00A844AB /* WifiPasswordCell.swift in Sources */,
+				9E77363D1F1DFC5700D0D7E5 /* chechGateway.swift in Sources */,
 				9E423F8B1F1618EB009C3812 /* dataForRulesCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

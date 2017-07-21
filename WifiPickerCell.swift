@@ -9,30 +9,28 @@
 import UIKit
 
 class WifiPickerCell: UITableViewCell {
-
+    
     @IBOutlet weak var wifiPickerName: UILabel!
     @IBOutlet weak var wifiPickerValue: UITextField!
-
+    
     @IBAction func editingEnded(_ sender: Any) {
-       let ssid = UserDefaults.standard.value(forKey: "wifi_ssid") as? String
+        let ssid = UserDefaults.standard.value(forKey: "wifi_ssid") as? String
         if !(wifiPickerValue.text == ssid) {
-            print("idomiai")
         } else {
-            print("sutampa")
         }
     }
-
-
-
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

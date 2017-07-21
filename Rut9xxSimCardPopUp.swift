@@ -14,14 +14,14 @@ protocol PassdataDelegate {
 }
 
 class Rut9xxSimCardPopUp: UIViewController {
-
+    
     
     @IBOutlet weak var sim1Button: UIButton!
     @IBOutlet weak var sim2Button: UIButton!
     
-
+    
     var delegate: PassdataDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sim1Button.backgroundColor = .clear
@@ -35,7 +35,7 @@ class Rut9xxSimCardPopUp: UIViewController {
         sim2Button.layer.borderColor = UIColor(red:12.0/255.0, green:87.0/255.0, blue:168.0/255.0, alpha: 1.0).cgColor
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,13 +45,16 @@ class Rut9xxSimCardPopUp: UIViewController {
         
         if delegate != nil {
             self.delegate?.passData(value: "SIM 1")
+            UserDefaults.standard.set("SIM 1", forKey: "simcard_value")
         }
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func sim2Action(_ sender: Any) {
         if delegate != nil {
             self.delegate?.passData(value: "SIM 2")
+            UserDefaults.standard.set("SIM 2", forKey: "simcard_value")
+
         }
         dismiss(animated: true, completion: nil)
     }

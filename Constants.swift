@@ -9,8 +9,8 @@
 import UIKit
 
     
-let URLREQUEST = "http://192.168.1.1/ubus"
-let IP = URL(string: "http://192.168.1.1")
+var URLREQUEST = "http://192.168.1.1/ubus"
+var IP = URL(string: "http://192.168.1.1")
 let SIM_CARD_CONFIG = "simcard"
 let SIM_CARD_1 = "sim1"
 let SIM_CARD_2 = "sim2"
@@ -25,3 +25,4 @@ let ROAMING = "roaming"
 let AUTHENTICATION = "auth_mode"
 let simcard = "simcard"
 let wireless = "wireless"
+var MAC_ADDRESS = ""

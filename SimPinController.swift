@@ -17,8 +17,8 @@ class SimPinController: UIViewController {
     let token = UserDefaults.standard.value(forKey: "saved_token")
     let simPinText = "SIM PIN Required"
     var delegate: PassNextdataDelegate?
-
-
+    
+    
     @IBAction func skipButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         let appDelegate = UIApplication.shared.delegate! as! AppDelegate
@@ -40,15 +40,15 @@ class SimPinController: UIViewController {
                 }
             } else if result.range(of: "not inserted") != nil {
                 self.statement.text = self.simPinText
-
+                
             }
-        
+            
         }}
     @IBAction func pinFieldEddited(_ sender: Any) {
         
         if (pinField.text?.characters.count)! == 4 || (pinField.text?.characters.count)! > 4 {
             
-        print(pinField.text)
+            print(pinField.text)
         } else {
             
         }
@@ -64,14 +64,14 @@ class SimPinController: UIViewController {
         let myColor : UIColor = UIColor.white
         pinField.layer.borderColor = myColor.cgColor
         pinField.layer.borderWidth = 1.0
-
+        
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.isTranslucent = true
         // Do any additional setup after loading the view.
         performSimCardCheckTask()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,27 +79,27 @@ class SimPinController: UIViewController {
     
     override func touchesEstimatedPropertiesUpdated(_ touches: Set<UITouch>) {
         self.view.endEditing(true)
-
+        
     }
     
     @IBAction func simpinStaetedEditing(_ sender: Any) {
         
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-
+        
     }
-
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-  
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+    
     
     func performSimCardCheckTask () {
         Json().aboutDevice(token: token as! String, command: "gsmctl", parameter: "-u") { (json) in

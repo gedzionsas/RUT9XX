@@ -26,14 +26,13 @@ class ModePicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-
+        
     }
     
     @IBAction func doneButton(_ sender: Any) {
-    
+        
         if delegate != nil {
             let row = pickerView.selectedRow(inComponent: 0)
-            print("nunu", mode_array[row])
             self.delegate?.passModeData(value: mode_array[row])
         }
         dismiss(animated: true, completion: nil)

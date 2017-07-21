@@ -66,8 +66,17 @@ class UserDefaultsManager {
     private static let WIRELESSENCRYPTION_VALUE = "wirelessencryption_value"
     private static let INPUTOUTPUT_VALUE = "inputoutput_value"
     private static let TYPE_VALUE = "type_value"
+    private static let GATEWAY_VALUE = "gateway_value"
 
 
+    static var setGatewayValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: GATEWAY_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: GATEWAY_VALUE)
+        }
+    }
     static var setTypeValue: String {
         get {
             return UserDefaults.standard.string(forKey: TYPE_VALUE)!

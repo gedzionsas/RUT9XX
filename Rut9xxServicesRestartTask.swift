@@ -9,7 +9,7 @@
 import UIKit
 
 class Rut9xxServicesRestartTask: UIViewController {
-
+    
     func routerRestartModel (params: String, complete: @escaping ()->()){
         
         let vrrpdConfig = "vrrpd", snmpdConfig = "snmpd", ntpConfig = "ntpclient",
@@ -62,7 +62,7 @@ class Rut9xxServicesRestartTask: UIViewController {
         
         complete()
     }
-
+    
     
     func restartService(serviceData: String) {
         if (!serviceData.isEmpty) {
@@ -75,5 +75,5 @@ class Rut9xxServicesRestartTask: UIViewController {
         
         
     }
-
+    
 }

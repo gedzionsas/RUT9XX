@@ -16,12 +16,12 @@ protocol PassNextdataDelegate3 {
 }
 
 class WirelessWizardController: UIViewController, UITextFieldDelegate {
-
+    
     
     var delegate: PassNextdataDelegate3?
-
+    
     let token = UserDefaults.standard.value(forKey: "saved_token")
-
+    
     var wirelessencryptionValue = ""
     var wirelessencryption = ""
     let noEnc = "No Encryption"
@@ -61,8 +61,8 @@ class WirelessWizardController: UIViewController, UITextFieldDelegate {
         
         Json().deviceinform(token: token as! String, config: "wireless", section: "@wifi-iface[0]", option: "encryption") { (responseEnc) in
             MethodsClass().getJsonValue(response_data: responseEnc) { (encValue) in
-              UserDefaults.standard.set(encValue, forKey: "wirelessencryption_value")
-            
+                UserDefaults.standard.set(encValue, forKey: "wirelessencryption_value")
+                
             }}
         
         
@@ -72,7 +72,7 @@ class WirelessWizardController: UIViewController, UITextFieldDelegate {
         if !wirelessencryptionValue.isEmpty {
             wirelessencryption = checkWirelessEncryption(value: wirelessencryptionValue)
         }
-
+        
         if !(wirelessencryption == noEnc) && !(wirelessencryption == none) {
             var password = UserDefaults.standard.value(forKey: "wirelesspassword_value")
             switchButton.isOn = true
@@ -147,10 +147,10 @@ class WirelessWizardController: UIViewController, UITextFieldDelegate {
             repeatWirelesslabel.isHidden = true
             wirelessLabel.isHidden = true
             UserDefaults.standard.set("", forKey: "wirelesspassword_value")
-
+            
         }
         
-
+        
         
     }
     override func didReceiveMemoryWarning() {
@@ -159,7 +159,7 @@ class WirelessWizardController: UIViewController, UITextFieldDelegate {
     }
     
     
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         wirelessName.resignFirstResponder()
         wirelessPassword.resignFirstResponder()
@@ -169,33 +169,33 @@ class WirelessWizardController: UIViewController, UITextFieldDelegate {
         wirelessName.resignFirstResponder()
         wirelessPassword.resignFirstResponder()
         repeatPassword.resignFirstResponder()
-         return true
+        return true
     }
     
     func checkWirelessEncryption(value: String)-> (String) {
         
-    let none = "none", wepOpen = "wep-open", wepShared = "wep-shared", psk = "psk", psk2 = "psk2",
-    pskMixed = "psk-mixed", noEncryption = "No Encryption", wepOpenSystem = "WEP open system",
-    wepSharedKey = "WEP shared key", wpaPsk = "WPA-PSK", wpa2Psk = "WPA2-PSK",
-    wpaPskWpa1pskMixedMode = "WPA-PSK/WPA2-PSK mixed mode"
+        let none = "none", wepOpen = "wep-open", wepShared = "wep-shared", psk = "psk", psk2 = "psk2",
+        pskMixed = "psk-mixed", noEncryption = "No Encryption", wepOpenSystem = "WEP open system",
+        wepSharedKey = "WEP shared key", wpaPsk = "WPA-PSK", wpa2Psk = "WPA2-PSK",
+        wpaPskWpa1pskMixedMode = "WPA-PSK/WPA2-PSK mixed mode"
         
-    var result = ""
-    if (value.range(of: none) != nil) {
-    result = noEncryption
-    } else if ((value.range(of: wepOpen)) != nil) {
-    result = wepOpenSystem
-    } else if ((value.range(of: wepShared)) != nil) {
-    result = wepSharedKey
-    } else if ((value.range(of: psk)) != nil) {
-    if ((value.range(of: pskMixed)) != nil) {
-    result = wpaPskWpa1pskMixedMode
-    } else if ((value.range(of: psk2)) != nil) {
-    result = wpa2Psk
-    } else if ((value.range(of: psk)) != nil) {
-    result = wpaPsk
-    }
-    }
-    return result
+        var result = ""
+        if (value.range(of: none) != nil) {
+            result = noEncryption
+        } else if ((value.range(of: wepOpen)) != nil) {
+            result = wepOpenSystem
+        } else if ((value.range(of: wepShared)) != nil) {
+            result = wepSharedKey
+        } else if ((value.range(of: psk)) != nil) {
+            if ((value.range(of: pskMixed)) != nil) {
+                result = wpaPskWpa1pskMixedMode
+            } else if ((value.range(of: psk2)) != nil) {
+                result = wpa2Psk
+            } else if ((value.range(of: psk)) != nil) {
+                result = wpaPsk
+            }
+        }
+        return result
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var routerDetails = [dataToShow]()
-
+    
     var refresh: UIRefreshControl!
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -36,14 +36,14 @@ class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDat
         
         Rut9xxRouterDetailsModel().routerDetailsModel(){ (result) in
             
-        
-        UserDefaults.standard.setValue(result, forKey: "routerdetails_array")
-        self.updateUI(array: UserDefaults.standard.array(forKey: "routerdetails_array") as! [String])
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
+            
+            UserDefaults.standard.setValue(result, forKey: "routerdetails_array")
+            self.updateUI(array: UserDefaults.standard.array(forKey: "routerdetails_array") as! [String])
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
     }
-    }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,8 +59,8 @@ class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDat
             self.refresh.endRefreshing()
         }
     }
-
-
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -68,7 +68,7 @@ class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return routerDetails.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "routerDetailsCell"
@@ -104,5 +104,5 @@ class Rut9xxRouterDetails: UIViewController, UITableViewDelegate, UITableViewDat
         routerDetails += [row1, row2, row3, row4, row5]
         tableView.reloadData()
     }
-
+    
 }

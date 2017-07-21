@@ -17,40 +17,38 @@ protocol PassauthdataDelegate {
 
 
 class AuthenticationPicker: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     let authentication_array = ["None", "CHAP", "PAP"]
     
     @IBOutlet weak var pickerView: UIPickerView!
     
     var delegate : PassauthdataDelegate?
-
+    
     
     
     @IBAction func doneButton(_ sender: Any) {
-        print("ad")
         if delegate != nil {
             let row = pickerView.selectedRow(inComponent: 0)
-            print("nunu", authentication_array[row])
             self.delegate?.passAuthData(value: authentication_array[row])
-
+            
         }
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-
+        
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-      //  print(authentication_array.count)
+        //  print(authentication_array.count)
         return authentication_array.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-      //  print(authentication_array[row])
+        //  print(authentication_array[row])
         return authentication_array[row]
     }
     

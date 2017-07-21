@@ -9,17 +9,17 @@
 import UIKit
 
 class Rut9xxRouterDetailsModel: UIViewController {
-
+    
     internal func routerDetailsModel (complete: @escaping ([String])->()){
         
-     let serialNumber = UserDefaults.standard.value(forKey: "deviceserial_number")
-     let formatedLanMacNumber = MethodsClass().formatMacNumber(response_dat: UserDefaults.standard.value(forKey: "devicelanmac_number") as! String)
-     let imeiNumber = UserDefaults.standard.value(forKey: "deviceimei_number")
-     let firmwareNumber = UserDefaults.standard.value(forKey: "devicefirmware_number")
+        let serialNumber = UserDefaults.standard.value(forKey: "deviceserial_number")
+        let formatedLanMacNumber = MethodsClass().formatMacNumber(response_dat: UserDefaults.standard.value(forKey: "devicelanmac_number") as! String)
+        let imeiNumber = UserDefaults.standard.value(forKey: "deviceimei_number")
+        let firmwareNumber = UserDefaults.standard.value(forKey: "devicefirmware_number")
         
         print("lanmac", UserDefaults.standard.value(forKey: "devicelanmac_number") as! String)
-     let wlanMacNumber = MethodsClass().formatMacNumber(response_dat: calculateWlanMacAddress(number: UserDefaults.standard.value(forKey: "devicelanmac_number") as! String))
-
+        let wlanMacNumber = MethodsClass().formatMacNumber(response_dat: calculateWlanMacAddress(number: UserDefaults.standard.value(forKey: "devicelanmac_number") as! String))
+        
         var array = [String]()
         array.append(serialNumber as! String)
         array.append(formatedLanMacNumber as! String)
@@ -44,7 +44,7 @@ class Rut9xxRouterDetailsModel: UIViewController {
                 var calculationValue = hexCalculation(value: number)
                 result = "00\(calculationValue)"
             }else if firstTwoSymbols.rangeOfCharacter(from: numberCharacters) != nil {
-               var firstSymbol = String(number.characters.prefix(1))
+                var firstSymbol = String(number.characters.prefix(1))
                 if firstSymbol == "0" {
                     var calculationValue = hexCalculation(value: number)
                     result = "0\(calculationValue)"
@@ -61,7 +61,7 @@ class Rut9xxRouterDetailsModel: UIViewController {
     func hexCalculation(value: String)-> (String) {
         
         var result = " "
-
+        
         var number:Int? = Int(value, radix: 16)!   // firstText is UITextField
         number = number! + 2
         result = (number?.toHexaString)!

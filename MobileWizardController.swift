@@ -15,14 +15,14 @@ protocol PassNextdataDelegate2 {
 
 class MobileWizardController: UITableViewController, PassauthdataDelegate, PassOperatorsdataDelegate {
     var delegate: PassNextdataDelegate2?
-
     
- //   let backgroundImage = UIImage(named: "background.png")
+    
+    //   let backgroundImage = UIImage(named: "background.png")
     @IBAction func operatorButtonTapped(_ sender: Any) {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "operatorsId") as! OperatorPicker
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "operatorsId") as! OperatorPicker
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
-
+        
     }
     
     func passOperatorsData(value: String, apnValue: String) {
@@ -50,7 +50,7 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "authenticationId") as! AuthenticationPicker
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
-
+        
     }
     @IBAction func apnEndEditing(_ sender: Any) {
         if apnTextField.text == apnValues {
@@ -63,7 +63,7 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         if usernamefield.text == usernameValues {
         } else {
             UserDefaults.standard.setValue(usernamefield.text, forKey: "authentication_username")
-
+            
         }
     }
     @IBAction func passwordEndEditing(_ sender: Any) {
@@ -95,7 +95,7 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
     var usernameValues = ""
     var passwordValues = ""
     var headerHeight: CGFloat = 0.0
-  //  var maindata = []
+    //  var maindata = []
     
     @IBAction func switchButtonTapped(_ sender: Any) {
         if switchButton.isOn {
@@ -109,8 +109,8 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
-
-
+        
+        
         if UserDefaults.standard.value(forKey: "authentication_password") != nil {
             passwordValues = ""
         }
@@ -120,19 +120,19 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         if UserDefaults.standard.value(forKey: "apn_value") != nil {
             apnValues = ""
         }
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     
     
     override func viewWillAppear(_ animated: Bool) {
- //       self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        //       self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
@@ -149,20 +149,20 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         if (authValue.range(of: "No data") != nil) {
             authenticationButton.setTitle("None", for: .normal)
         } else {
-        authenticationButton.setTitle(authValue, for: .normal)
+            authenticationButton.setTitle(authValue, for: .normal)
         }
     }
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 102
-
+        
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -173,7 +173,7 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         SkipBut.backgroundColor = UIColor.clear
         SkipBut.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 15)
         SkipBut.addTarget(self, action: #selector(MobileWizardController.skipPressed(_:)), for: .touchUpInside)
-
+        
         NextBut.setTitle("NEXT", for: .normal)
         NextBut.backgroundColor = UIColor.clear
         NextBut.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 15)
@@ -181,10 +181,10 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         let headerView: UIView = UIView(frame: CGRect(x:0, y:0, width: frame.size.height, height: headerHeight))
         headerView.addSubview(NextBut)
         headerView.addSubview(SkipBut)
-
+        
         return headerView
     }
-
+    
     
     func pressed(_ sender: UIButton!) {
         if self.delegate != nil {
@@ -204,12 +204,12 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
         // #warning Incomplete implementation, return the number of rows
         return 6
     }
-
+    
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-      //  cell.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        //  cell.backgroundColor = UIColor(white: 0, alpha: 0.1)
         cell.backgroundColor = UIColor.clear
-
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -224,11 +224,11 @@ class MobileWizardController: UITableViewController, PassauthdataDelegate, PassO
                 return 75
             }
         } else {
-         return 75
-
-                }
+            return 75
+            
+        }
     }
     
-
+    
     
 }

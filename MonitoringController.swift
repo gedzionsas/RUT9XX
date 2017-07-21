@@ -24,7 +24,7 @@ class MonitoringController: UITableViewController {
         tableView.endUpdates()
         self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
-
+    
     @IBOutlet weak var connectionState: UILabel!
     @IBOutlet weak var lanMacAdressField: UILabel!
     @IBOutlet weak var serialNumberField: UILabel!
@@ -39,7 +39,7 @@ class MonitoringController: UITableViewController {
         
         
         
-
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSave))
         // Do any additional setup after loading the view, typically from a nib.
         activityIndicator.center = self.view.center
@@ -49,13 +49,13 @@ class MonitoringController: UITableViewController {
         
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-
+        
         performMonitoringGetDataTask()
         
-
+        
         
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-
+        
     }
     
     
@@ -66,7 +66,7 @@ class MonitoringController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
- 
+    
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -101,16 +101,16 @@ class MonitoringController: UITableViewController {
                 return 70.0
             }
         }
-
+        
     }
     
-
+    
     func onSave() {
         var switchValue = getSwitchValue(Switch: switchButton)
         performMonitoringSetData(switchValue: switchValue, hostnameValue: hostNameField.text!, portValue: portField.text!)
         
     }
-
+    
     @IBAction func hostNameEdittingEnd(_ sender: Any) {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
@@ -122,36 +122,36 @@ class MonitoringController: UITableViewController {
             
             MethodsClass().checkForBraces(value: result[self.ENABLE] as! String){ (enable) in
                 self.checkSwitchPosition(value: enable)
-   
-            MethodsClass().checkForBraces(value: result[self.HOSTNAME] as! String){ (hostname) in
-                self.hostNameField.text = hostname
-            }
-            MethodsClass().checkForBraces(value: result[self.PORT] as! String){ (port) in
-                self.portField.text = port
-            }
-            MethodsClass().checkForBraces(value: result[self.CONNECTION_STATE] as! String){ (connectionStateValue) in
-                if enable == "0" {
-
-                } else {
-                    self.connectionState.text = connectionStateValue
-                    self.tableView.reloadData()
-                }
                 
-            }
-            MethodsClass().checkForBraces(value: result[self.LAN_MAC_ADDRESS] as! String){ (lanmacAddress) in
-                self.lanMacAdressField.text = lanmacAddress.uppercased()
-            }
-            var serialNumber = UserDefaults.standard.value(forKey: "deviceserial_number") as! String
-            self.serialNumberField.text = serialNumber
+                MethodsClass().checkForBraces(value: result[self.HOSTNAME] as! String){ (hostname) in
+                    self.hostNameField.text = hostname
+                }
+                MethodsClass().checkForBraces(value: result[self.PORT] as! String){ (port) in
+                    self.portField.text = port
+                }
+                MethodsClass().checkForBraces(value: result[self.CONNECTION_STATE] as! String){ (connectionStateValue) in
+                    if enable == "0" {
+                        
+                    } else {
+                        self.connectionState.text = connectionStateValue
+                        self.tableView.reloadData()
+                    }
+                    
+                }
+                MethodsClass().checkForBraces(value: result[self.LAN_MAC_ADDRESS] as! String){ (lanmacAddress) in
+                    self.lanMacAdressField.text = lanmacAddress.uppercased()
+                }
+                var serialNumber = UserDefaults.standard.value(forKey: "deviceserial_number") as! String
+                self.serialNumberField.text = serialNumber
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
-            
+                
             }
         }
     }
     func performMonitoringSetData(switchValue: String, hostnameValue: String, portValue: String) {
         MonitoringSetDataModel().monitoringModel(switchValue: switchValue, hostnameValue: hostnameValue, portValue: portValue){ (result) in
-
+            
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
@@ -159,26 +159,26 @@ class MonitoringController: UITableViewController {
     
     
     func getSwitchValue (Switch: UISwitch)->(String){
-    var switchValue = ""
-    if(Switch.isOn){
-        switchValue = "1"
-    }else{
-        switchValue = "0"
-      }
-    return switchValue
+        var switchValue = ""
+        if(Switch.isOn){
+            switchValue = "1"
+        }else{
+            switchValue = "0"
+        }
+        return switchValue
     }
     
     func checkSwitchPosition(value: String){
-    let enableString = "Enabled", disabledString = "Disabled"
-    
-    if(value == "1"){
-        switchButton.isOn = true
-        monitoringField.text = enableString
-    }else{
-        switchButton.isOn = false
-        monitoringField.text = disabledString
+        let enableString = "Enabled", disabledString = "Disabled"
+        
+        if(value == "1"){
+            switchButton.isOn = true
+            monitoringField.text = enableString
+        }else{
+            switchButton.isOn = false
+            monitoringField.text = disabledString
+        }
     }
-    }
     
-
+    
 }
