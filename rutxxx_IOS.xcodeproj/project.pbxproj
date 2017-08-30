@@ -34,6 +34,12 @@
 		69DE5B6E1E79329B006E5E6F /* FwUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE5B6D1E79329A006E5E6F /* FwUpdateController.swift */; };
 		69DE5B701E7935A4006E5E6F /* FwUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE5B6F1E7935A4006E5E6F /* FwUpdateModel.swift */; };
 		69DE5B721E7A7923006E5E6F /* fwUpdateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DE5B711E7A7923006E5E6F /* fwUpdateCell.swift */; };
+		9E0D02D71F39AB9000EEA869 /* Rut8xxRouterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02D61F39AB9000EEA869 /* Rut8xxRouterDetails.swift */; };
+		9E0D02DA1F39AFE100EEA869 /* Rut8xxSystemRouterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02D91F39AFE100EEA869 /* Rut8xxSystemRouterDetails.swift */; };
+		9E0D02DC1F39AFF400EEA869 /* Rut8xxIgnitionRouterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02DB1F39AFF400EEA869 /* Rut8xxIgnitionRouterDetails.swift */; };
+		9E0D02DE1F39CF8800EEA869 /* Rut8xxRouterDetailssystemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02DD1F39CF8800EEA869 /* Rut8xxRouterDetailssystemCell.swift */; };
+		9E0D02E01F39D75C00EEA869 /* Rut8xxRouterDetailsIgnitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02DF1F39D75C00EEA869 /* Rut8xxRouterDetailsIgnitionCell.swift */; };
+		9E0D02E21F39D86D00EEA869 /* Rut8xxDetailsIgnitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D02E11F39D86D00EEA869 /* Rut8xxDetailsIgnitionModel.swift */; };
 		9E1B37C91E8A349B0013412B /* Rut9xxRouterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B37C81E8A349B0013412B /* Rut9xxRouterDetails.swift */; };
 		9E255DD11EF7944E008A640C /* MobileWizardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E255DD01EF7944E008A640C /* MobileWizardController.swift */; };
 		9E3AD8341EA0CC3600CB1EA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 696A6E641E1FBDAE00EA77DB /* Main.storyboard */; };
@@ -43,6 +49,9 @@
 		9E3BC1671F18AE8500958E73 /* Rut9xxOutputOnOffSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BC1661F18AE8500958E73 /* Rut9xxOutputOnOffSetModel.swift */; };
 		9E3BC1691F18B47000958E73 /* Rut9xxPeriodicControlRulesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BC1681F18B47000958E73 /* Rut9xxPeriodicControlRulesModel.swift */; };
 		9E3BC16B1F18E39400958E73 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BC16A1F18E39400958E73 /* Reachability.swift */; };
+		9E3C66F41F3C24E100D90FBC /* Rut8xxServicesSetDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C66F31F3C24E100D90FBC /* Rut8xxServicesSetDataModel.swift */; };
+		9E3C66F61F3C6A4E00D90FBC /* Rut8xxRouterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C66F51F3C6A4E00D90FBC /* Rut8xxRouterSettings.swift */; };
+		9E3C66F81F3C6C5600D90FBC /* Rut8xxGetIgnitionDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C66F71F3C6C5600D90FBC /* Rut8xxGetIgnitionDetailsModel.swift */; };
 		9E423F891F1616AC009C3812 /* Rut9xxRulesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E423F881F1616AC009C3812 /* Rut9xxRulesCell.swift */; };
 		9E423F8B1F1618EB009C3812 /* dataForRulesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E423F8A1F1618EB009C3812 /* dataForRulesCell.swift */; };
 		9E423F8D1F164994009C3812 /* Rut9xxRulesEnableDisableMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E423F8C1F164994009C3812 /* Rut9xxRulesEnableDisableMethod.swift */; };
@@ -69,6 +78,11 @@
 		9E6C0E811E96032A00D00A43 /* Rut9xxRouterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C0E801E96032600D00A43 /* Rut9xxRouterSettings.swift */; };
 		9E6C73C31EA87FBE0027596B /* MainSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */; };
 		9E6C73C51EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */; };
+		9E6F20981F3B25F500EDB2BE /* Rut8xxServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6F20971F3B25F500EDB2BE /* Rut8xxServices.swift */; };
+		9E6F209A1F3B2C7800EDB2BE /* Rut8xxServicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6F20991F3B2C7800EDB2BE /* Rut8xxServicesCell.swift */; };
+		9E6F209C1F3B33DE00EDB2BE /* Rut8xxServicesGetDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6F209B1F3B33DE00EDB2BE /* Rut8xxServicesGetDataModel.swift */; };
+		9E6F20A01F3B3E6F00EDB2BE /* Strings2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E6F209F1F3B3E6F00EDB2BE /* Strings2.plist */; };
+		9E6F20A21F3B46EE00EDB2BE /* Rut8xxRestartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6F20A11F3B46EE00EDB2BE /* Rut8xxRestartModel.swift */; };
 		9E7207C91F0D0C4100CC97DA /* InputOutputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7207C81F0D0C4100CC97DA /* InputOutputController.swift */; };
 		9E7207CB1F0D0F4D00CC97DA /* StatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7207CA1F0D0F4D00CC97DA /* StatusController.swift */; };
 		9E7207CD1F0D0F5E00CC97DA /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7207CC1F0D0F5E00CC97DA /* InputController.swift */; };
@@ -92,6 +106,12 @@
 		9E87123D1EF157A30004C6EE /* PageWizardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E87123C1EF157A00004C6EE /* PageWizardVC.swift */; };
 		9E87123F1EF264010004C6EE /* SimPinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E87123E1EF264000004C6EE /* SimPinController.swift */; };
 		9E8D6F8E1F1361B8001D4325 /* Rut9xxInputOutputStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D6F8D1F1361B8001D4325 /* Rut9xxInputOutputStateModel.swift */; };
+		9E9314AB1F44319B00547988 /* WizardMobileSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9314AA1F44319B00547988 /* WizardMobileSettingsModel.swift */; };
+		9E9314AD1F445C2C00547988 /* Rut8xxSettingsInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9314AC1F445C2C00547988 /* Rut8xxSettingsInformationModel.swift */; };
+		9E9314AF1F44648500547988 /* MainWindowMobileSettings8xxDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9314AE1F44648500547988 /* MainWindowMobileSettings8xxDataSet.swift */; };
+		9E963C4B1F3844AD00107D93 /* Rut2xxRouterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E963C4A1F3844AD00107D93 /* Rut2xxRouterSettings.swift */; };
+		9E9CB7551F3DA034001F2AE3 /* SleepDelayPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CB7541F3DA034001F2AE3 /* SleepDelayPickerView.swift */; };
+		9E9CB7571F3DC7B7001F2AE3 /* SleepTriggerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CB7561F3DC7B6001F2AE3 /* SleepTriggerPickerView.swift */; };
 		9EA2775F1EC58A7F00E0AD1F /* ModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2775E1EC58A7F00E0AD1F /* ModePicker.swift */; };
 		9EA277611EC5917B00E0AD1F /* EncryptionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA277601EC5917B00E0AD1F /* EncryptionPicker.swift */; };
 		9EA808F01EE8114300DC55FC /* SpeedTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA808EF1EE8113E00DC55FC /* SpeedTestController.swift */; };
@@ -143,6 +163,12 @@
 		69DE5B6D1E79329A006E5E6F /* FwUpdateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FwUpdateController.swift; sourceTree = "<group>"; };
 		69DE5B6F1E7935A4006E5E6F /* FwUpdateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FwUpdateModel.swift; sourceTree = "<group>"; };
 		69DE5B711E7A7923006E5E6F /* fwUpdateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fwUpdateCell.swift; sourceTree = "<group>"; };
+		9E0D02D61F39AB9000EEA869 /* Rut8xxRouterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxRouterDetails.swift; sourceTree = "<group>"; };
+		9E0D02D91F39AFE100EEA869 /* Rut8xxSystemRouterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxSystemRouterDetails.swift; sourceTree = "<group>"; };
+		9E0D02DB1F39AFF400EEA869 /* Rut8xxIgnitionRouterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxIgnitionRouterDetails.swift; sourceTree = "<group>"; };
+		9E0D02DD1F39CF8800EEA869 /* Rut8xxRouterDetailssystemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxRouterDetailssystemCell.swift; sourceTree = "<group>"; };
+		9E0D02DF1F39D75C00EEA869 /* Rut8xxRouterDetailsIgnitionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxRouterDetailsIgnitionCell.swift; sourceTree = "<group>"; };
+		9E0D02E11F39D86D00EEA869 /* Rut8xxDetailsIgnitionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxDetailsIgnitionModel.swift; sourceTree = "<group>"; };
 		9E1B37C81E8A349B0013412B /* Rut9xxRouterDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRouterDetails.swift; sourceTree = "<group>"; };
 		9E255DD01EF7944E008A640C /* MobileWizardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileWizardController.swift; sourceTree = "<group>"; };
 		9E3AD8351EA7676300CB1EA2 /* MainSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSettingsController.swift; sourceTree = "<group>"; };
@@ -152,6 +178,9 @@
 		9E3BC1681F18B47000958E73 /* Rut9xxPeriodicControlRulesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxPeriodicControlRulesModel.swift; sourceTree = "<group>"; };
 		9E3BC16A1F18E39400958E73 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		9E3BC16F1F18F6F000958E73 /* rutxxx_IOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "rutxxx_IOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		9E3C66F31F3C24E100D90FBC /* Rut8xxServicesSetDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxServicesSetDataModel.swift; sourceTree = "<group>"; };
+		9E3C66F51F3C6A4E00D90FBC /* Rut8xxRouterSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxRouterSettings.swift; sourceTree = "<group>"; };
+		9E3C66F71F3C6C5600D90FBC /* Rut8xxGetIgnitionDetailsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxGetIgnitionDetailsModel.swift; sourceTree = "<group>"; };
 		9E423F881F1616AC009C3812 /* Rut9xxRulesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRulesCell.swift; sourceTree = "<group>"; };
 		9E423F8A1F1618EB009C3812 /* dataForRulesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dataForRulesCell.swift; sourceTree = "<group>"; };
 		9E423F8C1F164994009C3812 /* Rut9xxRulesEnableDisableMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRulesEnableDisableMethod.swift; sourceTree = "<group>"; };
@@ -180,6 +209,11 @@
 		9E6C0E801E96032600D00A43 /* Rut9xxRouterSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxRouterSettings.swift; sourceTree = "<group>"; };
 		9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSettingsModel.swift; sourceTree = "<group>"; };
 		9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxSettingsInformationModel.swift; sourceTree = "<group>"; };
+		9E6F20971F3B25F500EDB2BE /* Rut8xxServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxServices.swift; sourceTree = "<group>"; };
+		9E6F20991F3B2C7800EDB2BE /* Rut8xxServicesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxServicesCell.swift; sourceTree = "<group>"; };
+		9E6F209B1F3B33DE00EDB2BE /* Rut8xxServicesGetDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxServicesGetDataModel.swift; sourceTree = "<group>"; };
+		9E6F209F1F3B3E6F00EDB2BE /* Strings2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Strings2.plist; sourceTree = "<group>"; };
+		9E6F20A11F3B46EE00EDB2BE /* Rut8xxRestartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxRestartModel.swift; sourceTree = "<group>"; };
 		9E7207C81F0D0C4100CC97DA /* InputOutputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputOutputController.swift; sourceTree = "<group>"; };
 		9E7207CA1F0D0F4D00CC97DA /* StatusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusController.swift; sourceTree = "<group>"; };
 		9E7207CC1F0D0F5E00CC97DA /* InputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
@@ -203,6 +237,12 @@
 		9E87123C1EF157A00004C6EE /* PageWizardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageWizardVC.swift; sourceTree = "<group>"; };
 		9E87123E1EF264000004C6EE /* SimPinController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimPinController.swift; sourceTree = "<group>"; };
 		9E8D6F8D1F1361B8001D4325 /* Rut9xxInputOutputStateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut9xxInputOutputStateModel.swift; sourceTree = "<group>"; };
+		9E9314AA1F44319B00547988 /* WizardMobileSettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WizardMobileSettingsModel.swift; sourceTree = "<group>"; };
+		9E9314AC1F445C2C00547988 /* Rut8xxSettingsInformationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut8xxSettingsInformationModel.swift; sourceTree = "<group>"; };
+		9E9314AE1F44648500547988 /* MainWindowMobileSettings8xxDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowMobileSettings8xxDataSet.swift; sourceTree = "<group>"; };
+		9E963C4A1F3844AD00107D93 /* Rut2xxRouterSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rut2xxRouterSettings.swift; sourceTree = "<group>"; };
+		9E9CB7541F3DA034001F2AE3 /* SleepDelayPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepDelayPickerView.swift; sourceTree = "<group>"; };
+		9E9CB7561F3DC7B6001F2AE3 /* SleepTriggerPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepTriggerPickerView.swift; sourceTree = "<group>"; };
 		9EA2775E1EC58A7F00E0AD1F /* ModePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModePicker.swift; sourceTree = "<group>"; };
 		9EA277601EC5917B00E0AD1F /* EncryptionPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionPicker.swift; sourceTree = "<group>"; };
 		9EA808EF1EE8113E00DC55FC /* SpeedTestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeedTestController.swift; sourceTree = "<group>"; };
@@ -290,6 +330,7 @@
 				9E5723C01F1C7FF40013F188 /* getgateway.c */,
 				9E5723C11F1C7FF40013F188 /* getgateway.h */,
 				9E77363C1F1DFC5700D0D7E5 /* chechGateway.swift */,
+				9E6F209F1F3B3E6F00EDB2BE /* Strings2.plist */,
 			);
 			path = rutxxx_IOS;
 			sourceTree = "<group>";
@@ -314,12 +355,15 @@
 				9ED25AA01E9758A1000E2251 /* Rut9xxSimCardSwitchTask.swift */,
 				9E6C73C21EA87FBE0027596B /* MainSettingsModel.swift */,
 				9E6C73C41EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift */,
+				9E9314AC1F445C2C00547988 /* Rut8xxSettingsInformationModel.swift */,
 				9E831F621ED6DBBB00747D8D /* MainWindowWirelessSettingsDataSetController.swift */,
 				9E831F641EDD75DA00747D8D /* MainWindowMobileSetSettingsDataModel9xx.swift */,
+				9E9314AE1F44648500547988 /* MainWindowMobileSettings8xxDataSet.swift */,
 				9E8712381EEE560D0004C6EE /* MonitoringGetDataModel.swift */,
 				9E87123A1EEFF9410004C6EE /* MonitoringSetDataModel.swift */,
 				9EE298541EF7D12100E0F976 /* SimPinModel.swift */,
 				9E7C227A1F011333004228D5 /* WizardFinishModel.swift */,
+				9E9314AA1F44319B00547988 /* WizardMobileSettingsModel.swift */,
 				9E7C227C1F0123A6004228D5 /* WizardRut9xxMobileSettingsModel.swift */,
 				9EEB49331F0137D9003EF2D9 /* WizardWirelessSettingsModel.swift */,
 				9EEB49351F022AD6003EF2D9 /* ChangeRouterPasswordMethod.swift */,
@@ -329,6 +373,11 @@
 				9E423F901F1661F4009C3812 /* Rut9xxOutputModel.swift */,
 				9E3BC1661F18AE8500958E73 /* Rut9xxOutputOnOffSetModel.swift */,
 				9E3BC1681F18B47000958E73 /* Rut9xxPeriodicControlRulesModel.swift */,
+				9E0D02E11F39D86D00EEA869 /* Rut8xxDetailsIgnitionModel.swift */,
+				9E6F209B1F3B33DE00EDB2BE /* Rut8xxServicesGetDataModel.swift */,
+				9E6F20A11F3B46EE00EDB2BE /* Rut8xxRestartModel.swift */,
+				9E3C66F31F3C24E100D90FBC /* Rut8xxServicesSetDataModel.swift */,
+				9E3C66F71F3C6C5600D90FBC /* Rut8xxGetIgnitionDetailsModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -382,6 +431,8 @@
 				9E7207CA1F0D0F4D00CC97DA /* StatusController.swift */,
 				9E7207CE1F0D0F6B00CC97DA /* OutputController.swift */,
 				9E7207CC1F0D0F5E00CC97DA /* InputController.swift */,
+				9E963C4C1F3844B700107D93 /* rut2xx */,
+				9E0D02D81F39AB9800EEA869 /* rut8xx */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -411,6 +462,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9E0D02D81F39AB9800EEA869 /* rut8xx */ = {
+			isa = PBXGroup;
+			children = (
+				9E0D02D61F39AB9000EEA869 /* Rut8xxRouterDetails.swift */,
+				9E0D02D91F39AFE100EEA869 /* Rut8xxSystemRouterDetails.swift */,
+				9E0D02DB1F39AFF400EEA869 /* Rut8xxIgnitionRouterDetails.swift */,
+				9E0D02DD1F39CF8800EEA869 /* Rut8xxRouterDetailssystemCell.swift */,
+				9E0D02DF1F39D75C00EEA869 /* Rut8xxRouterDetailsIgnitionCell.swift */,
+				9E6F20971F3B25F500EDB2BE /* Rut8xxServices.swift */,
+				9E6F20991F3B2C7800EDB2BE /* Rut8xxServicesCell.swift */,
+				9E3C66F51F3C6A4E00D90FBC /* Rut8xxRouterSettings.swift */,
+			);
+			name = rut8xx;
+			sourceTree = "<group>";
+		};
 		9E75C3721EB1C4BB00C60BBC /* Picker Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,8 +487,18 @@
 				9EA2775E1EC58A7F00E0AD1F /* ModePicker.swift */,
 				9EA277601EC5917B00E0AD1F /* EncryptionPicker.swift */,
 				9EEB49371F037777003EF2D9 /* OperatorPicker.swift */,
+				9E9CB7541F3DA034001F2AE3 /* SleepDelayPickerView.swift */,
+				9E9CB7561F3DC7B6001F2AE3 /* SleepTriggerPickerView.swift */,
 			);
 			name = "Picker Views";
+			sourceTree = "<group>";
+		};
+		9E963C4C1F3844B700107D93 /* rut2xx */ = {
+			isa = PBXGroup;
+			children = (
+				9E963C4A1F3844AD00107D93 /* Rut2xxRouterSettings.swift */,
+			);
+			name = rut2xx;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -492,6 +568,7 @@
 				9E3AD8341EA0CC3600CB1EA2 /* Main.storyboard in Resources */,
 				6935F4211E4460A90015E1D0 /* Assets.xcassets in Resources */,
 				9E6C0E791E8E58D000D00A43 /* Strings.plist in Resources */,
+				9E6F20A01F3B3E6F00EDB2BE /* Strings2.plist in Resources */,
 				69227B211E5F1F320082EA4F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,13 +628,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6F20981F3B25F500EDB2BE /* Rut8xxServices.swift in Sources */,
 				9E7207CF1F0D0F6B00CC97DA /* OutputController.swift in Sources */,
+				9E3C66F81F3C6C5600D90FBC /* Rut8xxGetIgnitionDetailsModel.swift in Sources */,
 				9E3AD8381EA76BDD00CB1EA2 /* WirelessSettingsController.swift in Sources */,
 				9E54F79F1E8BC42300B936F8 /* Rut9xxServicesModel.swift in Sources */,
 				9E255DD11EF7944E008A640C /* MobileWizardController.swift in Sources */,
 				9EEB49361F022AD6003EF2D9 /* ChangeRouterPasswordMethod.swift in Sources */,
 				9E75C3741EB1C50E00C60BBC /* AuthenticationPicker.swift in Sources */,
 				9E6A0FC81F17824100BFF8D3 /* Rut9xxPeriodicControlMessageCell.swift in Sources */,
+				9E3C66F61F3C6A4E00D90FBC /* Rut8xxRouterSettings.swift in Sources */,
 				9E3BC1671F18AE8500958E73 /* Rut9xxOutputOnOffSetModel.swift in Sources */,
 				9E5F69071EAF291500A844AB /* WifiPickerCell.swift in Sources */,
 				9E544E461E8E2C3900D8445E /* Rut9xxServicesRestartTask.swift in Sources */,
@@ -573,9 +653,13 @@
 				69DE5B6E1E79329B006E5E6F /* FwUpdateController.swift in Sources */,
 				69D978BB1E27B59C00FCBC4C /* Constants.swift in Sources */,
 				9E831F671EE0052100747D8D /* RecomendationCell.swift in Sources */,
+				9E0D02D71F39AB9000EEA869 /* Rut8xxRouterDetails.swift in Sources */,
 				9EFB7F1E1E9CF5510090F63E /* MainPrototypeCell1.swift in Sources */,
 				9E3AD8361EA7676500CB1EA2 /* MainSettingsController.swift in Sources */,
+				9E0D02DC1F39AFF400EEA869 /* Rut8xxIgnitionRouterDetails.swift in Sources */,
+				9E0D02DA1F39AFE100EEA869 /* Rut8xxSystemRouterDetails.swift in Sources */,
 				6916B3901E387F6E00C9E7A2 /* Jsonparams.swift in Sources */,
+				9E9314AF1F44648500547988 /* MainWindowMobileSettings8xxDataSet.swift in Sources */,
 				69227B1D1E5EC0DD0082EA4F /* MainWindowModel.swift in Sources */,
 				9E3AD83A1EA76BFA00CB1EA2 /* MobileSettingsController.swift in Sources */,
 				9EEEF4F31EAF48B100BF1021 /* dataToShowWirelessSettings.swift in Sources */,
@@ -583,11 +667,13 @@
 				9EE298551EF7D12100E0F976 /* SimPinModel.swift in Sources */,
 				9E804C871F14B0F200321F5C /* Rut9xxInputRulesModel.swift in Sources */,
 				69DE5B701E7935A4006E5E6F /* FwUpdateModel.swift in Sources */,
+				9E6F209A1F3B2C7800EDB2BE /* Rut8xxServicesCell.swift in Sources */,
 				9E6C0E7B1E92086000D00A43 /* Rut9xxServicesSetData.swift in Sources */,
 				9E7C22791F00F7BC004228D5 /* RouterPasswordController.swift in Sources */,
 				9ED25A9F1E961A86000E2251 /* Ru9xxRouterChangePasswordModel.swift in Sources */,
 				696A6E631E1FBDAE00EA77DB /* LoginController.swift in Sources */,
 				9E6C73C51EA9D9C30027596B /* Rut9xxSettingsInformationModel.swift in Sources */,
+				9E3C66F41F3C24E100D90FBC /* Rut8xxServicesSetDataModel.swift in Sources */,
 				9E1B37C91E8A349B0013412B /* Rut9xxRouterDetails.swift in Sources */,
 				9E54F79B1E8A46BC00B936F8 /* Rut9xxRouterDetailsModel.swift in Sources */,
 				9EFB7F271E9E14520090F63E /* MainPrototypeCell2.swift in Sources */,
@@ -597,8 +683,10 @@
 				9E7C227B1F011333004228D5 /* WizardFinishModel.swift in Sources */,
 				9E3BC1691F18B47000958E73 /* Rut9xxPeriodicControlRulesModel.swift in Sources */,
 				69CD70371E6ED1B2003D7B3E /* AboutController.swift in Sources */,
+				9E9314AD1F445C2C00547988 /* Rut8xxSettingsInformationModel.swift in Sources */,
 				696A6E691E1FBDAE00EA77DB /* rutxxx_IOS.xcdatamodeld in Sources */,
 				9E5723C21F1C7FF40013F188 /* getgateway.c in Sources */,
+				9E0D02E01F39D75C00EEA869 /* Rut8xxRouterDetailsIgnitionCell.swift in Sources */,
 				9EE298571EFD032D00E0F976 /* WirelessWizardController.swift in Sources */,
 				9EEB49341F0137D9003EF2D9 /* WizardWirelessSettingsModel.swift in Sources */,
 				692EEBC41E815049009770CA /* DesignableButton.swift in Sources */,
@@ -609,14 +697,18 @@
 				9E544E481E8E438300D8445E /* ServicesCell.swift in Sources */,
 				696A6E611E1FBDAE00EA77DB /* AppDelegate.swift in Sources */,
 				6964196E1E2CC666000349E5 /* SplashVC.swift in Sources */,
+				9E9CB7571F3DC7B7001F2AE3 /* SleepTriggerPickerView.swift in Sources */,
 				9E8D6F8E1F1361B8001D4325 /* Rut9xxInputOutputStateModel.swift in Sources */,
 				9E7207C91F0D0C4100CC97DA /* InputOutputController.swift in Sources */,
 				692EEBC21E81403D009770CA /* DesignableTextField.swift in Sources */,
 				9EA808F01EE8114300DC55FC /* SpeedTestController.swift in Sources */,
 				9EFB7F181E9CDAF40090F63E /* MainPrototypeCell3.swift in Sources */,
 				9E7860BC1EC19A0D0048F0F9 /* ServiceModePicker.swift in Sources */,
+				9E0D02E21F39D86D00EEA869 /* Rut8xxDetailsIgnitionModel.swift in Sources */,
+				9E963C4B1F3844AD00107D93 /* Rut2xxRouterSettings.swift in Sources */,
 				6933DDD01E4D909B001BBD51 /* AlertController.swift in Sources */,
 				9E8712371EEE535B0004C6EE /* MonitoringController.swift in Sources */,
+				9E6F209C1F3B33DE00EDB2BE /* Rut8xxServicesGetDataModel.swift in Sources */,
 				9E6C0E811E96032A00D00A43 /* Rut9xxRouterSettings.swift in Sources */,
 				9E831F651EDD75DC00747D8D /* MainWindowMobileSetSettingsDataModel9xx.swift in Sources */,
 				9E7C227D1F0123A6004228D5 /* WizardRut9xxMobileSettingsModel.swift in Sources */,
@@ -634,11 +726,15 @@
 				9E6C73C31EA87FBE0027596B /* MainSettingsModel.swift in Sources */,
 				69397F861E7AB52B0080D56F /* dataToShow.swift in Sources */,
 				9E5F69011EADD25B00A844AB /* dataToShowMobileSettings.swift in Sources */,
+				9E0D02DE1F39CF8800EEA869 /* Rut8xxRouterDetailssystemCell.swift in Sources */,
 				691954821E768BC10041BE2A /* NetworkReachability.swift in Sources */,
 				9E423F911F1661F4009C3812 /* Rut9xxOutputModel.swift in Sources */,
+				9E9314AB1F44319B00547988 /* WizardMobileSettingsModel.swift in Sources */,
 				9E87123F1EF264010004C6EE /* SimPinController.swift in Sources */,
+				9E6F20A21F3B46EE00EDB2BE /* Rut8xxRestartModel.swift in Sources */,
 				9EFB7F291E9E508D0090F63E /* dataToShowMainCircles.swift in Sources */,
 				9E7207CB1F0D0F4D00CC97DA /* StatusController.swift in Sources */,
+				9E9CB7551F3DA034001F2AE3 /* SleepDelayPickerView.swift in Sources */,
 				69DE5B721E7A7923006E5E6F /* fwUpdateCell.swift in Sources */,
 				9EA2775F1EC58A7F00E0AD1F /* ModePicker.swift in Sources */,
 				9EFB7F1A1E9CDBFA0090F63E /* dataToShowMain.swift in Sources */,
@@ -781,6 +877,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "rutxxx_IOS/rutxxx_IOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -799,6 +896,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "rutxxx_IOS/rutxxx_IOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

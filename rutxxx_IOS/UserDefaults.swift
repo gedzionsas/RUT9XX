@@ -67,8 +67,62 @@ class UserDefaultsManager {
     private static let INPUTOUTPUT_VALUE = "inputoutput_value"
     private static let TYPE_VALUE = "type_value"
     private static let GATEWAY_VALUE = "gateway_value"
+    private static let IGNNITIONSTATE_VALUE = "ignitionstate_value"
+    private static let SLEEPTRIGGER_VALUE = "sleeptrigger_value"
+    private static let LOWESTVOLTAGE_VALUE = "lowestvoltage_value"
+    private static let VOLTAGESLEEPCOUNTER_VALUE = "voltagesleepcounter_value"
+    private static let LEFTTIMETOSLEEP_VALUE = "lefttimetosleep_value"
+    private static let VOLTAGEADC_VALUE = "voltageadc_value"
 
-
+    
+    static var setVoltageADCValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: VOLTAGEADC_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: VOLTAGEADC_VALUE)
+        }
+    }
+    static var setLeftTimeToSleepValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: LEFTTIMETOSLEEP_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: LEFTTIMETOSLEEP_VALUE)
+        }
+    }
+    static var setVoltageSleepCounterValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: VOLTAGESLEEPCOUNTER_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: VOLTAGESLEEPCOUNTER_VALUE)
+        }
+    }
+    static var setLowestVoltageValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: LOWESTVOLTAGE_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: LOWESTVOLTAGE_VALUE)
+        }
+    }
+    static var setSleepTriggerValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: SLEEPTRIGGER_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: SLEEPTRIGGER_VALUE)
+        }
+    }
+    static var setIgnitionStateValue: String {
+        get {
+            return UserDefaults.standard.string(forKey: IGNNITIONSTATE_VALUE)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: IGNNITIONSTATE_VALUE)
+        }
+    }
     static var setGatewayValue: String {
         get {
             return UserDefaults.standard.string(forKey: GATEWAY_VALUE)!

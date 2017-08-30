@@ -13,12 +13,12 @@ class Ru9xxRouterChangePasswordModel: UIViewController {
     internal func performRouterPasswordTask (params: [String], complete: @escaping ()->()){
         
         let token = UserDefaults.standard.value(forKey: "saved_token")
-//        let config = "system",
-//        section = "sleep_mode",
-//        enableOption = "enable",
-//        sleepOption = "sleep",
-//        triggerOption = "trigger",
-//        lowOption = "low"
+        let config = "system",
+        section = "sleep_mode",
+        enableOption = "enable",
+        sleepOption = "sleep",
+        triggerOption = "trigger",
+        lowOption = "low"
 
         
         if !params[0].isEmpty {
@@ -32,6 +32,40 @@ class Ru9xxRouterChangePasswordModel: UIViewController {
             Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
             complete()
 
+        }
+        
+        
+        if params.count > 1 {
+            
+            if params[1] != nil {
+                let enableValue = params[1]
+                Json().setConfigInformation(token: token as! String, config: config, section: section, configOption: enableOption, value: enableValue) { (json) in
+                }
+            }
+            if params[2] != nil {
+                let sleepDelayTime = params[2]
+                Json().setConfigInformation(token: token as! String, config: config, section: section, configOption: sleepOption, value: sleepDelayTime) { (json) in
+                }
+            }
+            if params[3] != nil {
+                let sleepTriggerValue = params[3]
+                Json().setConfigInformation(token: token as! String, config: config, section: section, configOption: triggerOption, value: sleepTriggerValue) { (json) in
+                }
+            }
+            if params[4] != nil {
+                let minimumVoltageValue = params[4]
+                Json().setConfigInformation(token: token as! String, config: config, section: section, configOption: lowOption, value: minimumVoltageValue) { (json) in
+                
+                
+                }
+            }
+            
+            Json().commitConfigsChanges(token: token as! String, config: "system") { (json) in
+            }
+            Json().restartSystemConfigs(token: token as! String) { (json) in
+            complete()
+            }
+            
         }
        
         

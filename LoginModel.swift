@@ -17,12 +17,15 @@ public class LoginModel: UIViewController {
   var loginToken = ""
   let inOutString = "in_out"
   let hwinfoConfig = "hwinfo"
+  let rut2_String = "RUT2"
+  let rut8_String = "RUT8"
+  let rut9_String = "RUT9"
 
+    
   
   internal func jsonResult (param1: String, param2: String, param3: UIViewController, complete:@escaping (Bool)->()){
     
-
-    
+   var loginTokenForE = ""
     Json().login(userName: param1, password: param2) { (json, error) in
       if error != nil {
         //Show alert
@@ -41,7 +44,6 @@ public class LoginModel: UIViewController {
       if let jsonDic = json as? JSON {
         
         if (jsonDic["result"].exists()){
-          print(jsonDic["result"]["ubus_rpc_session"].stringValue)
           if (jsonDic["result"].arrayValue.contains(6)) {
             self.loginToken = "[6]"
           } else {
@@ -56,7 +58,6 @@ public class LoginModel: UIViewController {
           complete(false)
         }
       }
-      print(self.loginToken)
       
       if (!self.loginToken.isEmpty) {
         var deviceName = ""
@@ -64,11 +65,10 @@ public class LoginModel: UIViewController {
         if ((!self.loginToken.contains("[6]")) && (!self.loginToken.contains("Failed"))) {
           
           UserDefaults.standard.setValue(self.loginToken, forKey: "saved_token")
-          
+          loginTokenForE = UserDefaults.standard.value(forKey: "saved_token") as! String
           // Device get name call
           Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "name") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (newDeviceName) in
-                
                 
               if (newDeviceName.characters.count >= 6) {
                 let subString = newDeviceName.substring(to: newDeviceName.index(newDeviceName.startIndex, offsetBy: 6))
@@ -78,54 +78,56 @@ public class LoginModel: UIViewController {
               }
               UserDefaults.standard.setValue(deviceName, forKey: "device_name")
               UserDefaults.standard.synchronize()
-            }
-            complete(true)
-          }
-            Json().fileExec2Comm(token: self.loginToken as! String, command: "sim_switch sim") { (json) in
+            
+            Json().fileExec2Comm(token: loginTokenForE, command: "sim_switch sim") { (json) in
                 MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardValue) in
                     UserDefaults.standard.setValue(simCardValue, forKey: "simcard_value")
-                }
-            }
-                Json().infoAboutFirmware(token: self.loginToken, param1: "read", param2: "/etc/version"){ (json) in
+
+                
+                Json().infoAboutFirmware(token: loginTokenForE, param1: "read", param2: "/etc/version"){ (json) in
             MethodsClass().parseFirmwareInformation(response_data: json){ (firmwareNumber) in
               UserDefaults.standard.setValue(firmwareNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicefirmware_number")
-                    }
-                }
-            Json().deviceinform(token: self.loginToken, config: self.hwinfoConfig, section: self.hwinfoConfig, option: self.inOutString) { (response1) in
+            Json().deviceinform(token: loginTokenForE, config: self.hwinfoConfig, section: self.hwinfoConfig, option: self.inOutString) { (response1) in
                 MethodsClass().getJsonValue(response_data: response1) { (inputOutputValue) in
                     UserDefaults.standard.setValue(inputOutputValue, forKey: "inputoutput_value")
-                }}
             self.getWIFIInformation()
-          Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "sn") { (json) in
+                    let wifiName = network().getSSID()
+                    
+                    guard wifiName != nil else {
+                        
+                        //// TODO: Alert -----
+                        print("no wifi name")
+                        
+                        return
+                    }
+                    UserDefaults.standard.setValue(wifiName, forKey: "wifi_ssid")
+          Json().aboutDevice(token: loginTokenForE, command: "mnf_info", parameter: "sn") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceSerialNumber) in
               UserDefaults.standard.setValue(deviceSerialNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "deviceserial_number")
-            }
-            }
-          Json().aboutDevice(token: self.loginToken, command: "gsmctl", parameter: "-i") { (json) in
+          Json().aboutDevice(token: loginTokenForE, command: "gsmctl", parameter: "-i") { (json) in
             MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceImeiNumber) in
                 UserDefaults.standard.setValue(deviceImeiNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "deviceimei_number")
-            }}
-            Json().aboutDevice(token: self.loginToken, command: "mnf_info", parameter: "mac") { (json) in
+            Json().aboutDevice(token: loginTokenForE, command: "mnf_info", parameter: "mac") { (json) in
                 MethodsClass().processJsonStdoutOutput(response_data: json){ (deviceLanMacNumber) in
                     UserDefaults.standard.setValue(deviceLanMacNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "devicelanmac_number")
-                }}
-            Json().deviceinform(token: self.loginToken, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: AUTHENTICATION) { (response3) in
+            Json().deviceinform(token: loginTokenForE, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: AUTHENTICATION) { (response3) in
                 MethodsClass().getJsonValue(response_data: response3) { (mobileAuthentication) in
                 UserDefaults.standard.setValue(self.parseAuthenticationValue(value: mobileAuthentication).trimmingCharacters(in: .whitespacesAndNewlines), forKey: "mobileauthentication_value")
-                }}
-            Json().deviceinform(token: self.loginToken, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: APN) { (response) in
+            Json().deviceinform(token: loginTokenForE, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: APN) { (response) in
                 MethodsClass().getJsonValue(response_data: response) { (mobileApn) in
                     UserDefaults.standard.setValue(mobileApn, forKey: "registrationapn_value")
-                }}
-            Json().getOperatorsInformation(token: self.loginToken) { (response1) in
+            Json().getOperatorsInformation(token: loginTokenForE) { (response1) in
                 MethodsClass().processJsonStdoutOutput(response_data: response1){ (operators) in
                     UserDefaults.standard.setValue(operators, forKey: "operators_value")
-                }}
             
-            Json().deviceinform(token: self.loginToken, config: "wireless", section: "@wifi-iface[0]", option: "key") { (responseKey) in
+            Json().deviceinform(token: loginTokenForE, config: "wireless", section: "@wifi-iface[0]", option: "key") { (responseKey) in
                 MethodsClass().getJsonValue(response_data: responseKey) { (wirelessPsk) in
                     UserDefaults.standard.setValue(wirelessPsk, forKey: "wirelesspassword_value")
+                    complete(true)
+                }}}}}}}}}}}
+                }}}}}}}}}
                 }}
+
         }else {
           if (self.loginToken.contains("Access denied")) {
             self.loginToken = "Access denied"

@@ -20,13 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        
-        if let myImage = UIImage(named: "fonas.png"){
-       //     myImage.c = .scaleToFill
-            UINavigationBar.appearance().setBackgroundImage(myImage, for: .default)
-       //     UINavigationBar.appearance().backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
+        if let myImage = UIImage(named: "iphone6.png"){
+        //    UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().layer.shadowOpacity = 0
 
+            UINavigationBar.appearance().setBackgroundImage(myImage, for: UIBarMetrics.default)
+            UINavigationBar.appearance().shadowImage = UIColor.white.as1ptImage()
+            UINavigationBar.appearance().isTranslucent = false
+
+       //     UINavigationBar.appearance().backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.90)
+          //  UINavigationBar.appearance().shadowImage = myImage
+//            UINavigationBar.appearance().tintColor = UIColor.white
+//            UINavigationBar.appearance().barTintColor = UIColor.white
         }
         let textAttributes = [NSForegroundColorAttributeName:UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = textAttributes
@@ -63,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appDelegate.window?.rootViewController = view
             return
         }
-        print(wifiName, "va koksss")
         if !(wifiName == UserDefaults.standard.value(forKey: "wifi_ssid") as? String) {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -134,4 +138,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  // Network reachability checker
     
 }
+
+    extension UIColor {
+        func as1ptImage() -> UIImage {
+            UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+            let ctx = UIGraphicsGetCurrentContext()
+            self.setFill()
+            ctx!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image!
+        }
+    }
 

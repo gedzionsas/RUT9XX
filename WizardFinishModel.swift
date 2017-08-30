@@ -29,7 +29,7 @@ class WizardFinishModel: UIViewController {
         var routerPassword = UserDefaults.standard.value(forKey: "routernew_password") as? String
         
         if deviceName?.range(of: rut8) != nil {
-            //performWizardMobileSettingsTask(apn, authentication, authenticationUsername, authenticationPass, roamingValue)
+            performWizardMobileSettingsTask()
         } else if deviceName?.range(of: rut9) != nil {
             performWizardRut9xxMobileSettingsTask()
         }
@@ -52,7 +52,11 @@ class WizardFinishModel: UIViewController {
         
     }
     
-    
+    func performWizardMobileSettingsTask() {
+        WizardMobileSettingsModel().WizardRutMobileSettingsMethod() { (result) in
+            
+        }
+    }
     
     func performWizardRut9xxMobileSettingsTask() {
         WizardRut9xxMobileSettingsModel().WizardRut9xxMobileSettingsMethod() { (result) in

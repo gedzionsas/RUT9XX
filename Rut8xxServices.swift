@@ -1,24 +1,24 @@
 //
-//  Rut9xxServices.swift
+//  Rut8xxServices.swift
 //  rutxxx_IOS
 //
-//  Created by Gediminas Urbonas on 29/03/2017.
+//  Created by Gediminas Urbonas on 09/08/2017.
 //  Copyright © 2017 Teltonika. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Rut8xxServices: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var routerServices = [dataToShow]()
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let rut2_String = "RUT2"
-    let rut8_String = "RUT8"
-    let rut9_String = "RUT9"
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     @IBAction func switchButtonAction(_ sender: UISwitch) {
         var checked = ""
         let point = sender.superview?.convert(sender.center, to: self.tableView)
@@ -42,7 +42,7 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
-                Rut9xxServicesSetData().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
+                Rut8xxServicesSetDataModel().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
                     print("asdsa", result)
                     if !(result == "") {
                         self.showAlert(error: result)
@@ -69,7 +69,7 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
-                Rut9xxServicesSetData().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
+                Rut8xxServicesSetDataModel().routerServicesSetDataModel(params: [stringRowNumber, checked]){ (result) in
                     if !(result == "") {
                         self.showAlert(error: result)
                         DispatchQueue.main.async {
@@ -89,19 +89,17 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    @IBAction func restartAction(_ sender: UIButton) {
+    @IBAction func restarrtAction(_ sender: UIButton) {
         let point = (sender as AnyObject).superview??.convert((sender as AnyObject).center, to: self.tableView)
         if let indexPath = self.tableView.indexPathForRow(at: point!) {
             var stringRowNumber = String(indexPath.row)
-            print(stringRowNumber)
-            Rut9xxServicesRestartTask().routerRestartModel(params: stringRowNumber) { () in
+            Rut8xxRestartModel().routerRestartModel(params: stringRowNumber) { () in
             }
         }}
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        edgesForExtendedLayout = []
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
@@ -112,11 +110,11 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        Rut9xxServicesModel().routerServicesModel(){ (result) in
+        Rut8xxServicesGetDataModel().routerServicesModel(){ (result) in
             
             var arraysOfNames: [String] = []
             
-            if let path = Bundle.main.path(forResource: "Strings", ofType: "plist") {
+            if let path = Bundle.main.path(forResource: "Strings2", ofType: "plist") {
                 if let array = NSArray(contentsOfFile: path) as? [String] {
                     for arrays in array {
                         arraysOfNames.append(arrays)
@@ -150,15 +148,15 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellIdentifier = "routerServicesCell"
+        let cellIdentifier = "rut8xxServicesCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ServicesCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? Rut8xxServicesCell else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
         
         let row = routerServices[indexPath.row]
         
-        cell.servicesName.text = row.name
+        cell.serviceName.text = row.name
         
         if row.value.isEmpty {
             cell.switchButton.isHidden = true
@@ -175,24 +173,9 @@ class Rut9xxServices: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var cellheight = 70
-        if ((UserDefaults.standard.value(forKey: "routerservices_status") as? Bool) == false) {
-            if indexPath.row == 8 || indexPath.row == 17 {
-                return 0
-            }
-        }
-        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
-        if (deviceName.range(of: rut2_String) != nil) {
-            if indexPath.row == 17 {
-                return 0
-            }
-        }
         
         return CGFloat(cellheight)
     }
-    
-    
-    
-    
     
     
     private func updateUI(names: [String], array: [String]) {

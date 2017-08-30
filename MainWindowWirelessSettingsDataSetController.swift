@@ -29,6 +29,7 @@ class MainWindowWirelessSettingsDataSetController: UIViewController {
         if !(params[0].value == "") {
             if !(wifiName == params[0].value) {
                 Json().setWirelessSSID(token: token as! String, value: params[0].value) { (response) in
+                    
                     Json().commitConfigsChanges(token: token as! String, config: wireless) { (json) in
                         
                         Json().luciReload(token: token as! String) { (json) in

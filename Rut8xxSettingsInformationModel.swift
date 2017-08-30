@@ -1,15 +1,16 @@
 //
-//  Rut9xxSettingsInformationModel.swift
+//  Rut8xxSettingsInformationModel.swift
 //  rutxxx_IOS
 //
-//  Created by Gediminas Urbonas on 21/04/2017.
+//  Created by Gediminas Urbonas on 16/08/2017.
 //  Copyright © 2017 Teltonika. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import SwiftyJSON
 
-class Rut9xxSettingsInformationModel: UIViewController {
+class Rut8xxSettingsInformationModel: UIViewController {
     
     internal func routerInformationSettingsModel (complete: @escaping ([String])->()){
         let token = UserDefaults.standard.value(forKey: "saved_token")
@@ -19,39 +20,40 @@ class Rut9xxSettingsInformationModel: UIViewController {
         let rut9_String = "RUT9"
         
         // Mobile Settings Values
-        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: APN) { (response) in
+
+        Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: APN) { (response) in
             MethodsClass().getJsonValue(response_data: response) { (mobileApn) in
-                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: PIN_CODE) { (response1) in
+                Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: PIN_CODE) { (response1) in
                     MethodsClass().getJsonValue(response_data: response1) { (mobileSimPin) in
-                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: DIALING_NUMBER) { (response2) in
+                        Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: DIALING_NUMBER) { (response2) in
                             MethodsClass().getJsonValue(response_data: response2) { (simDialingNumber) in
-                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: AUTHENTICATION) { (response3) in
+                                Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: AUTHENTICATION) { (response3) in
                                     MethodsClass().getJsonValue(response_data: response3) { (mobileAuthentication) in
-                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: USERNAME) { (response4) in
+                                        Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: USERNAME) { (response4) in
                                             MethodsClass().getJsonValue(response_data: response4) { (mobileAuthenticationUsername) in
-                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: PASSWORD) { (response5) in
+                                                Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: PASSWORD) { (response5) in
                                                     MethodsClass().getJsonValue(response_data: response5) { (mobileAuthenticationPassword) in
-                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_1, option: SERVICE) { (response6) in
+                                                        Json().deviceinform(token: token as! String, config: NETWORK, section: PPP, option: SERVICE) { (response6) in
                                                             MethodsClass().getJsonValue(response_data: response6) { (mobileService) in
                                                                 var checkedMobileService = self.checkServiceValue(info: mobileService)
                                                                 
-                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: APN) { (response) in
-                                                                    MethodsClass().getJsonValue(response_data: response) { (mobileSim2Apn) in
-                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: PIN_CODE) { (response1) in
-                                                                            MethodsClass().getJsonValue(response_data: response1) { (mobileSim2SimPin) in
-                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: DIALING_NUMBER) { (response2) in
-                                                                                    MethodsClass().getJsonValue(response_data: response2) { (simDialingSim2Number) in
-                                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: AUTHENTICATION) { (response3) in
-                                                                                            MethodsClass().getJsonValue(response_data: response3) { (mobileSim2Authentication) in
-                                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: USERNAME) { (response4) in
-                                                                                                    MethodsClass().getJsonValue(response_data: response4) { (mobileSim2AuthenticationUsername) in
-                                                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: PASSWORD) { (response5) in
-                                                                                                            MethodsClass().getJsonValue(response_data: response5) { (mobileSim2AuthenticationPassword) in
-                                                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: SERVICE) { (response6) in
-                                                                                                                    MethodsClass().getJsonValue(response_data: response6) { (mobileSim2Service) in
-                                                                                                                        var checkedSim2MobileService = self.checkServiceValue(info: mobileSim2Service)
-                                                                                                                    
-                                                                                                                    
+//                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: APN) { (response) in
+//                                                                    MethodsClass().getJsonValue(response_data: response) { (mobileSim2Apn) in
+//                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: PIN_CODE) { (response1) in
+//                                                                            MethodsClass().getJsonValue(response_data: response1) { (mobileSim2SimPin) in
+//                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: DIALING_NUMBER) { (response2) in
+//                                                                                    MethodsClass().getJsonValue(response_data: response2) { (simDialingSim2Number) in
+//                                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: AUTHENTICATION) { (response3) in
+//                                                                                            MethodsClass().getJsonValue(response_data: response3) { (mobileSim2Authentication) in
+//                                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: USERNAME) { (response4) in
+//                                                                                                    MethodsClass().getJsonValue(response_data: response4) { (mobileSim2AuthenticationUsername) in
+//                                                                                                        Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: PASSWORD) { (response5) in
+//                                                                                                            MethodsClass().getJsonValue(response_data: response5) { (mobileSim2AuthenticationPassword) in
+//                                                                                                                Json().deviceinform(token: token as! String, config: SIM_CARD_CONFIG, section: SIM_CARD_2, option: SERVICE) { (response6) in
+//                                                                                                                    MethodsClass().getJsonValue(response_data: response6) { (mobileSim2Service) in
+//                                                                                                                        var checkedSim2MobileService = self.checkServiceValue(info: mobileSim2Service)
+                                                                
+                                                                                                                        
                                                                                                                         
                                                                                                                         // Wireless Settings Values
                                                                                                                         Json().deviceinform(token: token as! String, config: wirelessConfig, section: wirelessSection, option: wirelessMode) { (wifiResponse) in
@@ -62,7 +64,6 @@ class Rut9xxSettingsInformationModel: UIViewController {
                                                                                                                                         let finalWirelessChannel = self.checkWirelessChannel(value: wirelessChannel)
                                                                                                                                         Json().deviceinform(token: token as! String, config: wirelessConfig, section: encryptionSection, option: encryptionOption) { (wifiResponse3) in
                                                                                                                                             MethodsClass().getJsonValue(response_data: wifiResponse3) { (wirelessEncryption) in
-                                                                                                                                                print("jiba", wifiResponse3)
                                                                                                                                                 let finalWirelessEncryption = self.checkWirelessEncryption(value: wirelessEncryption)
                                                                                                                                                 let cipherValue = self.getCipherPartFromEncryption(value: wirelessEncryption)
                                                                                                                                                 Json().deviceinform(token: token as! String, config: wirelessConfig, section: encryptionSection, option: encryptionWepUsingKey) { (wifiResponse4) in
@@ -70,14 +71,14 @@ class Rut9xxSettingsInformationModel: UIViewController {
                                                                                                                                                         let pskAuthenticationCipher = self.checkWirelessAuthenticationCipher(value: cipherValue)
                                                                                                                                                         
                                                                                                                                                         
-                                                                                                                                                        var array = [mobileApn, mobileSimPin, simDialingNumber, mobileAuthentication, mobileAuthenticationUsername, mobileAuthenticationPassword, checkedMobileService, wirelessMode, finalWirelessMode, finalWirelessChannel, finalWirelessEncryption, pskAuthenticationCipher, pskAuthenticationKey, mobileSim2Apn, mobileSim2SimPin, simDialingSim2Number, mobileSim2Authentication, mobileSim2AuthenticationUsername, mobileSim2AuthenticationPassword, checkedSim2MobileService]
+                                                                                                                                                        var array = [mobileApn, mobileSimPin, simDialingNumber, mobileAuthentication, mobileAuthenticationUsername, mobileAuthenticationPassword, checkedMobileService, wirelessMode, finalWirelessMode, finalWirelessChannel, finalWirelessEncryption, pskAuthenticationCipher, pskAuthenticationKey, "", "", "", "", "", "", ""]
                                                                                                                                                         
                                                                                                                                                         
                                                                                                                                                         
                                                                                                                                                         
                                                                                                                                                         complete(array)
                                                                                                                                                         
-                                                                                                                                                    }}}}}}}}}}}}}}
+                                                                                                                                                    //}}}}}}}}}}}}}}
                                                                                             }}}}}}}}
                                                             }}}}}}}}
                             }}}}}}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>NTP client</string>
+	<string>Ping reboot</string>
+	<string>DDNS</string>
+	<string>Site blocking</string>
+	<string>SMS utils rules</string>
+	<string>Hotspot</string>
+</array>
+</plist>

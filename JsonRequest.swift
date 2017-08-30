@@ -94,6 +94,13 @@ class Json {
             loginCompletion(json)
         })
     }
+    public func restartSystemConfigs(token: String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceinformation = JsonRequests.restartSystemConfig(token: token)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceinformation, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
     
   public func infoAboutFirmware(token: String, param1: String, param2 : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
@@ -103,10 +110,16 @@ class Json {
     })
   }
   
-  public func aboutDevice(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+    public func aboutDevice(token: String, command: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
+        
+        let deviceParam = JsonRequests.aboutDeviceParam(token: token, command: command, parameter : parameter)
+        makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
+            loginCompletion(json)
+        })
+    }
+  public func readPowermonctl(token: String, parameter : String, loginCompletion: @escaping (_ JSONResponse : Any?) -> ()) {
     
-    let deviceParam = JsonRequests.aboutDeviceParam(token: token, command: command, parameter : parameter)
-    print("uzklausom", deviceParam)
+    let deviceParam = JsonRequests.powermonctlReadValue(token: token, parameter : parameter)
     makeWebServiceCall(urlAddress: URLREQUEST, requestMethod: "POST", params: deviceParam, completion: { (json, error) in
       loginCompletion(json)
     })

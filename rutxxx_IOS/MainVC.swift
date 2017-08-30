@@ -20,12 +20,57 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let reachability = Reachability()
     
+    let rut2_String = "RUT2"
+    let rut8_String = "RUT8"
+    let rut9_String = "RUT9"
     
-    let mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
+    var mobileNames = ["SIM CARD IN USE", "OPERATOR", "CONNECTION TYPE", "ROAMING STATUS"]
     let wirelessNames = ["WIRELESS NAME", "MODEL/CHANNEL", "ENCRYPTION", "CLIENTS"]
     
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    
+    
+    @IBAction func routerSettingsButton(_ sender: Any) {
+        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+        if (deviceName.range(of: rut8_String) != nil) {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut8xxRouterSettings") as! Rut8xxRouterSettings
+            self.navigationController?.pushViewController(vc, animated:true)
+        } else if (deviceName.range(of: rut9_String) != nil) {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "routerSettings") as! Rut9xxRouterSettings
+            self.navigationController?.pushViewController(vc, animated:true)
+        } else {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut2xxRouterSettings") as! Rut2xxRouterSettings
+            self.navigationController?.pushViewController(vc, animated:true)
+        }
+        
+    }
+    @IBAction func servicesButton(_ sender: Any) {
+        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+        if (deviceName.range(of: rut8_String) != nil) {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut8xxServicesId") as! Rut8xxServices
+            self.navigationController?.pushViewController(vc, animated:true)
+        } else if (deviceName.range(of: rut9_String) != nil) {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut9xxServicesId") as! Rut9xxServices
+            self.navigationController?.pushViewController(vc, animated:true)
+        } else {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut9xxServicesId") as! Rut9xxServices
+            self.navigationController?.pushViewController(vc, animated:true)
+        }
+    }
+    @IBAction func routerDetailsButton(_ sender: Any) {
+        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+        if (deviceName.range(of: rut8_String) != nil) {
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut8xxRouterDetailsId") as! Rut8xxRouterDetails
+                self.navigationController?.pushViewController(vc, animated:true)
+        } else if (deviceName.range(of: rut9_String) != nil) || (deviceName.range(of: rut2_String) != nil) {
+            let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "Rut9xxRouterDetailsId") as! Rut9xxRouterDetails
+            self.navigationController?.pushViewController(vc, animated:true)
+        } else {
+            
+        }
+        }
     
     
     @IBAction func rebootButton(_ sender: Any) {
@@ -78,6 +123,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        
+        
+        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+        if (deviceName.range(of: self.rut2_String) != nil) || (deviceName.range(of: rut8_String) != nil) {
+            mobileNames.remove(at: 0)
+            mobileNames.insert("SIM CARD IN USE", at: 3)
+        }
+        
+        
         let directions: [UISwipeGestureRecognizerDirection] = [.right, .left]
         for direction in directions {
             let gesture = UISwipeGestureRecognizer(target: self, action: #selector(MainVC.handleSwipe(gesture:)))
@@ -99,16 +154,12 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("Could not start notifier")
         }
         
-        
-        
-        if UserDefaults.standard.value(forKey: "inputoutput_value") as? String == "0" {
+        if (UserDefaults.standard.value(forKey: "inputoutput_value") as? String == "0") || (deviceName.range(of: self.rut2_String) != nil) {
             inputOutput.isHidden = true
         } else {
             inputOutput.isHidden = false
         }
-        
-        
-        
+
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         
@@ -148,7 +199,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
-        
+        self.tableView.tableFooterView = UIView()
+
         
     }
     
@@ -182,7 +234,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if reachability.isReachableViaWiFi {
                 DispatchQueue.main.async {
 
-                print("wifi changeddddd")
                 }
             } else {
                 DispatchQueue.main.async {
@@ -301,6 +352,34 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
             return cell
+        } else if indexPath.row == 5 {
+            let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+            if (deviceName.range(of: self.rut2_String) != nil) || (deviceName.range(of: rut8_String) != nil) {
+                
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell3", for: indexPath) as? MainPrototypeCell3 else {
+                fatalError("The dequeued cell is not an instance of MainPrototypeCell3.")
+            }
+            let row = mainData[indexPath.row - 2]
+            cell.labelOneField.isHidden = true
+            cell.labelTwoField.text = row.nameWireless
+            
+            cell.valueLabelOne.isHidden = true
+            cell.valueLabelTwo.text = row.valueWireless
+                return cell
+
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell3", for: indexPath) as? MainPrototypeCell3 else {
+                    fatalError("The dequeued cell is not an instance of MainPrototypeCell3.")
+                }
+                let row = mainData[indexPath.row - 2]
+                cell.labelOneField.text = row.nameMobile
+                cell.labelTwoField.text = row.nameWireless
+                
+                cell.valueLabelOne.text = row.valueMobile
+                cell.valueLabelTwo.text = row.valueWireless
+                return cell
+            }
+                
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell3", for: indexPath) as? MainPrototypeCell3 else {
                 fatalError("The dequeued cell is not an instance of MainPrototypeCell3.")
@@ -338,9 +417,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func updateUI(valueMobile: [String], valueWireless: [String]) {
         let counted = valueMobile.count
+        var valueMobileCopy = valueMobile
         var i = 0
-        for _ in valueMobile {
-            guard let row = dataToShowMain(nameMobile: mobileNames[i], valueMobile: valueMobile[i], nameWireless:wirelessNames[i], valueWireless:valueWireless[i] ) else {
+        let deviceName =  UserDefaults.standard.value(forKey: "device_name") as! String
+        if (deviceName.range(of: self.rut2_String) != nil) || (deviceName.range(of: rut8_String) != nil) {
+            valueMobileCopy.remove(at: 0)
+            valueMobileCopy.insert("-", at: 3)
+        }
+        
+        for _ in valueMobileCopy {
+            guard let row = dataToShowMain(nameMobile: mobileNames[i], valueMobile: valueMobileCopy[i], nameWireless:wirelessNames[i], valueWireless:valueWireless[i] ) else {
                 fatalError("Unable to instantiate row1")
             }
             mainData += [row]

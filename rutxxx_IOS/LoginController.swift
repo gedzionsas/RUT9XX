@@ -154,11 +154,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
     loginJsonResult.jsonResult(param1: userName, param2: password, param3: self){ success in
       if success {
         
-        print("kokia", self.isLoggedIn())
         if self.isLoggedIn() {
+            
+            
         } else {
         let deviceName = UserDefaults.standard.value(forKey: "device_name") as! String
-            print("dasss", deviceName)
         if (deviceName.isEmpty || !deviceName.contains("RUT")) {
         } else {
             self.perform(#selector(self.showWizardVC), with: nil, afterDelay: 0.01)
@@ -236,16 +236,16 @@ class LoginController: UIViewController, UITextFieldDelegate {
     }
     
     func showWizardVC() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"pageWizard")
-        self.present(viewController, animated: true)
+        let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+        let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "pageWizard")
+        appDelegate.window?.rootViewController = initialViewController
+        appDelegate.window?.makeKeyAndVisible()
     }
   func finishLoggingIn() {
     print(self.isLoggedIn())
     if self.isLoggedIn() {
 
     let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-    
     let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "MainVC")
     appDelegate.window?.rootViewController = initialViewController
     appDelegate.window?.makeKeyAndVisible()

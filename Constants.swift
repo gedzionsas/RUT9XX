@@ -26,3 +26,5 @@ let AUTHENTICATION = "auth_mode"
 let simcard = "simcard"
 let wireless = "wireless"
 var MAC_ADDRESS = ""
+let NETWORK = "network"
+

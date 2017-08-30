@@ -17,7 +17,6 @@ class Rut9xxRouterDetailsModel: UIViewController {
         let imeiNumber = UserDefaults.standard.value(forKey: "deviceimei_number")
         let firmwareNumber = UserDefaults.standard.value(forKey: "devicefirmware_number")
         
-        print("lanmac", UserDefaults.standard.value(forKey: "devicelanmac_number") as! String)
         let wlanMacNumber = MethodsClass().formatMacNumber(response_dat: calculateWlanMacAddress(number: UserDefaults.standard.value(forKey: "devicelanmac_number") as! String))
         
         var array = [String]()
@@ -61,8 +60,7 @@ class Rut9xxRouterDetailsModel: UIViewController {
     func hexCalculation(value: String)-> (String) {
         
         var result = " "
-        
-        var number:Int? = Int(value, radix: 16)!   // firstText is UITextField
+        var number = UInt64(value, radix:16)
         number = number! + 2
         result = (number?.toHexaString)!
         return result
@@ -81,7 +79,7 @@ extension String {
     var binaryToHexaString:    String { return String(binaryToDecimal, radix: 16) }
 }
 
-extension Int {
+extension UInt64 {
     var toBinaryString: String { return String(self, radix: 2) }
     var toHexaString:   String { return String(self, radix: 16) }
 }

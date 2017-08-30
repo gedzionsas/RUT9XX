@@ -89,7 +89,6 @@ class Rut9xxServicesModel: UIViewController {
                                                                                     
                                                                                     Json().fileExec2Comm(token: token as! String, command: smsUtilsRulesCommand) { (smsUtilsRulesJson) in
                                                                                         let smsUtilsRulesValue = self.checkResultValue(receicedData: (self.checkForStdout(receivedData: smsUtilsRulesJson)))
-                                                                                        
                                                                                         Json().fileExec2Comm(token: token as! String, command: hotspotsCommand) { (hotspotsEnabledJson) in
                                                                                             let hotspotsEnabledValue = self.checkResultValue(receicedData: (self.checkForStdout(receivedData: hotspotsEnabledJson)))
                                                                                             Json().deviceinform(token: token as! String, config: coovachilliConfig, section: ftpCoovachilliSection, option: enabledOption) { (hotspotLoggingJson) in
@@ -105,16 +104,7 @@ class Rut9xxServicesModel: UIViewController {
                                                                                                                 let gpsEnabledValue = self.checkResultValue(receicedData: (self.checkForStdout(receivedData: gpsEnabledJson)))
                                                                                                                 
                                                                                                                 var serversStatus = [vrrpLanValue, openVPNServersValue, openVpnClientValue, snmpAgentsValue, snmpTrapValue, ntpClientValue, ipSecValue, pingReboot, rulesEnabledValue, ddnsEnabledValue, siteBlocking, contentBlocker, smsUtilsRulesValue, hotspotsEnabledValue, hotspotLogg, greTunnelValue, qosValue, gpsEnabledValue]
-                                                                                                                //      UserDefaults.standard.setValue(serversStatus, forKey: "routerservices_array")
-                                                                                                                
-                                                                                                                //  var originalState: [String] = UserDefaults.standard.value(forKey: "routerservices_array") as! [String]
-                                                                                                                
-                                                                                                                
-                                                                                                                print("dsa", result, openVPNServersValue, openVpnClientValue, snmpdResult, snmpdTrapResult, ntpClientResult, ipSecValue, pingRebootValue, rulesEnabledValue, ddnsEnabledValue, siteBlockingValue, contentBlockerValue, smsUtilsRulesValue, hotspotsEnabledValue, hotspotLogging, greTunnelValue, qosValue, gpsEnabledValue)
-                                                                                                                
-                                                                                                                
-                                                                                                                
-                                                                                                                
+                                                                                                            
                                                                                                                 self.checkServices(){ (gpsEnabledJson) in
                                                                                                                     UserDefaults.standard.setValue(gpsEnabledJson, forKey: "routerservices_status")
                                                                                                                 }
@@ -177,9 +167,9 @@ class Rut9xxServicesModel: UIViewController {
     func checkResultValue (receicedData: String)-> (String) {
         var result = ""
         if !receicedData.isEmpty {
-            if receicedData.range(of: "=0") != nil || receicedData == "0" {
+            if receicedData.range(of: "='0'") != nil || receicedData == "0" || (receicedData.range(of: "=0") != nil) {
                 result = disabledCapital
-            } else if receicedData.range(of: "=1") != nil || receicedData == "1" {
+            } else if receicedData.range(of: "='1'") != nil || receicedData == "1" || (receicedData.range(of: "=1") != nil) {
                 result = enabledCapital
             }
         } else {

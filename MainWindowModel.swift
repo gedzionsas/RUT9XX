@@ -25,6 +25,9 @@ public class MainWindowModel: UIViewController {
   private let MOBILE_COLLECTED_TX = "CollectedTx"
   private let MOBILE_COLLECTED_MONTH_RX = "CollectedMonthRx"
   private let MOBILE_COLLECTED_MONTH_TX = "CollectedMonthTx"
+    let rut2_String = "RUT2"
+    let rut8_String = "RUT8"
+    let rut9_String = "RUT9"
   
   internal func mainTasks (complete: @escaping ([[String]])->()){
     
@@ -51,7 +54,6 @@ public class MainWindowModel: UIViewController {
         UserDefaults.standard.setValue(devicesInterface, forKey: "device_interface")
         UserDefaults.standard.synchronize()
         Json().aboutDevice2(token: token as! String, deviceInterface: (UserDefaults.standard.value(forKey: "device_interface") as! String).trimmingCharacters(in: .whitespacesAndNewlines), parameter: "" ) { (json) in
-            print(json, "asdasd")
           MethodsClass().processJsonStdoutOutput(response_data: json){ (processedGsmData) in
             MethodsClass().processedDataArrayString(response_data: processedGsmData){ (finalGsmDataResult) in
               UserDefaults.standard.set(finalGsmDataResult, forKey: "processedgsm_data")
@@ -66,7 +68,7 @@ public class MainWindowModel: UIViewController {
               }
             }
             // if device is RUT9XX, found simcard inserted or not
-            if ((deviceName.range(of:"RUT9")) != nil) {
+            if ((deviceName.range(of:self.rut9_String)) != nil) {
               Json().fileExec2Comm(token: token as! String, command: "sim_switch sim") { (json) in
                 MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardValue) in
                   UserDefaults.standard.setValue(simCardValue, forKey: "simcard_value")
@@ -75,7 +77,10 @@ public class MainWindowModel: UIViewController {
                   MethodsClass().processJsonStdoutOutput(response_data: json){ (simCardStateResult) in
                     UserDefaults.standard.setValue(simCardStateResult, forKey: "simcard_state")
                   }
-                  
+                }}} else if ((deviceName.range(of:self.rut8_String)) != nil) || ((deviceName.range(of:self.rut2_String)) != nil) {
+                UserDefaults.standard.setValue("N/A", forKey: "simcard_state")
+            }
+                
                   
                   let testCommand = "mdcollectdctl -rx"
                   let test2Command = "mdcollectdctl -tx"
@@ -115,6 +120,8 @@ public class MainWindowModel: UIViewController {
                                 UserDefaults.standard.setValue(connectionStatusTrimmed, forKey: "connection_status")
                               }
                               Json().mobileConnectionUptime(token: token as! String, param1: "network.interface.wan", param2: "status") { (mobileConnectionUptime) in
+                                print("uptime", mobileConnectionUptime)
+                                
                                 if let jsonDic = mobileConnectionUptime as? JSON, let object = jsonDic.dictionaryObject {
                                   UserDefaults.standard.setValue(object, forKey: "mobileconnection_uptime")
                                 }
@@ -153,13 +160,12 @@ public class MainWindowModel: UIViewController {
                                           
                                           Json().deviceWirelessDetails(token: token as! String, param1: "info", param2: wirelesssDeviceTrimmed) { (wirelessQuality) in
                                             
-                                            print("trimed", wirelesssDeviceTrimmed)
                                             MainWindowModel().getDeviceQuality(response_data: wirelessQuality){ (wirelessQualityResult) in
                                               UserDefaults.standard.setValue(wirelessQualityResult, forKey: "wirelessquality_result")
                                             }
                                             
                                             
-                                               //   print("rasiu",UserDefaults.standard.value(forKey: "device_result"), UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary, (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), (UserDefaults.standard.array(forKey: "arr_data") as? [String]), (UserDefaults.standard.value(forKey: "device_interface") as? String), (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), (UserDefaults.standard.value(forKey: "wireless_mode") as? String), (UserDefaults.standard.value(forKey: "connection_status") as? String), (UserDefaults.standard.value(forKey: "simcard_state") as? String))
+                                                  print("rasiu",UserDefaults.standard.value(forKey: "device_result"), UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary, (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), (UserDefaults.standard.array(forKey: "arr_data") as? [String]), (UserDefaults.standard.value(forKey: "device_interface") as? String), (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), (UserDefaults.standard.value(forKey: "wireless_mode") as? String), (UserDefaults.standard.value(forKey: "connection_status") as? String), (UserDefaults.standard.value(forKey: "simcard_state") as? String))
                                             
                                             
                                             if let deviceResultUnwrapped = (UserDefaults.standard.value(forKey: "device_result")), let mobileConnectionUptimeUnwrapped = (UserDefaults.standard.value(forKey: "mobileconnection_uptime") as? NSDictionary), let processedGsmDataUnwrapped = (UserDefaults.standard.array(forKey: "processedgsm_data") as? [String]), let wirelessDownloadUploadResultUnwrapped = (UserDefaults.standard.array(forKey: "wirelessdownloadupload_result") as? [String]), let mobileDataUnwrapped = (UserDefaults.standard.array(forKey: "mobile_data") as? [String]), let mobileDataArray = (UserDefaults.standard.array(forKey: "arr_data") as? [String]), let DeviceInterfaceUnwrapped = (UserDefaults.standard.value(forKey: "device_interface") as? String), let mobileRoamingUnwrapped = (UserDefaults.standard.value(forKey: "mobileroaming_datastatus") as? String), let wirelessClientsCountUnwrapped = (UserDefaults.standard.value(forKey: "wirelessclients_count") as? Int), let wirelessQualityResultUnwrapped = (UserDefaults.standard.value(forKey: "wirelessquality_result") as? String), let wirelessModeUnwrapped = (UserDefaults.standard.value(forKey: "wireless_mode") as? String), let connectionStatusUnwrapped = (UserDefaults.standard.value(forKey: "connection_status") as? String), let simcardStateUnwrapped = (UserDefaults.standard.value(forKey: "simcard_state") as? String) {
@@ -170,7 +176,9 @@ public class MainWindowModel: UIViewController {
                                               print("Error unwrapping values")
                                             }
                                             
+                                            
                                            let array = self.setDataMainWindow(params: UserDefaults.standard.array(forKey: "display_data")!)
+                                            print("dasdds", array)
                                           complete (array)
                                           }}}
                                       // Module data
@@ -187,7 +195,9 @@ public class MainWindowModel: UIViewController {
                                       
                                     }}}}
                             }}}
-                      }}}}}}}}}}
+                      }}}
+            
+            }}}}
     
     }
     
@@ -281,7 +291,7 @@ public class MainWindowModel: UIViewController {
         }
 
 
-        if deviceName.range(of: "RUT9") != nil {
+        if deviceName.range(of: rut9_String) != nil {
            var simCardState = ""
             
            let selectedSimCard = (UserDefaults.standard.value(forKey: "simcard_value") as? String)?.uppercased()
@@ -292,6 +302,8 @@ public class MainWindowModel: UIViewController {
                 simCardState = "N/A"
             }
             completedSimCardState = selectedSimCard! + "(\(simCardState))"
+        } else {
+            completedSimCardState = "N/A"
         }
         
         if !mobileConnectionValue.isEmpty {
